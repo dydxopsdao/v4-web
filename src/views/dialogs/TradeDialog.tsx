@@ -37,7 +37,7 @@ export const TradeDialog = ({ isOpen, setIsOpen, slotTrigger }: ElementProps) =>
   const selectedTradeType = getSelectedTradeType(type);
   const { typeOptions } = useSelector(getInputTradeOptions, shallowEqual) ?? {};
 
-  const allTradeTypeItems = typeOptions?.toArray()?.map(({ type, stringKey }) => ({
+  const allTradeTypeItems = (typeOptions?.toArray() ?? []).map(({ type, stringKey }) => ({
     value: type,
     label: stringGetter({
       key: stringKey as StringKey,
@@ -73,9 +73,7 @@ export const TradeDialog = ({ isOpen, setIsOpen, slotTrigger }: ElementProps) =>
             <Styled.ToggleGroup
               items={allTradeTypeItems}
               value={selectedTradeType}
-              onValueChange={(tradeType: TradeTypes) =>
-                onTradeTypeChange(tradeType || selectedTradeType)
-              }
+              onValueChange={onTradeTypeChange}
             />
           ),
         },

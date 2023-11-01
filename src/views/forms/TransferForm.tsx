@@ -3,8 +3,6 @@ import styled, { type AnyStyledComponent } from 'styled-components';
 import { type NumberFormatValues } from 'react-number-format';
 import { shallowEqual, useSelector } from 'react-redux';
 import type { SyntheticInputEvent } from 'react-number-format/types/types';
-import { debounce } from 'lodash';
-import { StdFee } from '@cosmjs/stargate';
 import { validation } from '@dydxprotocol/v4-client-js';
 
 import { TransferInputField, TransferType } from '@/constants/abacus';
@@ -12,19 +10,18 @@ import { AlertType } from '@/constants/alerts';
 import { ButtonShape, ButtonSize } from '@/constants/buttons';
 import { STRING_KEYS } from '@/constants/localization';
 import { ENVIRONMENT_CONFIG_MAP } from '@/constants/networks';
-import { NumberSign, QUANTUM_MULTIPLIER } from '@/constants/numbers';
-import {
-  DYDX_CHAIN_ASSET_COIN_DENOM,
-  DYDX_CHAIN_ASSET_TAGS,
-  DydxChainAsset,
-} from '@/constants/wallets';
+import { NumberSign } from '@/constants/numbers';
+import { DydxChainAsset } from '@/constants/wallets';
 
 import {
   useAccountBalance,
   useAccounts,
+  useDydxClient,
+  useRestrictions,
   useSelectedNetwork,
   useStringGetter,
   useSubaccount,
+  useTokenConfigs,
 } from '@/hooks';
 
 import { formMixins } from '@/styles/formMixins';
@@ -57,7 +54,7 @@ type TransferFormProps = {
 };
 
 export const TransferForm = ({
-  selectedAsset = DydxChainAsset.DYDX,
+  selectedAsset = DydxChainAsset.CHAINTOKEN,
   onDone,
   className,
 }: TransferFormProps) => {
@@ -72,12 +69,13 @@ export const TransferForm = ({
   const { transfer } = useSubaccount();
   const { nativeTokenBalance, usdcBalance } = useAccountBalance();
   const { selectedNetwork } = useSelectedNetwork();
+  const { tokensConfigs, usdcLabel, chainTokenLabel } = useTokenConfigs();
 
   // User Input
   const [asset, setAsset] = useState<DydxChainAsset>(selectedAsset);
 
   // Form states
-  const [error, setError] = useState<Error | undefined>();
+  const [error, setError] = useState<string>();
   const [isLoading, setIsLoading] = useState(false);
 
   const balance = asset === DydxChainAsset.USDC ? freeCollateral?.current : nativeTokenBalance;
@@ -95,16 +93,6 @@ export const TransferForm = ({
   const amountBN = MustBigNumber(amount);
   const balanceBN = MustBigNumber(balance);
   const newBalanceBN = MustBigNumber(newBalance);
-
-  const isAddressValid = useMemo(
-    () =>
-      recipientAddress &&
-      dydxAddress !== recipientAddress &&
-      validation.isValidAddress(recipientAddress),
-    [recipientAddress]
-  );
-
-  const isAmountValid = balance && amount && amountBN.gt(0) && newBalanceBN.gte(0);
 
   useEffect(() => {
     abacusStateManager.setTransferValue({
@@ -125,6 +113,21 @@ export const TransferForm = ({
     });
   }, [asset]);
 
+  const { sanctionedAddresses } = useRestrictions();
+
+  const isAddressValid = useMemo(
+    () =>
+      recipientAddress &&
+      dydxAddress !== recipientAddress &&
+      validation.isValidAddress(recipientAddress) &&
+      !sanctionedAddresses.has(recipientAddress),
+    [recipientAddress, sanctionedAddresses, dydxAddress]
+  );
+
+  const isAmountValid = balance && amount && amountBN.gt(0) && newBalanceBN.gte(0);
+
+  const { screenAddresses } = useDydxClient();
+
   const onTransfer = async () => {
     if (!isAmountValid || !isAddressValid || !fee) return;
     setIsLoading(true);
@@ -133,23 +136,54 @@ export const TransferForm = ({
     try {
       // Subtract fees from amount if sending native tokens
       const amountToTransfer = (
-        asset === DydxChainAsset.DYDX ? amountBN.minus(fee) : amountBN
+        asset === DydxChainAsset.CHAINTOKEN ? amountBN.minus(fee) : amountBN
       ).toNumber();
 
-      const txResponse = await transfer(
-        amountToTransfer,
-        recipientAddress as string,
-        DYDX_CHAIN_ASSET_COIN_DENOM[asset]
-      );
+      const screenResults = await screenAddresses({
+        addresses: [recipientAddress!, dydxAddress!],
+      });
 
-      if (txResponse?.code === 0) {
-        console.log('TransferForm > txReceipt > ', txResponse?.hash);
-        onDone?.();
+      if (screenResults?.[dydxAddress!]) {
+        setError(
+          stringGetter({
+            key: STRING_KEYS.WALLET_RESTRICTED_WITHDRAWAL_TRANSFER_ORIGINATION_ERROR_MESSAGE,
+          })
+        );
+      } else if (screenResults?.[recipientAddress!]) {
+        setError(
+          stringGetter({
+            key: STRING_KEYS.WALLET_RESTRICTED_WITHDRAWAL_TRANSFER_DESTINATION_ERROR_MESSAGE,
+          })
+        );
       } else {
-        throw new Error(txResponse?.rawLog ?? 'Transaction did not commit.');
+        const txResponse = await transfer(
+          amountToTransfer,
+          recipientAddress as string,
+          tokensConfigs[asset].denom,
+        );
+
+        if (txResponse?.code === 0) {
+          console.log('TransferForm > txReceipt > ', txResponse?.hash);
+          onDone?.();
+        } else {
+          throw new Error(txResponse?.rawLog ?? 'Transaction did not commit.');
+        }
       }
     } catch (error) {
-      setError(error);
+      if (error?.code === 429) {
+        setError(stringGetter({ key: STRING_KEYS.RATE_LIMIT_REACHED_ERROR_MESSAGE }));
+      } else {
+        setError(
+          error.message
+            ? stringGetter({
+                key: STRING_KEYS.SOMETHING_WENT_WRONG_WITH_MESSAGE,
+                params: {
+                  ERROR_MESSAGE: error.message || stringGetter({ key: STRING_KEYS.UNKNOWN_ERROR }),
+                },
+              })
+            : stringGetter({ key: STRING_KEYS.SOMETHING_WENT_WRONG })
+        );
+      }
       log('TransferForm/onTransfer', error);
     } finally {
       setIsLoading(false);
@@ -184,16 +218,16 @@ export const TransferForm = ({
       value: DydxChainAsset.USDC,
       label: (
         <Styled.InlineRow>
-          <AssetIcon symbol="USDC" /> {DYDX_CHAIN_ASSET_TAGS[DydxChainAsset.USDC]}
+          <AssetIcon symbol="USDC" /> {usdcLabel}
         </Styled.InlineRow>
       ),
     },
     {
-      value: DydxChainAsset.DYDX,
+      value: DydxChainAsset.CHAINTOKEN,
       label: (
         <Styled.InlineRow>
           {/* <AssetIcon symbol="DYDX" />  */}
-          {DYDX_CHAIN_ASSET_TAGS[DydxChainAsset.DYDX]}
+          {chainTokenLabel}
         </Styled.InlineRow>
       ),
     },
@@ -215,7 +249,7 @@ export const TransferForm = ({
       key: 'amount',
       label: (
         <span>
-          {stringGetter({ key: STRING_KEYS.AVAILABLE })} <Tag>{DYDX_CHAIN_ASSET_TAGS[asset]}</Tag>
+          {stringGetter({ key: STRING_KEYS.AVAILABLE })} <Tag>{tokensConfigs[asset].name}</Tag>
         </span>
       ),
       value: (
@@ -230,13 +264,6 @@ export const TransferForm = ({
       ),
     },
   ];
-
-  const addressValidationErrorMessage = stringGetter({
-    key:
-      dydxAddress === recipientAddress
-        ? STRING_KEYS.TRANSFER_TO_YOURSELF
-        : STRING_KEYS.TRANSFER_INVALID_DYDX_ADDRESS,
-  });
 
   const renderFormInputButton = ({
     label,
@@ -302,7 +329,12 @@ export const TransferForm = ({
 
       {recipientAddress && !isAddressValid && (
         <Styled.AddressValidationAlertMessage type={AlertType.Error}>
-          {addressValidationErrorMessage}
+          {stringGetter({
+            key:
+              dydxAddress === recipientAddress
+                ? STRING_KEYS.TRANSFER_TO_YOURSELF
+                : STRING_KEYS.TRANSFER_INVALID_DYDX_ADDRESS,
+          })}
         </Styled.AddressValidationAlertMessage>
       )}
 
@@ -342,13 +374,13 @@ export const TransferForm = ({
         </AlertMessage>
       )}
 
-      {error && <AlertMessage type={AlertType.Error}>{error.message}</AlertMessage>}
+      {error && <AlertMessage type={AlertType.Error}>{error}</AlertMessage>}
 
       <Styled.Footer>
         <TransferButtonAndReceipt
           selectedAsset={asset}
           fees={fee || undefined}
-          isDisabled={!isAmountValid || !isAddressValid || !fee}
+          isDisabled={!isAmountValid || !isAddressValid || !fee || isLoading}
           isLoading={isLoading || Boolean(isAmountValid && isAddressValid && !fee)}
         />
       </Styled.Footer>

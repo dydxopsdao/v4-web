@@ -7,13 +7,20 @@ import { GrazProvider } from 'graz';
 
 import { AppRoute, DEFAULT_TRADE_ROUTE } from '@/constants/routes';
 
-import { useBreakpoints, useInitializePage, useShouldShowFooter, useAnalytics } from '@/hooks';
+import {
+  useBreakpoints,
+  useTokenConfigs,
+  useInitializePage,
+  useShouldShowFooter,
+  useAnalytics,
+} from '@/hooks';
 import { DydxProvider } from '@/hooks/useDydxClient';
 import { AccountsProvider } from '@/hooks/useAccounts';
 import { DialogAreaProvider, useDialogArea } from '@/hooks/useDialogArea';
 import { LocaleProvider } from '@/hooks/useLocaleSeparators';
 import { NotificationsProvider } from '@/hooks/useNotifications';
 import { LocalNotificationsProvider } from '@/hooks/useLocalNotifications';
+import { RestrictionProvider } from '@/hooks/useRestrictions';
 import { SubaccountProvider } from '@/hooks/useSubaccount';
 import { SquidProvider } from '@/hooks/useSquid';
 
@@ -26,6 +33,8 @@ import ProfilePage from '@/pages/Profile';
 import { SettingsPage } from '@/pages/settings/Settings';
 import TradePage from '@/pages/trade/Trade';
 import { RewardsPage } from '@/pages/rewards/RewardsPage';
+import { TermsOfUsePage } from '@/pages/TermsOfUsePage';
+import { PrivacyPolicyPage } from '@/pages/PrivacyPolicyPage';
 
 import { HeaderDesktop } from '@/layout/Header/HeaderDesktop';
 import { FooterDesktop } from '@/layout/Footer/FooterDesktop';
@@ -54,6 +63,7 @@ const Content = () => {
   const { isTablet, isNotTablet } = useBreakpoints();
   const isShowingHeader = isNotTablet;
   const isShowingFooter = useShouldShowFooter();
+  const { chainTokenLabel } = useTokenConfigs();
 
   return (
     <Styled.Content isShowingHeader={isShowingHeader} isShowingFooter={isShowingFooter}>
@@ -66,8 +76,9 @@ const Content = () => {
               <Route path=":market" element={<TradePage />} />
               <Route path={AppRoute.Trade} element={<TradePage />} />
             </Route>
+
             <Route path={AppRoute.Markets} element={<MarketsPage />} />
-            <Route path={AppRoute.Rewards} element={<RewardsPage />} />
+            <Route path={`/${chainTokenLabel}`} element={<RewardsPage />} />
             {isTablet && (
               <>
                 <Route path={AppRoute.Alerts} element={<AlertsPage />} />
@@ -79,6 +90,10 @@ const Content = () => {
             <Route element={<GuardedMobileRoute />}>
               <Route path={`${AppRoute.Portfolio}/*`} element={<PortfolioPage />} />
             </Route>
+
+            <Route path={AppRoute.Terms} element={<TermsOfUsePage />} />
+            <Route path={AppRoute.Privacy} element={<PrivacyPolicyPage />} />
+
             <Route path="*" element={<Navigate to={DEFAULT_TRADE_ROUTE} replace />} />
           </Routes>
         </Suspense>
@@ -109,6 +124,7 @@ const providers = [
   wrapProvider(GrazProvider),
   wrapProvider(WagmiConfig, { config }),
   wrapProvider(LocaleProvider),
+  wrapProvider(RestrictionProvider),
   wrapProvider(DydxProvider),
   wrapProvider(AccountsProvider),
   wrapProvider(SubaccountProvider),

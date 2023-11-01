@@ -130,12 +130,14 @@ export const GenerateKeys = ({
           }
         }
       } catch (error) {
+        setStatus(EvmDerivedAccountStatus.NotDerived);
         const { message } = parseWalletError({ error, stringGetter });
 
         if (message) {
           track(AnalyticsEvent.OnboardingWalletIsNonDeterministic);
           setError(message);
         }
+        return;
       }
 
       await setWalletFromEvmSignature(signature);
@@ -264,7 +266,6 @@ const Styled: Record<string, AnyStyledComponent> = {};
 
 Styled.StatusCardsContainer = styled.div`
   display: grid;
-  margin-top: 1rem;
   gap: 1rem;
 `;
 

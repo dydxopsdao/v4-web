@@ -9,7 +9,14 @@ import { DialogTypes } from '@/constants/dialogs';
 import { STRING_KEYS, TOOLTIP_STRING_KEYS } from '@/constants/localization';
 import { DydxChainAsset, wallets } from '@/constants/wallets';
 
-import { useAccounts, useBreakpoints, useStringGetter, useAccountBalance } from '@/hooks';
+import {
+  useAccounts,
+  useBreakpoints,
+  useTokenConfigs,
+  useStringGetter,
+  useAccountBalance,
+  useURLConfigs,
+} from '@/hooks';
 
 import { OnboardingTriggerButton } from '@/views/dialogs/OnboardingTriggerButton';
 
@@ -30,15 +37,15 @@ import { truncateAddress } from '@/lib/wallet';
 import { layoutMixins } from '@/styles/layoutMixins';
 import { headerMixins } from '@/styles/headerMixins';
 
-const explorerBaseUri = 'https://testnet.mintscan.io/dydx-testnet';
-
 export const AccountMenu = () => {
   const stringGetter = useStringGetter();
+  const { mintscanBase } = useURLConfigs();
   const { isTablet } = useBreakpoints();
   const dispatch = useDispatch();
   const onboardingState = useSelector(getOnboardingState);
   const { freeCollateral } = useSelector(getSubaccount, shallowEqual) || {};
   const { nativeTokenBalance } = useAccountBalance();
+  const { usdcLabel, chainTokenLabel } = useTokenConfigs();
 
   const { evmAddress, walletType, dydxAddress, hdKey } = useAccounts();
 
@@ -85,7 +92,7 @@ export const AccountMenu = () => {
               />
               <IconButton
                 action={ButtonAction.Base}
-                href={`${explorerBaseUri}/account/${dydxAddress}`}
+                href={`${mintscanBase}/account/${dydxAddress}`}
                 iconName={IconName.LinkOut}
                 shape={ButtonShape.Square}
                 type={ButtonType.Link}
@@ -107,17 +114,23 @@ export const AccountMenu = () => {
               <div>
                 <div>
                   <Styled.label>
-                    {stringGetter({ key: STRING_KEYS.ASSET_BALANCE, params: { ASSET: 'Dv4TNT' } })}
+                    {stringGetter({
+                      key: STRING_KEYS.ASSET_BALANCE,
+                      params: { ASSET: chainTokenLabel },
+                    })}
                     {/* <AssetIcon symbol="DYDX" /> */}
                   </Styled.label>
                   <Styled.BalanceOutput type={OutputType.Asset} value={nativeTokenBalance} />
                 </div>
-                <AssetActions asset={DydxChainAsset.DYDX} dispatch={dispatch} />
+                <AssetActions asset={DydxChainAsset.CHAINTOKEN} dispatch={dispatch} />
               </div>
               <div>
                 <div>
                   <Styled.label>
-                    {stringGetter({ key: STRING_KEYS.ASSET_BALANCE, params: { ASSET: 'USDC' } })}
+                    {stringGetter({
+                      key: STRING_KEYS.ASSET_BALANCE,
+                      params: { ASSET: usdcLabel },
+                    })}
                     <AssetIcon symbol="USDC" />
                   </Styled.label>
                   <Styled.BalanceOutput
@@ -126,7 +139,7 @@ export const AccountMenu = () => {
                     fractionDigits={2}
                   />
                 </div>
-                <AssetActions asset={DydxChainAsset.USDC} dispatch={dispatch} />
+                <AssetActions asset={DydxChainAsset.USDC} dispatch={dispatch} withOnboarding />
               </div>
             </Styled.Balances>
           </Styled.AccountInfo>
@@ -154,7 +167,7 @@ export const AccountMenu = () => {
         //   value: 'ViewInExplorer',
         //   icon: <Icon iconName={IconName.Etherscan} />,
         //   label: stringGetter({ key: STRING_KEYS.OPEN_IN_ETHERSCAN }),
-        //   onSelect: () => globalThis.open(`${explorerBaseUri}/address/${address}`),
+        //   onSelect: () => globalThis.open(`${mintscanBase}/address/${address}`),
         //   separator: true,
         // },
         ...(onboardingState === OnboardingState.AccountConnected && hdKey
@@ -199,28 +212,45 @@ export const AccountMenu = () => {
   );
 };
 
-const AssetActions = memo(({ asset, dispatch }: { asset: DydxChainAsset; dispatch: Dispatch }) => (
-  <Styled.InlineRow>
-    {[
-      // TODO(@rosepuppy): Add withdraw action for USDC
-      {
-        dialogType: DialogTypes.Receive,
-        iconName: IconName.Qr,
-      },
-      { dialogType: DialogTypes.Transfer, iconName: IconName.Send },
-    ].map(({ iconName, dialogType }) => (
-      <IconButton
-        key={dialogType}
-        action={ButtonAction.Base}
-        shape={ButtonShape.Square}
-        iconName={iconName}
-        onClick={() =>
-          dispatch(openDialog({ type: dialogType, dialogProps: { selectedAsset: asset } }))
-        }
-      />
-    ))}
-  </Styled.InlineRow>
-));
+const AssetActions = memo(
+  ({
+    asset,
+    dispatch,
+    withOnboarding,
+  }: {
+    asset: DydxChainAsset;
+    dispatch: Dispatch;
+    withOnboarding?: boolean;
+  }) => (
+    <Styled.InlineRow>
+      {[
+        withOnboarding && {
+          dialogType: DialogTypes.Withdraw,
+          iconName: IconName.Withdraw,
+        },
+        withOnboarding && {
+          dialogType: DialogTypes.Deposit,
+          iconName: IconName.Deposit,
+        },
+        {
+          dialogType: DialogTypes.Transfer,
+          dialogProps: { selectedAsset: asset },
+          iconName: IconName.Send,
+        },
+      ]
+        .filter(isTruthy)
+        .map(({ iconName, dialogType, dialogProps }) => (
+          <Styled.IconButton
+            key={dialogType}
+            action={ButtonAction.Base}
+            shape={ButtonShape.Square}
+            iconName={iconName}
+            onClick={() => dispatch(openDialog({ type: dialogType, dialogProps }))}
+          />
+        ))}
+    </Styled.InlineRow>
+  )
+);
 
 const Styled: Record<string, AnyStyledComponent> = {};
 
@@ -337,4 +367,8 @@ Styled.ConnectToChain = styled(Styled.Column)`
     color: var(--color-text-1);
     font: var(--font-small-book);
   }
+`;
+
+Styled.IconButton = styled(IconButton)`
+  --button-padding: 0 0.25rem;
 `;

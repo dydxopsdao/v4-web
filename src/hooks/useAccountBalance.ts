@@ -5,10 +5,7 @@ import { StargateClient } from '@cosmjs/stargate';
 import { useQuery } from 'react-query';
 import { formatUnits } from 'viem';
 
-import { USDC_DENOM, DYDX_DENOM } from '@dydxprotocol/v4-client-js';
-
 import { ENVIRONMENT_CONFIG_MAP } from '@/constants/networks';
-import { QUANTUM_MULTIPLIER } from '@/constants/numbers';
 import { EvmAddress } from '@/constants/wallets';
 
 import { convertBech32Address } from '@/lib/addressUtils';
@@ -18,11 +15,11 @@ import { getBalances, getStakingBalances } from '@/state/accountSelectors';
 import { getSelectedNetwork } from '@/state/appSelectors';
 
 import { useAccounts } from './useAccounts';
+import { useTokenConfigs } from './useTokenConfigs';
 
 type UseAccountBalanceProps = {
   // Token Items
   addressOrDenom?: string;
-  assetSymbol?: string;
   decimals?: number;
 
   // Chain Items
@@ -41,7 +38,6 @@ export const CHAIN_DEFAULT_TOKEN_ADDRESS = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeee
 
 export const useAccountBalance = ({
   addressOrDenom,
-  assetSymbol,
   bech32AddrPrefix,
   chainId,
   decimals = 0,
@@ -52,6 +48,7 @@ export const useAccountBalance = ({
 
   const selectedNetwork = useSelector(getSelectedNetwork);
   const balances = useSelector(getBalances, shallowEqual);
+  const { chainTokenDenom, usdcDenom } = useTokenConfigs();
   const evmChainId = Number(ENVIRONMENT_CONFIG_MAP[selectedNetwork].ethereumChainId);
   const stakingBalances = useSelector(getStakingBalances, shallowEqual);
 
@@ -91,20 +88,16 @@ export const useAccountBalance = ({
   });
 
   const { formatted: evmBalance } = evmQuery.data || {};
-  const balance = !assetSymbol ? '0' : isCosmosChain ? cosmosQuery.data : evmBalance;
+  const balance = isCosmosChain ? cosmosQuery.data : evmBalance;
 
-  const nativeTokenCoinBalance = balances?.[DYDX_DENOM];
-  const nativeTokenBalance = MustBigNumber(nativeTokenCoinBalance?.amount)
-    .div(QUANTUM_MULTIPLIER)
-    .toNumber();
+  const nativeTokenCoinBalance = balances?.[chainTokenDenom];
+  const nativeTokenBalance = MustBigNumber(nativeTokenCoinBalance?.amount);
 
-  const usdcCoinBalance = balances?.[USDC_DENOM];
-  const usdcBalance = MustBigNumber(usdcCoinBalance?.amount).div(QUANTUM_MULTIPLIER).toNumber();
+  const usdcCoinBalance = balances?.[usdcDenom];
+  const usdcBalance = MustBigNumber(usdcCoinBalance?.amount).toNumber();
 
-  const nativeStakingCoinBalanace = stakingBalances?.[DYDX_DENOM];
-  const nativeStakingBalance = MustBigNumber(nativeStakingCoinBalanace?.amount)
-    .div(QUANTUM_MULTIPLIER)
-    .toNumber();
+  const nativeStakingCoinBalanace = stakingBalances?.[chainTokenDenom];
+  const nativeStakingBalance = MustBigNumber(nativeStakingCoinBalanace?.amount).toNumber();
 
   return {
     balance,

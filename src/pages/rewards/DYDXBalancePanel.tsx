@@ -3,7 +3,7 @@ import styled, { AnyStyledComponent } from 'styled-components';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { layoutMixins } from '@/styles/layoutMixins';
-import { useAccountBalance, useAccounts, useStringGetter } from '@/hooks';
+import { useAccountBalance, useAccounts, useTokenConfigs, useStringGetter } from '@/hooks';
 
 import { ButtonAction, ButtonSize } from '@/constants/buttons';
 import { DialogTypes } from '@/constants/dialogs';
@@ -22,7 +22,6 @@ import { OnboardingTriggerButton } from '@/views/dialogs/OnboardingTriggerButton
 import { openDialog } from '@/state/dialogs';
 import { calculateCanAccountTrade } from '@/state/accountCalculators';
 
-// TODO(@aforaleka): replace with real data
 export const DYDXBalancePanel = () => {
   const dispatch = useDispatch();
   const stringGetter = useStringGetter();
@@ -30,14 +29,15 @@ export const DYDXBalancePanel = () => {
   const { walletType } = useAccounts();
   const canAccountTrade = useSelector(calculateCanAccountTrade, shallowEqual);
   const { nativeTokenBalance, nativeStakingBalance } = useAccountBalance();
+  const { chainTokenLabel } = useTokenConfigs();
 
   return (
-    <Panel
+    <Styled.Panel
       slotHeader={
         <Styled.Header>
           <Styled.Title>
-            {/* <AssetIcon symbol="DYDX" /> */}
-            Dv4TNT
+            <AssetIcon symbol={chainTokenLabel} />
+            {chainTokenLabel}
           </Styled.Title>
           <Styled.ReceiveAndTransferButtons>
             {!canAccountTrade ? (
@@ -106,20 +106,31 @@ export const DYDXBalancePanel = () => {
             {
               key: 'totalBalance',
               label: 'Total balance',
-              value: <Output type={OutputType.Asset} value={nativeTokenBalance + nativeStakingBalance} tag="Dv4TNT" />,
+              value: (
+                <Output
+                  type={OutputType.Asset}
+                  value={nativeTokenBalance.plus(nativeStakingBalance)}
+                  tag={chainTokenLabel}
+                />
+              ),
             },
           ]}
         />
       </Styled.Content>
-    </Panel>
+    </Styled.Panel>
   );
 };
 
 const Styled: Record<string, AnyStyledComponent> = {};
 
+Styled.Panel = styled(Panel)`
+  --panel-paddingX: 1.5rem;
+`;
+
 Styled.Header = styled.div`
   ${layoutMixins.spacedRow}
-  padding: 1.25rem 1.5rem 0.5rem;
+  gap: 1rem;
+  padding: 1rem 1.5rem 0;
 `;
 
 Styled.Title = styled.h3`
@@ -148,7 +159,6 @@ Styled.ReceiveButton = styled(Button)`
 Styled.Content = styled.div`
   ${layoutMixins.flexColumn}
   gap: 0.75rem;
-  padding: 0 0.5rem 0.5rem;
 `;
 
 Styled.IconContainer = styled.div`
@@ -172,8 +182,7 @@ Styled.WalletAndStakedBalance = styled(Details)`
   --details-item-backgroundColor: var(--color-layer-6);
 
   grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-
+  gap: 1rem;
 
   > div {
     gap: 1rem;

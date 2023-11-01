@@ -6,11 +6,14 @@ import {
   AddressConnectorIcon,
   ArrowIcon,
   Bar3Icon,
+  BellIcon,
+  BellStrokeIcon,
   BoxCloseIcon,
   CalculatorIcon,
   CaretIcon,
   CautionCircleStrokeIcon,
   CautionCircleIcon,
+  ChatIcon,
   CheckIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -21,9 +24,10 @@ import {
   CommentIcon,
   CopyIcon,
   CubeIcon,
+  DepositIcon,
+  DepthChartIcon,
   DiscordIcon,
   EtherscanIcon,
-  DepthChartIcon,
   ExportKeysIcon,
   FeedbackIcon,
   FileIcon,
@@ -37,6 +41,7 @@ import {
   LockIcon,
   LogoShortIcon,
   MenuIcon,
+  MigrateIcon,
   MintscanIcon,
   OrderbookIcon,
   OrderCanceledIcon,
@@ -65,17 +70,21 @@ import {
   WarningIcon,
   WebsiteIcon,
   WhitepaperIcon,
+  WithdrawIcon,
 } from '@/icons';
 
 export enum IconName {
   AddressConnector = 'AddressConnector',
   Arrow = 'Arrow',
   Bar3 = 'Bar3',
+  Bell = 'Bell',
+  BellStroked = 'BellStroked',
   BoxClose = 'BoxClose',
   Calculator = 'Calculator',
   Caret = 'Caret',
   CautionCircle = 'CautionCircle',
   CautionCircleStroked = 'CautionCircleStroked',
+  Chat = 'Chat',
   Check = 'Check',
   ChevronLeft = 'ChevronLeft',
   ChevronRight = 'ChevronRight',
@@ -86,6 +95,7 @@ export enum IconName {
   Comment = 'Comment',
   Copy = 'Copy',
   Cube = 'Cube',
+  Deposit = 'Deposit',
   DepthChart = 'DepthChart',
   Discord = 'Discord',
   Etherscan = 'Etherscan',
@@ -102,6 +112,7 @@ export enum IconName {
   Lock = 'Lock',
   LogoShort = 'LogoShort',
   Menu = 'Menu',
+  Migrate = 'Migrate',
   Mintscan = 'Mintscan',
   Onboarding = 'Onboarding',
   Orderbook = 'OrderbookIcon',
@@ -131,17 +142,21 @@ export enum IconName {
   Warning = 'Warning',
   Website = 'Website',
   Whitepaper = 'Whitepaper',
+  Withdraw = 'Withdraw',
 }
 
 const icons = {
   [IconName.AddressConnector]: AddressConnectorIcon,
   [IconName.Arrow]: ArrowIcon,
   [IconName.Bar3]: Bar3Icon,
+  [IconName.Bell]: BellIcon,
+  [IconName.BellStroked]: BellStrokeIcon,
   [IconName.BoxClose]: BoxCloseIcon,
   [IconName.Calculator]: CalculatorIcon,
   [IconName.Caret]: CaretIcon,
   [IconName.CautionCircle]: CautionCircleIcon,
   [IconName.CautionCircleStroked]: CautionCircleStrokeIcon,
+  [IconName.Chat]: ChatIcon,
   [IconName.Check]: CheckIcon,
   [IconName.ChevronLeft]: ChevronLeftIcon,
   [IconName.ChevronRight]: ChevronRightIcon,
@@ -152,6 +167,7 @@ const icons = {
   [IconName.Comment]: CommentIcon,
   [IconName.Copy]: CopyIcon,
   [IconName.Cube]: CubeIcon,
+  [IconName.Deposit]: DepositIcon,
   [IconName.DepthChart]: DepthChartIcon,
   [IconName.Discord]: DiscordIcon,
   [IconName.Etherscan]: EtherscanIcon,
@@ -168,6 +184,7 @@ const icons = {
   [IconName.Lock]: LockIcon,
   [IconName.LogoShort]: LogoShortIcon,
   [IconName.Menu]: MenuIcon,
+  [IconName.Migrate]: MigrateIcon,
   [IconName.Mintscan]: MintscanIcon,
   [IconName.Orderbook]: OrderbookIcon,
   [IconName.OrderCanceled]: OrderCanceledIcon,
@@ -196,6 +213,7 @@ const icons = {
   [IconName.Warning]: WarningIcon,
   [IconName.Website]: WebsiteIcon,
   [IconName.Whitepaper]: WhitepaperIcon,
+  [IconName.Withdraw]: WithdrawIcon,
 } as Record<IconName, ElementType>;
 
 type ElementProps = {
@@ -213,7 +231,8 @@ export const Icon = styled(
     iconComponent: Component = iconName && icons[iconName],
     className,
     ...props
-  }: ElementProps & StyleProps) => (Component ? <Component className={className} {...props} /> : null)
+  }: ElementProps & StyleProps) =>
+    Component ? <Component className={className} {...props} /> : null
 )`
   width: 1em;
   height: 1em;

@@ -4,15 +4,14 @@ import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { groupBy } from 'lodash';
 
 import { AlertType } from '@/constants/alerts';
-import { AbacusOrderStatus, ORDER_SIDES, ORDER_STATUS_STRINGS } from '@/constants/abacus';
+import { AbacusOrderStatus, ORDER_SIDES } from '@/constants/abacus';
 import { DialogTypes } from '@/constants/dialogs';
-import { STRING_KEYS } from '@/constants/localization';
+import { STRING_KEYS, StringKey } from '@/constants/localization';
 import { type NotificationTypeConfig, NotificationType } from '@/constants/notifications';
-import { ORDER_SIDE_STRINGS, TRADE_TYPE_STRINGS, TradeTypes } from '@/constants/trade';
+import { ORDER_SIDE_STRINGS } from '@/constants/trade';
 
 import { useLocalNotifications } from '@/hooks/useLocalNotifications';
 
-import { AlertMessage } from '@/components/AlertMessage';
 import { Icon, IconName } from '@/components/Icon';
 import { Output, OutputType } from '@/components/Output';
 import { TransferStatusToast } from '@/views/TransferStatus';
@@ -69,11 +68,11 @@ export const notificationTypes = [
                   <OrderStatusIcon status={order.status} totalFilled={order.totalFilled ?? 0} />
                 ),
                 title: `${stringGetter({
-                  key: TRADE_TYPE_STRINGS[order.type.rawValue as TradeTypes].tradeTypeKey,
+                  key: order.resources.typeStringKey as StringKey,
                 })} ${
                   order.status === AbacusOrderStatus.open && (order?.totalFilled ?? 0) > 0
                     ? stringGetter({ key: STRING_KEYS.PARTIALLY_FILLED })
-                    : stringGetter({ key: ORDER_STATUS_STRINGS[order.status.name] })
+                    : stringGetter({ key: order.resources.statusStringKey as StringKey })
                 }`,
                 description: `${stringGetter({
                   key: ORDER_SIDE_STRINGS[ORDER_SIDES[order.side.name]],
@@ -91,18 +90,34 @@ export const notificationTypes = [
       }, [orderIds]);
     },
 
-    useNotificationAction: () => {
-      const dispatch = useDispatch();
+    // useNotificationAction: () => {
+    //   const dispatch = useDispatch();
+    //   const orders = useSelector(getSubaccountOrders, shallowEqual) || [];
+    //   const ordersByOrderId = Object.fromEntries(orders.map((order) => [order.id, order]));
 
-      return (orderId) => {
-        dispatch(
-          openDialog({
-            type: DialogTypes.OrderDetails,
-            dialogProps: { orderId },
-          })
-        );
-      };
-    },
+    //   const fills = useSelector(getSubaccountFills, shallowEqual) || [];
+    //   const fillsByOrderId = groupBy(fills, (fill) => fill.orderId);
+
+    //   return (id) => {
+    //     if (ordersByOrderId[id]) {
+    //       dispatch(
+    //         openDialog({
+    //           type: DialogTypes.OrderDetails,
+    //           dialogProps: { orderId: id },
+    //         })
+    //       );
+    //     } else if (fillsByOrderId[id]) {
+    //       const fillId = fillsByOrderId[id][0].id;
+
+    //       dispatch(
+    //         openDialog({
+    //           type: DialogTypes.FillDetails,
+    //           dialogProps: { fillId },
+    //         })
+    //       );
+    //     }
+    //   };
+    // },
   } as NotificationTypeConfig<string, [string, number]>,
   {
     type: NotificationType.SquidTransfer,
@@ -110,18 +125,18 @@ export const notificationTypes = [
       const stringGetter = useStringGetter();
       const { transferNotifications } = useLocalNotifications();
 
-      const getTitleStringKey = useCallback((type: 'deposit' | 'withdraw', finished: boolean) => {
+      const getTitleStringKey = useCallback((type: 'deposit' | 'withdrawal', finished: boolean) => {
         if (type === 'deposit' && !finished) return STRING_KEYS.DEPOSIT_IN_PROGRESS;
         if (type === 'deposit' && finished) return STRING_KEYS.DEPOSIT;
-        if (type === 'withdraw' && !finished) return STRING_KEYS.WITHDRAW_IN_PROGRESS;
+        if (type === 'withdrawal' && !finished) return STRING_KEYS.WITHDRAW_IN_PROGRESS;
         return STRING_KEYS.WITHDRAW;
       }, []);
 
       useEffect(() => {
         for (const transfer of transferNotifications) {
-          const { toChainId, status, txHash, toAmount } = transfer;
+          const { fromChainId, status, txHash, toAmount } = transfer;
           const finished = Boolean(status) && status?.squidTransactionStatus !== 'ongoing';
-          const type = toChainId === TESTNET_CHAIN_ID ? 'deposit' : 'withdraw';
+          const type = fromChainId === TESTNET_CHAIN_ID ? 'withdrawal' : 'deposit';
           // @ts-ignore status.errors is not in the type definition but can be returned
           const error = status?.errors?.length ? status?.errors[0] : status?.error;
 
@@ -138,7 +153,8 @@ export const notificationTypes = [
                   {stringGetter({
                     key: STRING_KEYS.SOMETHING_WENT_WRONG_WITH_MESSAGE,
                     params: {
-                      ERROR_MESSAGE: error.message || stringGetter({ key: STRING_KEYS.UNKNOWN_ERROR }),
+                      ERROR_MESSAGE:
+                        error.message || stringGetter({ key: STRING_KEYS.UNKNOWN_ERROR }),
                     },
                   })}
                 </Styled.ErrorMessage>
@@ -154,6 +170,7 @@ export const notificationTypes = [
               description: description,
               customContent: (
                 <TransferStatusToast
+                  type={type}
                   toAmount={transfer.toAmount}
                   triggeredAt={transfer.triggeredAt}
                   status={transfer.status}
@@ -162,7 +179,7 @@ export const notificationTypes = [
               customMenuContent: !finished && (
                 <div>
                   {description}
-                  <TransferStatusSteps status={transfer.status} />
+                  <TransferStatusSteps status={transfer.status} type={type} />
                 </div>
               ),
               toastSensitivity: 'foreground',
@@ -181,7 +198,7 @@ Styled.TransferText = styled.span`
   display: inline-flex;
   align-items: center;
   gap: 0.5ch;
-`
+`;
 
 Styled.ErrorMessage = styled.div`
   max-width: 13rem;

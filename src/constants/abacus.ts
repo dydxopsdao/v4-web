@@ -59,16 +59,6 @@ export const TransactionType = Abacus.exchange.dydx.abacus.protocols.Transaction
 const transactionTypes = [...TransactionType.values()] as const;
 export type TransactionTypes = (typeof transactionTypes)[number];
 
-export type NetworkConfig = {
-  chainId: string;
-  indexerUrl: string;
-  indexerSocketUrl: string;
-  validatorUrl: string;
-  faucetUrl?: string | null;
-};
-
-export type ConnectNetworkEvent = CustomEvent<Partial<NetworkConfig>>;
-
 // ------ State ------
 export type AbacusApiState = Abacus.exchange.dydx.abacus.state.manager.ApiState;
 export const AbacusApiStatus = Abacus.exchange.dydx.abacus.state.manager.ApiStatus;
@@ -78,8 +68,13 @@ export const Changes = Abacus.exchange.dydx.abacus.state.changes.Changes;
 export type PerpetualStateChanges = Abacus.exchange.dydx.abacus.state.changes.StateChanges;
 export const AsyncAbacusStateManager =
   Abacus.exchange.dydx.abacus.state.manager.AsyncAbacusStateManager;
+
+// ------ Parsing Errors ------ //
 export type ParsingError = Abacus.exchange.dydx.abacus.responses.ParsingError;
 export type ParsingErrors = kollections.List<ParsingError>;
+export const ParsingErrorType = Abacus.exchange.dydx.abacus.responses.ParsingErrorType;
+const parsingErrorTypes = [...ParsingErrorType.values()] as const;
+export type ParsingErrorTypes = (typeof parsingErrorTypes)[number];
 
 // ------ Perpetuals/Markets ------ //
 export type PerpetualState = Abacus.exchange.dydx.abacus.output.PerpetualState;
@@ -199,6 +194,12 @@ export type RiskLevels = (typeof riskLevels)[number];
 // ------ Notifications ------ //
 export type AbacusNotification = Abacus.exchange.dydx.abacus.output.Notification;
 
+// ------ Restrictions ------ //
+export type UsageRestriction = Abacus.exchange.dydx.abacus.output.UsageRestriction;
+export const RestrictionType = Abacus.exchange.dydx.abacus.output.Restriction;
+const restrictionTypes = [...RestrictionType.values()] as const;
+export type RestrictionTypes = (typeof restrictionTypes)[number];
+
 // ------ Enum Conversions ------ //
 type IfEquals<X, Y, A, B> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2
   ? A
@@ -256,3 +257,20 @@ export const TRADE_TYPES: Record<
   [AbacusOrderType.liquidation.name]: null,
   [AbacusOrderType.trailingStop.name]: null,
 };
+
+// Custom types involving Abacus
+
+export type NetworkConfig = Partial<{
+  indexerUrl: Nullable<string>;
+  websocketUrl: Nullable<string>;
+  validatorUrl: Nullable<string>;
+  chainId: Nullable<string>;
+  faucetUrl: Nullable<string>;
+  USDC_DENOM: Nullable<string>;
+  USDC_DECIMALS: Nullable<number>;
+  USDC_GAS_DENOM: Nullable<string>;
+  CHAINTOKEN_DENOM: Nullable<string>;
+  CHAINTOKEN_DECIMALS: Nullable<number>;
+}>;
+
+export type ConnectNetworkEvent = CustomEvent<Partial<NetworkConfig>>;
