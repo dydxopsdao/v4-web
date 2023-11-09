@@ -100,6 +100,15 @@ export const PrivacyPolicyPage = () => (
 
     <h2>How We Use Information</h2>
     <p>
+      We will use your personal information as disclosed herein, if we have your consent, or if there is
+      another lawful basis to do so. This includes when it is in our legitimate business interest to use
+      the personal information. We can only rely on our legitimate business interest, if it is fair and
+      reasonable to do so.
+    </p>
+    <p>
+      Some examples of how we may use your personal information are set out below.
+    </p>
+    <p>
       We may use your personal information to make the Website available in accordance with our <strong>Terms of Use</strong> and for:
       <ul>
         <li>
@@ -191,7 +200,7 @@ export const PrivacyPolicyPage = () => (
       <ul>
         <li>
           <b>To Comply with Our Legal Obligations</b>. We may share your information: (a) to
-          cooperate with government investigations; (b) when we are compelled to do so by a
+          cooperate with government or regulatory enquiries or investigations; (b) when we are compelled to do so by a
           subpoena, court order, or similar legal procedure; (c) when we believe in good faith that
           the disclosure of personal information is necessary to prevent harm to you, us, or another
           person; (d) to report suspected illegal activity; or (e) to investigate violations of our
@@ -200,7 +209,9 @@ export const PrivacyPolicyPage = () => (
         <li>
           <b>With Service Providers or Other Third Parties</b>. We may share your personal
           information with service providers or other third parties who help facilitate our business
-          operations, such as marketing, technology, customer service, and chatbot services.
+          operations (collectively, “Service Providers”), such as marketing, technology, customer
+          service, and chatbot services. These Service Providers may also use this information where
+          it is necessary for compliance with a legal obligation to which they are subject.
         </li>
         <li>
           <b>Partners</b>. We may share your personal information with business partners, for
@@ -213,7 +224,7 @@ export const PrivacyPolicyPage = () => (
         <li>
           <b>During a Change to Our Business</b>. If we engage in a merger, acquisition, bankruptcy,
           dissolution, reorganization, sale of some or all of our assets or stock, financing, public
-          offering of securities ,acquisition of all or a portion of our business, a similar
+          offering of securities, acquisition of all or a portion of our business, a similar
           transaction or proceeding, or steps in contemplation of such activities, some or all of
           your personal information may be shared or transferred.
         </li>
@@ -229,7 +240,8 @@ export const PrivacyPolicyPage = () => (
       We, our affiliates, subsidiaries, and third-party providers may process your personal
       information outside of your home country. Data privacy laws in the countries to which your
       personal information is transferred may not be equivalent to, or as protective as, the laws in
-      your home country.
+      your home country. We will take steps aimed at ensuring that specific measures have been or will
+      be taken to provide a reasonable level of protection for your personal information.
     </p>
     <p>
       For more information about how we transfer personal information internationally, please
@@ -250,6 +262,16 @@ export const PrivacyPolicyPage = () => (
       information. Please note that, in order for us to review and respond to such requests, we will
       require you to verify your identity.
     </p>
+    <p>
+      You have certain data protection rights under the applicable data protection law, including the following:
+    </p>
+    <ol>
+      <li>You have the right to access personal data we hold about you and to ask that your personal data be corrected, or (in some limited circumstances) erased.</li>
+      <li>You also have the right to object to receiving direct marketing, or to request that we restrict processing.</li>
+      <li>You have the right to ask us to stop processing your personal information.</li>
+      <li>You have the right to be informed of a personal data breach (unless the breach is unlikely to be prejudicial to you).</li>
+      <li>You have the right to file a complaint regarding our data protection practices with the Cayman Islands Ombudsman. </li>
+    </ol>
     <p>
       We will review and respond to such requests in our sole discretion, taking into account which
       laws may be applicable to the processing of your personal information. We may have valid legal
