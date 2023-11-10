@@ -204,12 +204,12 @@ export const PrivacyPolicyPage = () => (
           subpoena, court order, or similar legal procedure; (c) when we believe in good faith that
           the disclosure of personal information is necessary to prevent harm to you, us, or another
           person; (d) to report suspected illegal activity; or (e) to investigate violations of our
-          Terms of Use, agreements for other products or services, or any other applicable policies.
+          <strong>Terms of Use</strong>, agreements for other products or services, or any other applicable policies.
         </li>
         <li>
           <b>With Service Providers or Other Third Parties</b>. We may share your personal
           information with service providers or other third parties who help facilitate our business
-          operations (collectively, “Service Providers”), such as marketing, technology, customer
+          operations (collectively, <strong>“Service Providers”</strong>), such as marketing, technology, customer
           service, and chatbot services. These Service Providers may also use this information where
           it is necessary for compliance with a legal obligation to which they are subject.
         </li>
@@ -264,14 +264,14 @@ export const PrivacyPolicyPage = () => (
     </p>
     <p>
       You have certain data protection rights under the applicable data protection law, including the following:
+      <ol>
+        <li>You have the right to access personal data we hold about you and to ask that your personal data be corrected, or (in some limited circumstances) erased.</li>
+        <li>You also have the right to object to receiving direct marketing, or to request that we restrict processing.</li>
+        <li>You have the right to ask us to stop processing your personal information.</li>
+        <li>You have the right to be informed of a personal data breach (unless the breach is unlikely to be prejudicial to you).</li>
+        <li>You have the right to file a complaint regarding our data protection practices with the Cayman Islands Ombudsman. </li>
+      </ol>
     </p>
-    <ol>
-      <li>You have the right to access personal data we hold about you and to ask that your personal data be corrected, or (in some limited circumstances) erased.</li>
-      <li>You also have the right to object to receiving direct marketing, or to request that we restrict processing.</li>
-      <li>You have the right to ask us to stop processing your personal information.</li>
-      <li>You have the right to be informed of a personal data breach (unless the breach is unlikely to be prejudicial to you).</li>
-      <li>You have the right to file a complaint regarding our data protection practices with the Cayman Islands Ombudsman. </li>
-    </ol>
     <p>
       We will review and respond to such requests in our sole discretion, taking into account which
       laws may be applicable to the processing of your personal information. We may have valid legal
@@ -425,12 +425,13 @@ export const PrivacyPolicyPage = () => (
           participating companies. Note that because these opt-out mechanisms are specific to the
           device or browser on which they are exercised, you will need to opt out on every browser
           and device that you use.
-        </li>
-        <li>Digital Advertising Alliance: http://optout.aboutads.info</li>
-        <li>Network Advertising Initiative: http://optout.networkadvertising.org/</li>
-        <li>
-          Google: https://adssettings.google.com; and
-          https://support.google.com/ads/answer/2662856/control-the-ads-you-see-android?hl=en
+          <ul>
+            <li>Digital Advertising Alliance: http://optout.aboutads.info</li>
+            <li>Network Advertising Initiative: http://optout.networkadvertising.org/</li>
+            <li>
+              Google: https://adssettings.google.com; and
+            </li>
+          </ul>
         </li>
       </ul>
     </p>
