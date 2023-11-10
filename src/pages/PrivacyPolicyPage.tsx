@@ -4,7 +4,7 @@ export const PrivacyPolicyPage = () => (
   <Styled.Article>
     <header>
       <h1>Privacy Policy</h1>
-      Last updated October 27, 2023
+      Last updated November 10, 2023
     </header>
     <p>
       This Privacy Policy (“Policy”) describes how dYdX Operations Services Limited and its
