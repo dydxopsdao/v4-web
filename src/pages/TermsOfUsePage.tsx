@@ -1,1078 +1,651 @@
 import styled, { AnyStyledComponent } from 'styled-components';
 
-import { articleMixins } from '@/styles/articleMixins';
-
 const TermsOfUsePage = () => (
   <Styled.Article>
     <header>
-      <h1>Sample Terms of Use</h1>
+      <h1>Terms of Use</h1>
       <span></span>
     </header>
-    <div>
-      <p>
-        <strong>
-          THE INTERFACE (AS DEFINED BELOW) IS NOT AVAILABLE TO PERSONS OR ENTITIES WHO RESIDE IN,
-          ARE LOCATED IN, ARE INCORPORATED IN, OR HAVE A REGISTERED OFFICE IN THE UNITED STATES OF
-          AMERICA OR CANADA (COLLECTIVELY, “BLOCKED PERSONS”). MOREOVER, NO SERVICES (AS DEFINED
-          BELOW) ARE OFFERED TO PERSONS OR ENTITIES WHO RESIDE IN, ARE CITIZENS OF, ARE LOCATED IN,
-          ARE INCORPORATED IN, OR HAVE A REGISTERED OFFICE IN ANY RESTRICTED TERRITORY (AS DEFINED
-          BELOW, AND ANY SUCH PERSON OR ENTITY FROM A RESTRICTED TERRITORY, A “RESTRICTED PERSON”).
-          WE DO NOT MAKE EXCEPTIONS; THEREFORE, IF YOU ARE A BLOCKED PERSON, THEN DO NOT ATTEMPT TO
-          USE THE INTERFACE AND IF YOU ARE A RESTRICTED PERSON, THEN DO NOT ATTEMPT TO USE ANY OF
-          THE SERVICES. USE OF A VIRTUAL PRIVATE NETWORK (“VPN”) TO CIRCUMVENT THE RESTRICTIONS SET
-          FORTH HEREIN IS PROHIBITED.
-        </strong>
-      </p>
-      <p>
-        These terms of use, together with any documents and additional terms they expressly
-        incorporate by reference, which includes any other terms and conditions or other agreement
-        that our posts publicly or makes available to you or the company or other legal entity you
-        represent (“you” or “your”) (collectively, these “Terms”), are entered into between us and
-        you concerning your use of, and access to:
-      </p>
+
+    <h2>Acceptance of the Terms of Use; Eligible Users</h2>
+    <p>
+      These terms of use are entered into by and between you (as defined below) and dYdX Operations
+      Services Limited (<b>“Company”</b>, <b>“we”</b> or <b>“us”</b>). The following terms and
+      conditions, together with any documents they expressly incorporate by reference (collectively,
+      these <b>“Terms of Use”</b>), govern your access to and use of dydx.trade and any subdomains
+      thereof (the <b>“Website”</b>).
+    </p>
+    <p>
+      If the user engages with the Website under authority from a different party or on another
+      party’s behalf, then <b>“you”</b> (and its variants, including <b>“your”</b>, <b>“yours”</b>,
+      etc.) as used herein refers to that person on whose behalf the Website is used (e.g., an
+      employer). If the person engaging with our Website is an individual, acting in their own
+      individual capacity, then <b>“you”</b> (and its variants) refers to that individual. If you
+      have anyone using the Website on your behalf, you agree that you are responsible for the
+      actions and inactions of all such persons, as they were your own.
+    </p>
+    <p>
+      The Website provides access to third party content, protocols and software, including smart
+      contracts, which may enable you to convert your Ethereum DYDX tokens into wrapped Ethereum
+      DYDX tokens and dYdX Chain DYDX tokens, swap other collateral for USD Coins (<b>“USDC”</b>),
+      and/or engage in other digital asset trading activities. USE OF THE PROTOCOL OR THE WETHDYDX
+      SMART CONTRACT ARE AT YOUR OWN RISK. THE WEBSITE IS A NONEXCLUSIVE MEANS TO FACILITATE ACCESS
+      TO THE RELEVANT PROTOCOL AND/OR SMART CONTRACTS. WE DO NOT OWN, CONTROL, OR HAVE ANY
+      RESPONSIBILITY FOR THE DYDX CHAIN PROTOCOL OR THE WETHDYDX SMART CONTRACT. THESE TERMS OF USE
+      DO NOT GOVERN YOUR USE OF THE PROTOCOL OR THE WETHDYDX SMART CONTRACT, WHICH ARE CONTROLLED,
+      MAINTAINED AND/OR OPERATED BY THIRD PARTIES. PLEASE CONSULT SUCH THIRD PARTIES’ USER
+      AGREEMENTS FOR INFORMATION REGARDING YOUR RIGHTS AND RISKS ASSOCIATED WITH YOUR USE OF AND
+      ACCESS TO THESE MATERIALS.
+    </p>
+    <p>
+      Please read these Terms of Use carefully before you start to use the Website.{' '}
+      <b>
+        By using the Website, you accept and agree to be bound and abide by these Terms of Use. In
+        addition, by clicking “I agree” (or a similar language) to these Terms of Use, acknowledging
+        these Terms of Use by other means, or otherwise accessing or using the Website, you also
+        accept and agree to be bound by and to comply with these Terms of Use.
+      </b>{' '}
+      If you do not want to agree to these Terms of Use, you must not access or use the Website.
+    </p>
+    <p>
+      THE WEBSITE WAS NOT DEVELOPED FOR, AND IS NOT AVAILABLE TO PERSONS OR ENTITIES WHO RESIDE IN,
+      ARE LOCATED IN, ARE INCORPORATED IN, OR HAVE A REGISTERED OFFICE OR PRINCIPAL PLACE OF
+      BUSINESS IN THE UNITED STATES OF AMERICA OR CANADA (COLLECTIVELY, “BLOCKED PERSONS”).
+      MOREOVER, THE WEBSITE IS NOT OFFERED TO PERSONS OR ENTITIES WHO RESIDE IN, ARE CITIZENS OF,
+      ARE LOCATED IN, ARE INCORPORATED IN, OR HAVE A REGISTERED OFFICE OR PRINCIPAL PLACE OF
+      BUSINESS IN ANY RESTRICTED JURISDICTION OR COUNTRY SUBJECT TO ANY SANCTIONS OR RESTRICTIONS
+      PURSUANT TO ANY APPLICABLE LAW, INCLUDING THE CRIMEA REGION, CUBA, IRAN, NORTH KOREA, SYRIA,
+      MYANMAR (BURMA, DONETSK, LUHANSK, OR ANY OTHER COUNTRY TO WHICH THE UNITED STATES, THE UNITED
+      KINGDOM, THE EUROPEAN UNION OR ANY OTHER JURISDICTIONS EMBARGOES GOODS OR IMPOSES SIMILAR
+      SANCTIONS, INCLUDING THOSE LISTED ON OUR WEBSITE TRANSFERS PAGE (COLLECTIVELY,
+      THE “RESTRICTED JURISDICTIONS” AND EACH A “RESTRICTED JURISDICTION”)
+      OR ANY PERSON OWNED, CONTROLLED, LOCATED IN OR ORGANIZED UNDER THE LAWS OF ANY JURISDICTION
+      UNDER EMBARGO OR CONNECTED OR AFFILIATED WITH ANY SUCH PERSON (COLLECTIVELY, “RESTRICTED
+      PERSONS”). THERE ARE NO EXCEPTIONS. IF YOU ARE A BLOCKED PERSON OR A RESTRICTED PERSON, THEN
+      DO NOT USE OR ATTEMPT TO USE THE WEBSITE. USE OF ANY TECHNOLOGY OR MECHANISM, SUCH AS A
+      VIRTUAL PRIVATE NETWORK (“VPN”) TO CIRCUMVENT THE RESTRICTIONS SET FORTH HEREIN IS PROHIBITED.
+    </p>
+    <p>
+      BY USING THE WEBSITE, YOU REPRESENT THAT (1) YOU ARE NOT A BLOCKED PERSON OR RESTRICTED
+      PERSON; AND (2) YOU (INCLUDING, IF APPLICABLE, YOUR INDIVIDUAL OWNERS, REPRESENTATIVES,
+      EMPLOYEES, OR ANY OTHER PERSON WITH ACCESS TO YOUR WEBSITE ACCOUNT) WILL NOT COORDINATE,
+      CONDUCT OR CONTROL (INCLUDING BY, IN SUBSTANCE OR EFFECT, MAKING DECISIONS WITH RESPECT TO)
+      YOUR USE OF THE WEBSITE FROM WITHIN THE UNITED STATES OF AMERICA, CANADA OR ANY RESTRICTED
+      JURISDICTION.
+    </p>
+    <p>
+      YOU ACKNOWLEDGE, UNDERSTAND AND AGREE THAT (1) YOU ARE NOT PERMITTED TO MODIFY, DISASSEMBLE,
+      DECOMPILE, ADAPT, ALTER, TRANSLATE, REVERSE ENGINEER OR CREATE DERIVATIVE WORKS OF THE WEBSITE
+      TO MAKE IT AVAILABLE TO ANY BLOCKED PERSONS OR RESTRICTED PERSONS; AND (2) WE DO NOT AND WILL
+      NOT HAVE CONTROL OVER THE DEVELOPMENT, GROWTH, MAINTENANCE OR OPERATIONS OF ANY PROTOCOL OR
+      SMART CONTRACT THAT YOU MAY BE ABLE TO ACCESS FROM OR THROUGH THE WEBSITE, OR THEIR UNDERLYING
+      SOFTWARE.
+    </p>
+    <p>
+      YOU ACKNOWLEDGE, UNDERSTAND AND AGREE THAT NOTHING ON OR THROUGH THE WEBSITE (INCLUDING
+      REFERENCES OR LINKS TO SPECIFIC SOFTWARE, PROTOCOLS, SMART CONTRACTS AND/OR DIGITAL ASSETS)
+      SHALL BE CONSIDERED OR SEEN AS PROMOTIONAL OR MARKETING CONTENT FOR SUCH SOFTWARE, PROTOCOLS,
+      SMART CONTRACTS AND/OR DIGITAL ASSETS, AND WE ARE NOT ENDORSING, ADVERTISING PROMOTING, OR
+      OTHERWISE MAKING KNOWN OR AVAILABLE SUCH SOFTWARE, PROTOCOLS, SMART CONTRACTS AND/OR DIGITAL
+      ASSETS IN ANY SPECIFIC JURISDICTION OR INVITING OR INDUCING ANYONE TO ENGAGE IN ANY TYPE OF
+      CONDUCT OR ACTIVITY IN CONNECTION WITH SUCH SOFTWARE, PROTOCOLS, SMART CONTRACTS AND/OR
+      DIGITAL ASSETS.
+    </p>
+    <p>
+      The Website is offered and available to users who are 18 years of age or older and who are not
+      Blocked Persons or Restricted Persons. By using the Website, you represent and warrant that
+      you are of legal age to form a binding contract with Company pursuant to applicable laws, and
+      meet all of the foregoing eligibility requirements. If you do not meet all of these
+      requirements, you must not access or use the Website.
+    </p>
+
+    <h2>Changes to the Terms of Use</h2>
+    <p>
+      We may revise and update these Terms of Use from time to time in our sole discretion. All
+      changes are effective immediately when we post them, and apply to all access to and use of the
+      Website thereafter. However, any changes to the dispute resolution provisions set out in the{' '}
+      <strong>Governing Law and Jurisdiction</strong> section below will not apply to any disputes for which
+      the parties have actual notice on or before the date the change is posted on the Website.
+    </p>
+    <p>
+      Your continued use of the Website following the posting of revised Terms of Use means that you
+      accept and agree to the changes. You are expected to check this page each time you access the
+      Website so you are aware of any changes, as they are binding on you.
+    </p>
+
+    <h2>Accessing the Website and Account Security</h2>
+    <p>
+      We reserve the right to withdraw or amend the Website, and any service or material we provide
+      on the Website, in our sole discretion without notice. We will not be liable if for any reason
+      all or any part of the Website is unavailable at any time or for any period. From time to
+      time, we may restrict access to some parts of the Website, or all of the Website, to users.
+    </p>
+    <p>
+      You are responsible for:
       <ul>
+        <li>Making all arrangements necessary for you to have access to the Website.</li>
         <li>
-          this website (and any subdomains); web applications; mobile applications; and all
-          associated sites linked thereto by us (collectively with any materials and services
-          available therein, and successor website(s) or application(s) thereto, the “Site”); and
+          Ensuring that all persons who access the Website through your internet connection or on
+          your behalf are aware of these <strong>Terms of Use</strong> and comply with them.
         </li>
       </ul>
+    </p>
+    <p>
+      We have the right to disable your access to the Website at any time in our sole discretion for
+      any or no reason, including if, in our opinion, you have violated any provision of these Terms
+      of Use or are violating any applicable law.
+    </p>
+
+    <h2>Trademarks</h2>
+    <p>
+      Company’s name, the terms “dYdX” and “dYdX Operations subDAO”, Company’s logos, and all
+      related names, logos, product and service names, designs, and slogans are trademarks of
+      Company or Company’s licensors. You must not use such marks without the prior written
+      permission of Company or Company’s licensors, as applicable.
+    </p>
+
+    <h2>Prohibited Uses</h2>
+    <p>
+      You may use the Website only for lawful purposes and in accordance with these Terms of Use.
+      You agree not to use the Website:
       <ul>
         <li>
-          all products and features available via the Site, including the smart contracts,
-          decentralized applications, APIs and all other software that we or a third party has
-          developed for trading blockchain-based assets (collectively, “Digital Assets”), including
-          entering into perpetual contracts (“Perpetual Contracts”) related to Digital Assets, or
-          exchanging one Digital Asset for another Digital Asset (collectively the “Interface”, and
-          together with the Site, the “Services”).
+          In any way that violates any applicable federal, state, local, or international law or
+          regulation (including, without limitation, any laws regarding the export of data or
+          software to and from the United States, Canada, European Union, or other countries).
+        </li>
+        <li>
+          For the purpose of exploiting, harming, or attempting to exploit or harm minors in any way
+          by exposing them to inappropriate content, asking for personally identifiable information,
+          or otherwise.
+        </li>
+        <li>
+          To send, knowingly receive, upload, download, use, or re-use any material that does not
+          comply with Terms of Use.{' '}
+        </li>
+        <li>
+          To transmit, or procure the sending of, any advertising or promotional material, including
+          any “junk mail”, “chain letter”, “spam”, or any other similar solicitation.
+        </li>
+        <li>
+          To impersonate or attempt to impersonate Company, a Company employee or representative,
+          another user, or any other person or entity (including, without limitation, by using
+          identifiers associated with any of the foregoing).
+        </li>
+        <li>
+          To engage in any other conduct that restricts or inhibits anyone’s use or enjoyment of the
+          Website, or which, as determined by us, may harm Company or users of the Website or expose
+          them to liability.{' '}
         </li>
       </ul>
-      <p>
-        Please read these Terms carefully, as these Terms govern your use of the Services. These
-        Terms expressly cover your rights and obligations, and our disclaimers and limitations of
-        legal liability, relating to your use of, and access to, the Services. By clicking “I agree”
-        (or a similar language) to these Terms, acknowledging these Terms by other means, or
-        otherwise accessing or using the Services, you accept and agree to be bound by and to comply
-        with these Terms, including the mandatory arbitration provision in Section 15. If you do not
-        agree to these Terms, then you must not access or use the Services.
-      </p>
-      <p>
-        <strong>
-          Please carefully review the disclosures and disclaimers set forth in Section 12 in their
-          entirety before using any Services.
-        </strong>{' '}
-        The information in Section 12 provides important details about the legal obligations
-        associated with your use of the Services. By accessing or using the Services, you agree that
-        we do not provide execution, settlement, or clearing services of any kind and are not
-        responsible for the execution, settlement, or clearing of transactions automated through the
-        Services.
-      </p>
-      <p>
-        <strong>1. MODIFICATIONS TO THESE TERMS</strong>
-      </p>
-      <p>
-        We reserve the right, in our sole discretion, to modify these Terms from time to time. If we
-        make changes, we will provide you with notice of such changes, such as by providing notice
-        through the Services or updating the “Last Updated” date at the top of these Terms. Unless
-        we state otherwise in our notice, all such modifications are effective immediately, and your
-        continued use of the Services after we provide that notice will confirm your acceptance of
-        the changes. If you do not agree to the amended Terms, then you must stop using the
-        Services.
-      </p>
-      <p>
-        <strong>2. USE OF SERVICES</strong>
-      </p>
+      Additionally, you agree not to:
       <ul>
         <li>
-          2.1 As a condition to accessing or using the Services, you represent and warrant to us the
-          following:
-          <ul>
-            <li>
-              if you are entering into these Terms as an individual, then you are of legal age in
-              the jurisdiction in which you reside and you have the legal capacity to enter into
-              these Terms and be bound by them;
-            </li>
-          </ul>
-          <ul>
-            <li>
-              if you are entering into these Terms as an entity, then you must have the legal
-              authority to accept these Terms on that entity’s behalf, in which case “you” (except
-              as used in this paragraph) will mean that entity;
-            </li>
-          </ul>
-          <ul>
-            <li>
-              if you are entering into these Terms to access the Interface or will in the future
-              access the Interface, then you are not a Blocked Person, and are not accessing the
-              Interface from within the United States or Canada (collectively, &quot;Blocked
-              Countries&quot;);
-            </li>
-          </ul>
-          <ul>
-            <li>
-              you must not be a resident, citizen or agent of, or incorporated in, and do not have a
-              registered office in Iran, Cuba, North Korea, Syria, Myanmar (Burma), the regions of
-              Crimea, Donetsk or Luhansk, or any other country or region that is the subject of
-              comprehensive country-wide or region-wide economic sanctions by the United States
-              (collectively, “Restricted Territories”);
-            </li>
-          </ul>
-          <ul>
-            <li>
-              you are not the subject of economic or trade sanctions administered or enforced by any
-              governmental authority or otherwise designated on any list of prohibited or restricted
-              parties (including the list maintained by the Office of Foreign Assets Control of the
-              U.S. Department of the Treasury) (collectively, “Sanctioned Person”);
-            </li>
-          </ul>
-          <ul>
-            <li>you do not intend to transact with any Restricted Person or Sanctioned Person;</li>
-          </ul>
-          <ul>
-            <li>
-              you do not, and will not, use a VPN or any other privacy or anonymization tools or
-              techniques to circumvent, or attempt to circumvent, any restrictions that apply to the
-              Services; and
-            </li>
-          </ul>
-          <ul>
-            <li>
-              your access to the Services (a) is not prohibited by and does not otherwise violate or
-              assist you to violate any domestic or foreign law, rule, statute, regulation, by-law,
-              order, protocol, code, decree, or another directive, requirement, or guideline,
-              published or in force that applies to or is otherwise intended to govern or regulate
-              any person, property, transaction, activity, event or other matter, including any
-              rule, order, judgment, directive or other requirement or guideline issued by any
-              domestic or foreign federal, provincial or state, municipal, local or other
-              governmental, regulatory, judicial or administrative authority having jurisdiction
-              over us, you, the Services, or as otherwise duly enacted, enforceable by law, the
-              common law or equity (collectively, “Applicable Laws”); and (b) does not contribute to
-              or facilitate any illegal activity.
-            </li>
-          </ul>
+          Allow any third party to access the Website on your behalf or using your credentials.{' '}
         </li>
+        <li>
+          Accessing or attempting to access restricted portions of the Website, security software or
+          other administrative applications associated therewith.
+        </li>
+        <li>
+          Use the Website in any manner that could disable, overburden, damage, or impair the
+          Website or interfere with any other party’s use of the Website, including their ability to
+          engage in real time activities through the Website.{' '}
+        </li>
+        <li>
+          Use any robot, spider, or other automatic device, process, or means to access the Website
+          for any purpose, including monitoring the Website.
+        </li>
+        <li>
+          Use any manual process to monitor the Website or for any other unauthorized purpose
+          without our prior written consent.{' '}
+        </li>
+        <li>
+          Use any device, software, or routine that interferes with the proper working of the
+          Website.
+        </li>
+        <li>
+          Use, transmit, introduce or install any code, files, scripts, agents or programs intended
+          to do harm or allow unauthorized access, including, for example, viruses, worms, time
+          bombs, back doors and Trojan horses (collectively, <b>“Malicious Code”</b>) on or through
+          the Website, or accessing or attempting to access the Website for the purpose of
+          infiltrating a computer or computing system or network, or damaging the software
+          components of the Website, or the systems of the hosting provider, any other suppliers or
+          service provider involved in providing the Website, or another user.{' '}
+        </li>
+        <li>Distribute Malicious Code or other items of a destructive or deceptive nature.</li>
+        <li>
+          Attempt to gain unauthorized access to, interfere with, damage, or disrupt any parts of
+          the Website, the server on which the Website is stored, or any server, computer, or
+          database connected to the Website.
+        </li>
+        <li>
+          Copy, mirror or otherwise attempt to replicate or reproduce the Website in breach of these
+          Terms of Use.
+        </li>
+        <li>
+          Attack the Website via a denial-of-service attack or a distributed denial-of-service
+          attack.
+        </li>
+        <li>Use the Website as a tool to commit theft, fraud or any other property crime. </li>
+        <li>
+          Use the Website for, or in connection with, any products, services, or materials that
+          constitute, promote, or are used primarily for the purpose of dealing in phishing,
+          spyware, adware, or other malicious programs or code, counterfeit goods, items subject to
+          applicable jurisdictions’ embargoes, hacking, stolen products, and items used for theft,
+          hazardous materials, or any illegal activities.
+        </li>
+        <li>Pose as another person or entity without authorization.</li>
+        <li>
+          Use a wallet other than your own (without authorization) to engage in a transaction.
+        </li>
+        <li>
+          Use the Website, directly or indirectly, for or in connection with money laundering,
+          terrorist financing, or other illicit financial activity.
+        </li>
+        <li>
+          Use the Website, directly or indirectly, for, on behalf of, for the benefit of, or in
+          connection with any Blocked Persons, Restricted Persons, and/or Restricted Jurisdictions.{' '}
+        </li>
+        <li>
+          Use the Website to carry out any financial activities subject to registration or
+          licensing.
+        </li>
+        <li>
+          Use the Website to engage in price manipulation, fraud, or other deceptive, misleading, or
+          manipulative activity.
+        </li>
+        <li>Otherwise attempt to interfere with the proper working of the Website. </li>
       </ul>
+    </p>
+
+    <h2>Reliance on Information Posted</h2>
+    <p>
+      The information presented on or through the Website is made available solely for general
+      information purposes. We do not warrant the accuracy, completeness, or usefulness of this
+      information. Any reliance you place on such information is strictly at your own risk. We
+      disclaim all liability and responsibility arising from any reliance placed on such materials
+      by you or any other visitor to the Website, or by anyone who may be informed of any of its
+      contents.
+    </p>
+    <p>
+      The Website may include content provided by third parties, including materials provided by the
+      owners and operators of blockchain protocols and software.
+    </p>
+    <p>
+      <b>
+        The Website provides access to third party on-chain tools, including potentially a
+        decentralized trading protocol and/or a bridge smart contract related to the same. You
+        acknowledge and agree that such protocol and bridge smart contract are controlled,
+        maintained and/or operated by third parties, and we do not own, operate, provide, control,
+        or have any responsibility for such protocol or smart contract. Please consult such third
+        parties’ user agreements for information regarding your use of and access to the protocol
+        and the smart contract.
+      </b>
+    </p>
+
+    <h2>Changes to the Website</h2>
+    <p>
+      We may update the content on the Website from time to time, but such content is not
+      necessarily complete or up-to-date. Any of the material on the Website may be out of date at
+      any given time, and we are under no obligation to update such material.
+    </p>
+
+    <h2>Blockchain Transactions and Exchange of Crypto Assets</h2>
+    <p>
+      The Website allows you access to on-chain protocols or other methods of transacting in digital
+      assets. That functionality is not provided by Company, and we do not control it. Our Website
+      makes such functionalities accessible only as a convenience to you.
+    </p>
+    <p>
+      You understand that we do not hold your digital assets, and take no custody of them. We have
+      no access to your assets or funds. It is your responsibility to ensure that you maintain
+      control of your digital assets and you have sole responsibility for exchanging them (including
+      through the Website).
+    </p>
+    <p>
+      Any losses you suffer as a result of your crypto asset transactions and exchanges is your
+      responsibility and you hereby indemnify us, agree to defend us, and hold us harmless against
+      any claims or losses that you or anyone else suffer as a result of your crypto asset
+      transactions, even if you initiated your transaction by accessing our Website.
+    </p>
+    <p>
+      You also understand that we do not act as your financial advisors or give you any investment
+      advice of any kind with respect to your use or exchange of digital assets. As with any trading
+      activities, it is your responsibility and you are solely responsible for the contents of your
+      wallet, your exchange decisions, how and when you trade digital assets and with whom. It is
+      also your responsibility to ensure you understand crypto assets, how they work, what their
+      value is, and how to trade such assets, as there are significant risks in doing so, all of
+      which you solely assume.
+    </p>
+    <p>
+      You acknowledge that the time of a digital asset transaction can affect the value of the asset
+      or the fees associated with a transaction or both. You hereby agree that you hold us harmless
+      against any and all claims arising from the transactions of your digital assets, or the timing
+      of such transactions.
+    </p>
+    <p>
+      Digital assets are not subject to Federal Deposit Insurance Corporation or Securities Investor
+      Protection Corporation protections or similar protections or regimes. Company is not a bank,
+      and we have no fiduciary duty to you.
+    </p>
+    <p>
+      Our Website may be subject to expropriation and/or theft. Hackers or other malicious actors
+      may attempt to interfere with our Website or your use thereof in a variety of ways, including,
+      but not limited to, use of Malicious Code, denial of service attacks, Sybil attacks, and
+      spoofing. Furthermore, because much of our Website relies on open source software, there is
+      the software underlying our code that may contain bugs or weaknesses which may negatively
+      affect the Website, or result in the loss of your digital assets, or your ability to control
+      your wallet. You hold us harmless from and against any losses you suffer as a result of such
+      issues.
+    </p>
+    <p>
+      You acknowledge that the Website may use, incorporate or link to certain open-source
+      components and you agree that your use of the Website is subject to, and you will comply with
+      any, applicable open-source licenses governing any such open-source components.
+    </p>
+    <p>
+      All decisions you make based on information provided through the Website is your sole
+      responsibility and you hold us harmless from and against any losses you suffer as a result of
+      such decisions. The Website provides access to materials and tools offered by or created by
+      third parties, such as digital asset protocols or smart contracts. We do not control such
+      materials, and provide no guarantee as to their accuracy, completeness, legality or
+      usefulness. You acknowledge and agree that we are not responsible for any aspect of the
+      information, content, or services contained in any such third-party materials comprising the
+      backend of, or accessible from or linked to, the Website.
+    </p>
+    <p>
+      By utilizing or interacting with the Website in any way, you represent and warrant that you
+      understand the inherent risks associated with: cryptographic systems and blockchain-based
+      networks; digital assets, including the usage and intricacies of native digital assets, like
+      DYDX (DYDX); smart contract-based tokens; and systems that interact with blockchain-based
+      networks.
+    </p>
+    <p>
+      You acknowledge and understand that cryptography is a progressing field with advances in code
+      cracking or other technical advancements, such as the development of quantum computers, which
+      may present risks to digital assets and the smart contract to which the Website facilitates
+      access, and could result in the theft or loss of your digital assets. We are unable to update
+      the smart contracts and software to which the Website provides access for any advances in
+      cryptography or to incorporate additional security measures necessary to address risks
+      presented from technological advancements; thus, there can be no guarantee regarding the
+      security of smart contracts and/or software or protocols to which the Website facilitates
+      access.
+    </p>
+    <p>
+      You agree and understand that all investment decisions are made solely by you. You agree and
+      understand that under no circumstances will the operation of the Website and your use of it be
+      deemed to create a relationship that includes the provision of or tendering of investment
+      advice. NO FINANCIAL, INVESTMENT, TAX, LEGAL OR SECURITIES ADVICE IS GIVEN THROUGH OR IN
+      CONNECTION WITH OUR WEBSITE. No content found on the Website, whether created by us, a third
+      party, or another user is or should be considered as investment advice. You agree and
+      understand that we accept no responsibility whatsoever for, and shall in no circumstances be
+      liable in connection with, your decisions or your use of our Website. Nothing contained on the
+      Website constitutes a solicitation, recommendation, endorsement, or offer by us or any third
+      party to transact in any digital assets, securities, or other financial instruments. Neither
+      us nor any of our affiliates has endorsed or sponsored any digital assets made available or
+      that can be transacted through third-party tools available from the Website.
+    </p>
+    <p>
+      You understand and accept that, in connection with your use of the Website, you may be
+      required to pay fees necessary for interacting with blockchain software, including (without
+      limitation) “gas” costs, and you understand that you are solely responsible for paying such
+      fees and costs and that none of such fees or costs will be paid to Company or Company’s
+      affiliates.
+    </p>
+
+    <h2>Taxes and Fraud</h2>
+    <p>
+      Depending on your location of residence, you may owe taxes on amounts you earn after
+      exchanging assets, including digital assets and crypto assets. It is your responsibility to
+      ensure you have accounted for, reported to the proper governmental authority, and paid all
+      such taxes to the applicable governmental authority. We do not undertake any obligation to
+      report any such taxes, nor collect or disburse them on your behalf. The taxes you owe are
+      solely your responsibility. You hold us harmless and release us from and against any claims,
+      losses, damages or demands arising in connection with taxes you may owe as a result of your
+      transactions on the Website.
+    </p>
+    <p>
+      If we believe that you have engaged in or been a participant in any fraudulent transaction, we
+      reserve the right to take any action we think appropriate, including forwarding your
+      information and information about the transactions we believe or suspect to be fraudulent to
+      applicable law enforcement agencies, which may result in civil or criminal penalties or other
+      actions against you.
+    </p>
+
+    <h2>Linking to the Website and Social Media Features</h2>
+    <p>
+      You may link to our Website’s homepage, provided you do so in a way that is fair and legal and
+      does not damage our reputation or take advantage of it, but you must not establish a link in
+      such a way as to suggest any form of association, approval, or endorsement on our part without
+      our express written consent in each instance.
+    </p>
+    <p>
+      The Website may provide certain social media features that enable you to:
       <ul>
         <li>
-          2.2 As a condition to accessing or using the Services, you acknowledge, understand, and
-          agree to the following:
-          <ul>
-            <li>
-              from time to time, the Services may be inaccessible or inoperable for any reason,
-              including: (a) equipment or technology or other infrastructure delay, inaccessibility,
-              or malfunctions; (b) periodic maintenance procedures or repairs that we or any of our
-              suppliers or contractors may undertake from time to time; (c) causes beyond our
-              control or that we could not reasonably foresee; (d) disruptions and temporary or
-              permanent unavailability of underlying blockchain infrastructure; or (e)
-              unavailability of third-party service providers or external partners for any reason.
-              Without limitation of any other provision of these Terms, and as set forth below, we,
-              and any software developers of the Services, have no responsibility or liability for
-              any losses or other injuries resulting from any such events;
-            </li>
-          </ul>
-          <ul>
-            <li>
-              we reserve the right to disable or modify access to the Services (such as restricting
-              features of the Services) at any time in the event of any breach of these Terms,
-              including, if we reasonably believe any of your representations and warranties may be
-              untrue, misleading, or inaccurate, and we will not be liable to you for any losses or
-              damages you may suffer as a result of or in connection with the Services being
-              inaccessible to you at any time or for any reason;
-            </li>
-          </ul>
-          <ul>
-            <li>
-              the Services may evolve, which means we may apply changes, replace, or discontinue
-              (temporarily or permanently) the Services at any time in our sole discretion;
-            </li>
-          </ul>
-          <ul>
-            <li>
-              the pricing information and other data provided on the Site does not represent (i) an
-              offer, a solicitation of an offer, or recommendation to enter into, a transaction with
-              us (other than the payment of any fees to us) or (ii) any advice regarding a
-              transaction entered into using the Services;
-            </li>
-          </ul>
-          <ul>
-            <li>we do not act as an agent for you or any other user of the Services;</li>
-          </ul>
-          <ul>
-            <li>
-              you are solely responsible for your use of the Services, including all of your
-              transfers of Digital Assets;
-            </li>
-          </ul>
-          <ul>
-            <li>
-              to the fullest extent not prohibited by Applicable Law, we, and any software
-              developers of the Services, owe no fiduciary duties or liabilities to you or any other
-              party, and that to the extent any such duties or liabilities may exist at law or in
-              equity, you hereby irrevocably disclaim, waive, and eliminate those duties and
-              liabilities;
-            </li>
-          </ul>
-          <ul>
-            <li>
-              you are solely responsible for reporting and paying any taxes applicable to your use
-              of the Services;
-            </li>
-          </ul>
-          <ul>
-            <li>
-              we have no control over, or liability for, the delivery, quality, safety, legality, or
-              any other aspect of any Digital Assets that you may transfer to or from a third party,
-              and we are not responsible for ensuring that an entity with whom you transact
-              completes the transaction or is authorized to do so, and if you experience a problem
-              with any transactions in Digital Assets using the Services, then you bear the entire
-              risk;
-            </li>
-          </ul>
-          <ul>
-            <li>
-              we may, from time to time, operate contests, promotions, sweepstakes or other
-              activities or offer referral programs (“Promotions and Referrals”), which may be
-              governed by separate terms and conditions and rules that may contain certain
-              eligibility requirements; and you are responsible for reading all terms and conditions
-              and rules relating to the Promotions and Referrals to determine whether you are
-              eligible to participate; if you enter or participate in any Promotions and Referrals,
-              then you agree to abide by and to comply with all terms and conditions and rules of
-              such Promotions and Referrals; all Promotions and Referrals will be optional so you
-              should not enter or participate in such Promotions and Referrals if you do not agree
-              to abide by and comply with all such terms and conditions and rules; and
-            </li>
-          </ul>
-          <ul>
-            <li>
-              if you receive discounts on fees from any Promotions and Referrals that are not
-              subject to separate terms and conditions and rules, then we reserve the right to add
-              to, modify or eliminate the discounts and any other aspect of such Promotions and
-              Referrals.
-            </li>
-          </ul>
+          Link from your own or certain third-party websites to certain content on the Website.
         </li>
-      </ul>
-      <ul>
         <li>
-          2.3 As a condition to accessing or using the Services, you covenant to us the following:
-          <ul>
-            <li>
-              in connection with using the Services, you only will transfer legally-obtained Digital
-              Assets that belong to you;
-            </li>
-          </ul>
-          <ul>
-            <li>
-              you will obey all Applicable Laws in connection with using the Services, and you will
-              not use the Services if the laws of your country, or any other Applicable Law,
-              prohibit you from doing so;
-            </li>
-          </ul>
-          <ul>
-            <li>
-              any Digital Assets you use in connection with the Services are either owned by you or
-              you are validly authorized to carry out actions using such Digital Assets; and
-            </li>
-          </ul>
-          <ul>
-            <li>
-              in addition to complying with all restrictions, prohibitions, and other provisions of
-              these Terms, you will (a) ensure that, at all times, all information that you provide
-              on the Site and during your use of the Services is current, complete, and accurate;
-              and (b) maintain the security and confidentiality of your private keys associated with
-              your public blockchain address, passwords, API keys and other related credentials.
-            </li>
-          </ul>
+          Send emails or other communications with certain content, or links to certain content, on
+          the Website.
         </li>
-      </ul>
-      <p>
-        <strong>3. FEES AND PRICE ESTIMATES</strong>
-      </p>
-      <p>
-        In connection with your use of the Services, unless expressly stated otherwise pursuant to a
-        promotion operated by us, you are required to pay all fees necessary for interacting with
-        any blockchain-based network, including “gas” costs, as well as all other fees reflected on
-        the Site at the time of your use of the Services. Although we attempt to provide accurate
-        fee information, this information reflects our estimates of fees, which may vary from the
-        actual fees paid to use the Services or interact with the applicable blockchain-based
-        network.
-      </p>
-      <p>
-        <strong>4. NO PROFESSIONAL ADVICE OR FIDUCIARY DUTIES</strong>
-      </p>
-      <p>
-        All information provided in connection with your access and use of the Services is for
-        informational purposes only and should not be construed as professional advice. You should
-        not take, or refrain from taking any action based on any information contained on the Site
-        or any other information that we make available at any time, including blog posts, data,
-        articles, links to third-party content, Discord content, news feeds, tutorials, tweets, and
-        videos. Before you make any financial, legal, or other decisions involving the Services, you
-        should seek independent professional advice from an individual who is licensed and qualified
-        in the area for which such advice would be appropriate. The Terms are not intended to, and
-        do not, create or impose any fiduciary duties on us. You further agree that the only duties
-        and obligations that we owe you are those set out expressly in these Terms.
-      </p>
-      <p>
-        <strong>5. PROHIBITED ACTIVITY</strong>
-      </p>
-      <p>
-        You may not use the Services to engage in the categories of activity set forth below
-        (“Prohibited Uses”). The specific activities set forth below are representative, but not
-        exhaustive, of Prohibited Uses. If you are uncertain as to whether your use of the Services
-        involves a Prohibited Use or have other questions about how these requirements apply to you,
-        then please contact us using the information set forth in Section 19. By using the Services,
-        you confirm that you will not engage in any of the following Prohibited Uses:
-      </p>
-      <ul>
         <li>
-          violate any Applicable Laws including any relevant and applicable anti-money laundering
-          and anti-terrorist financing laws and sanctions programs, such as the Bank Secrecy Act and
-          the U.S. Department of Treasury’s Office of Foreign Asset Controls;
+          Cause limited portions of content on the Website to be displayed or appear to be displayed
+          on your own or certain third-party websites.
         </li>
       </ul>
+    </p>
+    <p>
+      You may use these features solely as they are provided by us and solely with respect to the
+      content they are displayed with and otherwise in accordance with any additional terms and
+      conditions we provide with respect to such features. Subject to the foregoing, you must not:
       <ul>
+        <li>Establish a link from any website that is not owned by you.</li>
         <li>
-          engage in transactions involving items that infringe or violate any copyright, trademark,
-          right of publicity or privacy, or any other proprietary right under Applicable Law,
-          including sales, distribution or access to counterfeit music, movies, software or other
-          licensed materials without the appropriate authorization from the rights holder; use of
-          our or our licensors’ intellectual property, name or logo, including use of our trade,
-          service or licensed marks, without express consent from us or in a manner that otherwise
-          harms us; any action that implies an untrue endorsement by or affiliation with us;
+          Cause the Website or portions of it to be displayed on, or appear to be displayed by, any
+          other site, for example, framing, deep linking, or in-line linking.
         </li>
-      </ul>
-      <ul>
         <li>
-          engage in improper or abusive trading practices, including, but not limited to, (a) any
-          fraudulent act or scheme to defraud, deceive, trick or mislead; (b) trading ahead of
-          another user of the Services or front-running; (c) fraudulent trading; (d) accommodation
-          trading; (e) fictitious transactions; (f) pre-arranged or non-competitive transactions;
-          (g) cornering, or attempted cornering, of any Perpetual Contracts or other Digital Assets;
-          (h) violations of bids or offers; (i) wash trading (<em>i.e.</em>, entering buy and sell
-          orders at or about the same price, volume, and time for the purpose of generating trading
-          volume); (j) manipulation (<em>i.e.</em>, trading for the purposes of affecting the market
-          price of a Digital Asset and creating an artificial price); (k) spoofing (<em>i.e.</em>,
-          placing buy or sell orders without a bona fide intent to transact and with the intent to
-          cancel before execution); (l) knowingly making any bid or offer for the purpose of making
-          a market price that does not reflect the true state of the market; (m) entering orders for
-          the purpose of entering into transactions without a net change in either party’s open
-          positions but a resulting profit to one party and a loss to the other party, commonly
-          known as a “money pass;” or (n) any other trading activity that, in our reasonable
-          judgment, is abusive, improper or disruptive to the operation of the Interface.
+          Link to any part of the Website other than the homepage, bridge subdomain, and
+          documentation subdomains.
         </li>
-      </ul>
-      <ul>
         <li>
-          use the Services in any manner that could interfere with, disrupt, negatively affect, or
-          inhibit other users from fully enjoying the Services, or that could damage, disable,
-          overburden, or impair the functioning of the Services in any manner;
+          Otherwise take any action with respect to the materials on the Website that is
+          inconsistent with any other provision of these Terms of Use.
         </li>
       </ul>
-      <ul>
-        <li>
-          circumvent any content-filtering techniques, security measures or access controls that we
-          employ on the Site, including through the use of a VPN;
-        </li>
-      </ul>
-      <ul>
-        <li>
-          use any robot, spider, crawler, scraper or other automated means or interface not provided
-          by us to access the Services, to extract data, or to introduce any malware, virus, Trojan
-          horse, worm, logic bomb, drop-dead device, backdoor, shutdown mechanism or other harmful
-          material into the Services;
-        </li>
-      </ul>
-      <ul>
-        <li>
-          provide false, inaccurate, or misleading information while using the Services or engage in
-          activity that operates to defraud us, other users of the Services or any other person;
-        </li>
-      </ul>
-      <ul>
-        <li>
-          use or access the Services to transmit or exchange Digital Assets that are the direct or
-          indirect proceeds of any criminal or fraudulent activity, including terrorism or tax
-          evasion;
-        </li>
-      </ul>
-      <ul>
-        <li>
-          use the Services in any way that is, in our sole discretion, libelous, defamatory,
-          profane, obscene, pornographic, sexually explicit, indecent, lewd, vulgar, suggestive,
-          harassing, stalking, hateful, threatening, offensive, discriminatory, bigoted, abusive,
-          inflammatory, fraudulent, deceptive or otherwise objectionable, or likely or intended to
-          incite, threaten, facilitate, promote, or encourage hate, racial intolerance or violent
-          acts against others;
-        </li>
-      </ul>
-      <ul>
-        <li>
-          use the Services from a jurisdiction (including an IP address in a jurisdiction) that we
-          have, in our sole discretion, determined is a jurisdiction where the use of the Services
-          is prohibited, including any Blocked Countries or any Restricted Territory;
-        </li>
-      </ul>
-      <ul>
-        <li>
-          harass, abuse or harm another person, including our employees and service providers;
-        </li>
-      </ul>
-      <ul>
-        <li>impersonate another user of the Services or otherwise misrepresent yourself; or</li>
-      </ul>
-      <ul>
-        <li>
-          engage or attempt to engage, or encourage, induce or assist any third party to engage or
-          attempt to engage in any of the activities prohibited under this Section 5 or any other
-          provision of these Terms.
-        </li>
-      </ul>
-      <p>
-        <strong>6. CONTENT</strong>
-      </p>
-      <p>
-        You hereby grant to us a royalty-free, fully paid-up, sublicensable (through multiple
-        tiers), transferable, perpetual, irrevocable, non-exclusive, worldwide license to use, copy,
-        modify, create derivative works of, display, perform, publish and distribute, in any form,
-        medium or manner, any content that is available to other users as a result of your use of
-        the Services (collectively, “Your Content”), including for promoting us or the Services. You
-        represent and warrant that (a) you own Your Content or have the right to grant the rights
-        and licenses in these Terms; and (b) Your Content and our use of Your Content, as licensed
-        herein, does not and will not violate, misappropriate or infringe on any third party’s
-        rights.
-      </p>
-      <p>
-        <strong>7. PROPRIETARY RIGHTS</strong>
-      </p>
-      <ul>
-        <li>
-          7.1. You acknowledge that certain aspects of the Services may use, incorporate or link to
-          certain open-source components and that your use of the Services is subject to, and you
-          will comply with, any applicable open-source licenses and terms of use that govern any
-          such open-source components, including terms of use with respect to v4 software, available
-          at https://dydx.exchange/legal (collectively, the “Open-Source Licenses”). Without
-          limiting the generality of the foregoing, you may not (a) resell, lease, lend, share,
-          distribute, or otherwise permit any third party to use the Services; (b) use the Services
-          for time-sharing or service bureau purposes; or (c) otherwise use the Services in a manner
-          that violates the Open-Source Licenses.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          7.2. Excluding third-party software that the Services incorporates, as between you and us,
-          we own the Services, including all technology, content and other materials used, displayed
-          or provided on the Site or in connection with the Services (including all intellectual
-          property rights subsisting therein, whether or not subject to the Open-Source Licenses),
-          and hereby grants you a limited, non-exclusive, revocable, non-transferable,
-          non-sublicensable license to access and use those portions of the Services that are
-          proprietary to us and not available pursuant to the Open-Source Licenses.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          7.3. Any of our product or service names, logos, and other marks used as a part of the
-          Services, including our name and logo, are trademarks owned by us or our licensors. You
-          may not copy, imitate, or use them without the prior written consent of us or the
-          applicable licensors, and these Terms do not grant you any rights in those trademarks. You
-          may not remove, obscure, or alter any legal notices displayed in or along with the
-          Services.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          7.4. The Services are non-custodial. When you deposit Digital Assets into any smart
-          contract available on the Interface, you are not transferring Digital Assets to us, and
-          you retain control over those Digital Assets at all times. The private key associated with
-          the blockchain address from which you transfer Digital Assets is the only private key that
-          can control the Digital Assets you transfer into the smart contracts available on the
-          Interface.
-        </li>
-      </ul>
-      <p>
-        <strong>8. LINKS</strong>
-      </p>
-      <p>
-        The Services or third parties may provide links to other World Wide Web or accessible sites,
-        applications, or resources. You acknowledge and agree that we are not responsible for the
-        availability of such external sites, applications or resources, and do not endorse and are
-        not responsible or liable for any content, advertising, products, or other materials on or
-        available from such sites or resources. You further acknowledge and agree that we will not
-        be responsible or liable, directly or indirectly, for any damage or loss caused or alleged
-        to be caused by or in connection with use of or reliance on any such content, goods, or
-        services available on or through any such site or resource.
-      </p>
-      <p>
-        <strong>9. MODIFICATION, SUSPENSION, AND TERMINATION</strong>
-      </p>
-      <p>
-        We may, at our sole discretion, from time to time and with or without prior notice to you,
-        modify, suspend or disable (temporarily or permanently) the Services, in whole or in part,
-        for any reason whatsoever, including to only allow open Perpetual Contracts to be closed.
-        Upon termination of your access, your right to use the Services will immediately cease. We
-        will not be liable for any losses suffered by you resulting from any modification to any
-        Services or from any modification, suspension or termination, for any reason, of your access
-        to all or any portion of the Services. The following sections of these Terms will survive
-        any termination of your access to the Services, regardless of the reasons for its expiration
-        or termination, in addition to any other provision which by law or by its nature should
-        survive: Section 7 and Sections 9 through Section 17.
-      </p>
-      <p>
-        <strong>10. RISKS</strong>
-      </p>
-      <ul>
-        <li>
-          10.1. By accessing or using the Services , you understand and agree to the inherent risks
-          associated with cryptographic systems and blockchain-based networks; Digital Assets,
-          including the usage and intricacies of native Digital Assets; smart contract-based tokens,
-          including fungible tokens and NFTs; and systems that interact with blockchain-based
-          networks. We do not own or control any of the underlying software through which blockchain
-          networks are formed. In general, the software underlying blockchain-based networks is open
-          source, such that anyone can use, copy, modify, and distribute it. By using the Services,
-          you acknowledge and agree (a) that we are not responsible for the operation of the
-          blockchain-based software and networks underlying the Services, (b) that there exists no
-          guarantee of the functionality, security, or availability of that software and networks,
-          and (c) that the underlying blockchain-based networks are subject to sudden changes in
-          operating rules, such as those commonly referred to as “forks,” which may materially
-          affect the Services. Blockchain networks use public and private key cryptography. You
-          alone are responsible for securing your private key(s). We do not have access to your
-          private key(s). Losing control of your private key(s) will permanently and irreversibly
-          deny you access to Digital Assets on the applicable blockchain-based networks. Neither we
-          nor any other person or entity will be able to retrieve or protect your Digital Assets. If
-          your private key(s) are lost, then you will not be able to transfer your Digital Assets to
-          any other blockchain address or wallet. If this occurs, then you will not be able to
-          realize any value or utility from the Digital Assets that you may hold.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          10.2. You acknowledge and understand that the Services and your Digital Assets could be
-          impacted by one or more regulatory inquiries or regulatory actions, which could impede or
-          limit our ability to continue to make available our proprietary software and could impede
-          or limit your ability to access or use the Services.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          10.3. You acknowledge and understand that cryptography is a progressing field with
-          advances in code cracking or other technical advancements, such as the development of
-          quantum computers, which may present risks to Digital Assets and the Services, and could
-          result in the theft or loss of your Digital Assets. To the extent possible, the smart
-          contracts available on the Interface will be updated to account for any advances in
-          cryptography and to incorporate additional security measures necessary to address risks
-          presented from technological advancements, but that intention does not guarantee or
-          otherwise ensure full security of the Services.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          10.4. You understand that blockchain-based networks remain under development, which
-          creates technological and security risks when using the Services in addition to
-          uncertainty relating to Digital Assets and transactions therein. You acknowledge that the
-          cost of transacting on any blockchain-based network is variable and may increase at any
-          time causing impact to any activities taking place on the applicable blockchain-based
-          network, which may result in price fluctuations or increased costs when using the
-          Services.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          10.5. You acknowledge that the Services are subject to flaws and that you are solely
-          responsible for evaluating any code provided relating to the Services. This warning and
-          other warnings that we provide in these Terms are in no way evidence or represent an
-          on-going duty to alert you to all of the potential risks of utilizing the Services.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          10.6. Although we intend to provide accurate and timely information and data on the Site
-          and during your use of the Services, the Site and other information available when using
-          the Services may not always be entirely accurate, complete, or current and may also
-          include technical inaccuracies or typographical errors. To continue to provide you with as
-          complete and accurate information as possible, information may be changed or updated from
-          time to time without notice, including information regarding our policies. Accordingly,
-          you acknowledge and understand that you should verify all information before relying on
-          it, and all decisions based on information contained on as part of the Services are your
-          sole responsibility. No representation is made as to the accuracy, completeness, or
-          appropriateness for any particular purpose of any pricing information distributed via the
-          Site or otherwise when using the Services. Prices and pricing information may be higher or
-          lower than prices available on platforms providing similar services.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          10.7. Any use or interaction with the Services requires a comprehensive understanding of
-          applied cryptography and computer science to appreciate the inherent risks, including
-          those listed above. You represent and warrant that you possess relevant knowledge and
-          skills. Any reference to a type of Digital Asset on the Site or otherwise during the use
-          of the Services does not indicate our approval or disapproval of the technology on which
-          the Digital Asset relies, and should not be used as a substitute for your understanding of
-          the risks specific to each type of Digital Asset.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          10.8. Use of the Services in particular for entering into Perpetual Contracts may carry
-          financial risk. Digital Assets, especially in connection with Perpetual Contracts, are, by
-          their nature, highly experimental, risky, and volatile. Transactions entered into in
-          connection with the Services are irreversible, final and there are no refunds. You
-          acknowledge and agree that you will access and use the Services at your own risk. The risk
-          of loss in trading Digital Assets, especially entering into Perpetual Contracts, can be
-          substantial. You should, therefore, carefully consider whether such trading is suitable
-          for you in light of your circumstances and financial resources. By using the Services, you
-          represent and warrant that you have been, are, and will be solely responsible for making
-          your independent appraisal and investigations into the risks of a given transaction and
-          the underlying Digital Assets, including Perpetual Contracts. You represent that you have
-          sufficient knowledge, market sophistication, professional advice, and experience to make
-          your evaluation of the merits and risks of any transaction conducted in connection with
-          the Services or any Digital Asset. You accept all consequences of using the Services,
-          including the risk that you may lose access to your Digital Assets indefinitely. All
-          transaction decisions are made solely by you. Notwithstanding anything in these Terms, we
-          accept no responsibility whatsoever for, and will in no circumstances be liable to you for
-          any loss or injury sustained by you or any third parties in connection with, your use of
-          the Services for performing Digital Asset transactions, including entering into Perpetual
-          Contracts.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          10.9. We must comply with Applicable Law, which may require us to, upon request by
-          government agencies, take certain actions or provide information. You acknowledge and
-          understand that we may in our sole discretion take any action it deems appropriate to
-          cooperate with government agencies or comply with Applicable Law.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          10.10. You understand that you are responsible for all trades you place, including any
-          erroneous orders that may be filled. We do not take any action to resolve erroneous trades
-          that result from your errors.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          10.11. You hereby assume the risks set forth in this Section 10 and Section 2, and
-          acknowledge and agree that we will have no responsibility or liability for the risks set
-          forth in this Section 10. You hereby irrevocably waive, release and discharge all claims,
-          whether known or unknown to you, against us and our shareholders, members, directors,
-          officers, employees, agents, and representatives, suppliers, and contractors
-          (“Representatives”) related to any of the risks set forth in this Section 10 and Section
-          2.
-        </li>
-      </ul>
-      <p>
-        <strong>11. INDEMNIFICATION</strong>
-      </p>
-      <p>
-        You will defend, indemnify, and hold harmless us and our Representatives (collectively,
-        “Indemnified Parties”) from any claim, demand, lawsuit, action, proceeding, investigation,
-        liability, damage, loss, cost or expense, including reasonable attorneys’ fees, arising out
-        of or relating to (a) your use of, or conduct in connection with the Services; (b) Digital
-        Assets associated with your blockchain address; (c) any feedback or user content you provide
-        to us, if any, concerning the Services; (d) your violation of these Terms; or (e) your
-        infringement or misappropriation of the rights of any other person or entity. If you are
-        obligated to indemnify any Indemnified Party, us (or, at our sole discretion, the applicable
-        Indemnified Party) will have the right, in our or its sole discretion, to control any action
-        or proceeding and to determine whether we wish to settle, and if so, on what terms, and you
-        agree to cooperate with us in the defense.
-      </p>
-      <p>
-        <strong>12. DISCLOSURES; DISCLAIMERS</strong>
-      </p>
-      <ul>
-        <li>
-          12.1 We are a developer of software. We do not operate a Digital Asset or derivatives
-          exchange platform or offer trade execution or clearing services and have no oversight,
-          involvement, or control concerning your transactions using the Services. All transactions
-          between users of the Interface are executed peer-to-peer directly between the users’
-          blockchain addresses through a smart contract. You are responsible for complying with all
-          Applicable Laws that govern your Digital Assets. As a result of restrictions under the
-          Commodity Exchange Act and the regulations promulgated thereunder by the U.S. Commodity
-          Futures Trading Commission (“CFTC”), no Blocked Person may enter into Perpetual Contracts
-          using the Services.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          12.2 You understand that we are not registered or licensed by any regulatory agency or
-          authority. No such agency or authority has reviewed or approved the use of the Services.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          12.3 To the maximum extent permitted under Applicable Law, the Services (and any of their
-          content or functionality) provided by or on behalf of us are provided on an “AS IS” and
-          “AS AVAILABLE” basis, and we expressly disclaim, and you hereby waive, any
-          representations, conditions or warranties of any kind, whether express or implied, legal,
-          statutory or otherwise, or arising from statute, otherwise in law, course of dealing, or
-          usage of trade, including the implied or legal warranties and conditions of
-          merchantability, merchantable quality, quality or fitness for a particular purpose, title,
-          security, availability, reliability, accuracy, quiet enjoyment and non-infringement of
-          third party rights. Without limiting the foregoing, we do not represent or warrant that
-          the Services (including any data relating thereto) will be uninterrupted, available at any
-          particular time, or error-free. Further, we do not warrant that errors in the Services are
-          correctable or will be correctable.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          12.4 You acknowledge that data you provide while accessing or using the Services may
-          become irretrievably lost or corrupted or temporarily unavailable due to a variety of
-          causes, and agree that, to the maximum extent permitted under Applicable Law, we will not
-          be liable for any loss or damage caused by denial-of-service attacks, software failures,
-          viruses or other technologically harmful materials (including those which may infect your
-          computer equipment), protocol changes by third-party providers, Internet outages, force
-          majeure events or other disasters, scheduled or unscheduled maintenance, or other causes
-          either within or outside of our control.
-        </li>
-      </ul>
-      <p>
-        <strong>13. LIMITATION OF DAMAGES; EXCLUSION OF CONSEQUENTIAL AND RELATED DAMAGES</strong>
-      </p>
-      <ul>
-        <li>
-          13.1 Without limitation of any other provision of these Terms, you hereby agree that
-          neither we, any software developers of the Services nor any of its Representatives will
-          have any responsibility or liability whatsoever for any loss or injury sustained by you or
-          any third parties as a result of (i) any equipment or technology or other infrastructure
-          delay, inaccessibility, or malfunctions; (ii) periodic maintenance procedures or repairs
-          that we or any of our suppliers or contractors may undertake from time to time; (iii)
-          causes beyond our control or that we could not reasonably foresee; (iv) disruptions and
-          temporary or permanent unavailability of underlying blockchain infrastructure; or (v)
-          unavailability of third-party service providers or external partners for any reason. Under
-          no circumstances will we or our Representatives have any liability for any such loss or
-          injury caused by any of the foregoing events, including but not limited to any obligation
-          to cover or reimburse any damages or losses caused by such events. You expressly
-          acknowledge that any risk of loss resulting from such events shall be borne by you, and
-          you expressly assume any and all such risks.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          13.2 In no event will we, our suppliers and contractors, and our or our suppliers’ and
-          contractors’ respective stockholders, members, directors, officers, managers, employees,
-          attorneys, agents, representatives, suppliers and contractors (collectively, the “Risk
-          Limited Parties”) be liable for any incidental, indirect, special, punitive, consequential
-          or similar damages or liabilities whatsoever (including damages for loss of fiat, assets,
-          data, information, revenue, opportunities, use, goodwill, profits or other business or
-          financial benefit) arising out of or in connection with the Services (and any of their
-          content and functionality), any execution or settlement of a transaction, any performance
-          or non-performance of the Services, your Digital Assets, Perpetual Contracts or any other
-          product, service or other item provided by or on behalf of us, whether under contract,
-          tort (including negligence), civil liability statute strict liability breach of warranties
-          or under any other theory of liability and whether or not we have been advised of, knew of
-          or should have known of the possibility of such damages and, notwithstanding any failure
-          of the essential purpose of these Terms or any limited remedy hereunder, nor are we in any
-          way responsible for the execution or settlement of transactions between users of the
-          Services.
-        </li>
-      </ul>
-      <p>
-        <strong>14. LIMITATION OF LIABILITY</strong>
-      </p>
-      <p>
-        Without limitation of any provision of these Terms, in the event that we or any related
-        party are found liable under these Terms, our aggregate liability (together with our equity
-        owners, members, directors, managers, officers, employees, attorneys, agents,
-        representatives, suppliers, or contractors), arising out of or in connection with your use
-        of the Services (and any of their content and functionality), any performance or
-        nonperformance of the Services, your Digital Assets, Perpetual Contracts or any other
-        product, service or other item provided by us or on our behalf, whether under contract, tort
-        (including negligence), civil liability, statute, strict liability or other theory of
-        liability, will be one hundred U.S. dollars ($100).
-      </p>
-      <p>
-        <strong>15. DISPUTE RESOLUTION AND ARBITRATION</strong>
-      </p>
-      <p>
-        PLEASE READ THE FOLLOWING SECTION CAREFULLY BECAUSE IT MAY SIGNIFICANTLY IMPACT YOUR LEGAL
-        RIGHTS, INCLUDING YOUR RIGHT TO BRING A LAWSUIT AGAINST US IN ANY COURT OR GOVERNING
-        AUTHORITY. EXCEPT AS EXPRESSLY PROVIDED BELOW, THIS SECTION REQUIRES YOU TO SUBMIT ANY
-        DISPUTE, CLAIM, OR DISAGREEMENT (EACH A “DISPUTE”) ARISING OUT OF THESE TERMS OR THE
-        SERVICES, INCLUDING ANY DISPUTE THAT AROSE BEFORE THE EFFECTIVE DATES OF THESE TERMS, TO
-        BINDING INDIVIDUAL ARBITRATION. THIS SECTION EXTENDS TO DISPUTES THAT AROSE OR INVOLVE FACTS
-        OCCURING BEFORE THE EXISTENCE OF THIS OR ANY PRIOR VERSIONS OF THE TERMS AS WELL AS DISPUTES
-        THAT MAY ARISE AFTER THE TERMINATION OF THE TERMS.
-      </p>
-      <p>
-        You and we agree that any Dispute arising out of or related to these Terms or the Services
-        is personal to you and us and that any Dispute will be resolved solely through individual
-        arbitration, and will not be brought as a class arbitration, class action, or any other type
-        of representative proceeding.
-      </p>
-      <p>
-        Nothing in this Section precludes you or we from bringing an individual action for damages
-        in a small claims court if such claims qualify and remain in small claims court, or from
-        seeking injunctive or other equitable relief in court for infringement or other alleged
-        misuse of intellectual property rights (such as trademarks, trade dress, domain names, trade
-        secrets, copyrights, and patents).
-      </p>
-      <p>
-        Except as specified above, you and we waive the rights to a judge or jury trial or to have
-        any Dispute arising out of or related to these Terms or the Services resolved in court.
-        Instead, for any Dispute that you have against us or relating in any way to the Services,
-        you agree to first contact us and attempt to resolve the claim informally by sending a
-        written notice of your claim (“Notice”) to us by email using the information set forth in
-        Section 19. The Notice must (a) include your name, residence address, email address, and
-        telephone number; (b) describe the nature and basis of the claim; and (c) set forth the
-        specific relief sought. Our notice to you will be similar in form to that described above.
-        If you and we cannot reach an agreement to resolve the claim within thirty (30) days after
-        such Notice is received, then either party may submit the Dispute to binding arbitration
-        administered by JAMS or, under the limited circumstances set forth above, in court. All
-        Disputes submitted to JAMS will be resolved through confidential, binding arbitration before
-        one arbitrator. Arbitration proceedings will be held in San Francisco, California, under the
-        JAMS Streamlined Arbitration Rules and Procedures (“JAMS Rules”). The most recent version of
-        the JAMS Rules is available on the JAMS website and are hereby incorporated by reference.
-        You either acknowledge and agree that you have read and understand the JAMS Rules or waive
-        your opportunity to read the JAMS Rules and waive any claim that the JAMS Rules are unfair
-        or should not apply for any reason.
-      </p>
-      <p>
-        You and we agree that these Terms affect interstate commerce and that the enforceability of
-        this Section 15 will be substantively and procedurally governed by the Federal Arbitration
-        Act, 9 U.S.C. § 1, et seq. (the “FAA”), to the maximum extent permitted by applicable law.
-        As limited by the FAA, these Terms and the JAMS Rules, the arbitrator will have exclusive
-        authority to make all procedural and substantive decisions regarding any dispute and to
-        grant any remedy that would otherwise be available in court, including the power to
-        determine the question of arbitrability. The arbitrator may conduct only an individual
-        arbitration and may not consolidate more than one individual’s claims, preside over any type
-        of class or representative proceeding or preside over any proceeding involving more than one
-        individual.
-      </p>
-      <p>
-        The arbitrator, we, and you will maintain the confidentiality of any arbitration
-        proceedings, judgments and awards, including all information gathered, prepared, and
-        presented for purposes of the arbitration or related to the dispute(s) therein. The
-        arbitrator will have the authority to make appropriate rulings to safeguard confidentiality
-        unless the law provides to the contrary. The duty of confidentiality does not apply to the
-        extent that disclosure is necessary to prepare for or conduct the arbitration hearing on the
-        merits, in connection with a court application for a preliminary remedy or in connection
-        with a judicial challenge to an arbitration award or its enforcement, or to the extent that
-        disclosure is otherwise required by law or judicial decision.
-      </p>
-      <p>
-        You and we agree that for any arbitration you initiate, you will pay the filing fee and all
-        other JAMS fees and costs. For any arbitration initiated by us, we will pay all JAMS fees
-        and costs. You and we agree that the state or federal courts of the State of Delaware have
-        exclusive jurisdiction over the enforcement of an arbitration award.
-      </p>
-      <p>
-        Any claim arising out of or related to these Terms or the Services must be filed within one
-        (1) year after such claim arose; otherwise, the claim is permanently barred, which means
-        that you and we will not have the right to assert the claim.
-      </p>
-      <p>
-        If any portion of this Section 15 is found to be unenforceable or unlawful for any reason,
-        (a) the unenforceable or unlawful provision will be severed from these Terms; (b) severance
-        of the unenforceable or unlawful provision will have no impact whatsoever on the remainder
-        of this Section 15 or the parties’ ability to compel arbitration of any remaining claims on
-        an individual basis under this Section 15; and (c) to the extent that any claims must
-        therefore proceed on a class, collective, consolidated, or representative basis, such claims
-        must be litigated in a civil court of competent jurisdiction and not in arbitration, and the
-        parties agree that litigation of those claims will be stayed pending the outcome of any
-        individual claims in arbitration. Further, if any part of this Section 15 is found to
-        prohibit an individual claim seeking public injunctive relief, then that provision will have
-        no effect to the extent such relief is allowed to be sought out of arbitration, and the
-        remainder of this Section 15 will be enforceable.
-      </p>
-      <p>
-        <strong>16. GOVERNING LAW</strong>
-      </p>
-      <p>
-        The interpretation and enforcement of these Terms, and any Dispute related to these Terms or
-        the Services, will be governed by and construed and enforced under the laws of the State of
-        Delaware, as applicable, without regard to conflict of law rules or principles (whether of
-        the State of Delaware or any other jurisdiction) that would cause the application of the
-        laws of any other jurisdiction. You agree that we may initiate a proceeding related to the
-        enforcement or validity of our intellectual property rights in any court having
-        jurisdiction. For any other proceeding that is not subject to arbitration under these Terms,
-        the state and federal courts located in Delaware will have exclusive jurisdiction. You waive
-        any objection to venue in any such courts.
-      </p>
-      <p>
-        <strong>17. GENERAL INFORMATION</strong>
-      </p>
-      <ul>
-        <li>
-          17.1. Please refer to our privacy policy, which is incorporated herein by reference and
-          available on the Site, for information about how we collect, use, share and otherwise
-          process information about you.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          17.2. You consent to receive all communications, agreements, documents, receipts, notices,
-          and disclosures electronically (collectively, our “Communications”) that we provide in
-          connection with these Terms or any Services. You agree that we may provide our
-          Communications to you by posting them on the Site, by emailing them to you at the email
-          address you provide in connection with using the Services, if any, or by Telegram at the
-          username you provided to us during the course of your use of the Services. You should
-          maintain copies of our Communications by printing a paper copy or saving an electronic
-          copy. You may also contact us with questions, complaints, or claims concerning the
-          Services using the information set forth in Section 19.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          17.3. Any of our right or remedy set forth in these Terms is in addition to, and not in
-          lieu of, any other right or remedy whether described in these Terms, under Applicable Law,
-          at law, or in equity. The failure or delay in exercising any right, power, or privilege
-          under these Terms will not operate as a waiver thereof.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          17.4. The invalidity or unenforceability of any of these Terms will not affect the
-          validity or enforceability of any other of these Terms, all of which will remain in full
-          force and effect.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          17.5. We will have no responsibility or liability for any failure or delay in performance
-          of any of the Services, or any loss or damage that you may incur, due to any circumstance
-          or event beyond our control, including any flood, extraordinary weather conditions,
-          earthquake, or other act of God, fire, war, insurrection, riot, labor dispute, accident,
-          action of government, communications, power failure, or equipment or software malfunction.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          17.6. You may not assign or transfer any right to use the Services, or any of your rights
-          or obligations under these Terms, without our express prior written consent, including by
-          operation of law or in connection with any change of control. We may assign or transfer
-          any or all of our rights or obligations under these Terms, in whole or in part, with or
-          without notice or obtaining your consent or approval.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          17.7. Except to the extent otherwise provided or unless the context otherwise requires,
-          for the purposes of these Terms: (a) headings of sections are for convenience only and
-          will not be used to limit or construe such sections; (b) whenever the words “include,”
-          “includes” or “including” are used in these Terms, they are deemed to be followed by the
-          words “without limitation”; and (c) the use of “or” is not intended to be exclusive.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          17.8. These Terms contain the entire agreement between you and us, and supersede all prior
-          and contemporaneous understandings between the parties with respect to the Services.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          17.9. In the event of any conflict between these Terms and any other agreement you may
-          have with us, these Terms will control unless such other agreement specifically identifies
-          these Terms and declares that such other agreement supersedes these Terms.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          17.10. You agree that, except as otherwise expressly provided in this Agreement, there are
-          no third-party beneficiaries to the Agreement other than the Indemnified Parties.
-        </li>
-      </ul>
-      <p>
-        <strong>18. APPLE-ENABLED SOFTWARE</strong>
-      </p>
-      <p>
-        With respect to any mobile application that is made available by us for your use in
-        connection with an Apple-branded product (the “Apple-Enabled Software”), in addition to the
-        other terms and conditions set forth in these Terms, the following terms and conditions
-        apply:
-      </p>
-      <ul>
-        <li>
-          we and you acknowledge that these Terms are concluded only between us and you, and not
-          with Apple Inc. or its affiliates (collectively, “Apple”), and that as between us and
-          Apple, we, not Apple, is solely responsible for the Apple-Enabled Software and the content
-          thereof.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          You may not use the Apple-Enabled Software in any manner that is in violation of or
-          inconsistent with the Usage Rules set forth for Apple-Enabled Software in, or otherwise be
-          in conflict with, the Apple Media Services Terms and Conditions (the “Usage Rules”).
-        </li>
-      </ul>
-      <ul>
-        <li>
-          Your license to use the Apple-Enabled Software is limited to a non-transferable license to
-          use the Apple-Enabled Software on an iOS product that you own or control, as permitted by
-          the Usage Rules.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          Apple has no obligation whatsoever to provide any maintenance or support services with
-          respect to the Apple-Enabled Software.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          Apple is not responsible for any product warranties, whether express or implied by law. In
-          the event of any failure of the Apple-Enabled Software to conform to any applicable
-          warranty, you may notify Apple, and Apple will refund the purchase price for the
-          Apple-Enabled Software, if any, to you; and, to the maximum extent permitted by applicable
-          law, Apple will have no other warranty obligation whatsoever with respect to the
-          Apple-Enabled Software, or any other claims, losses, liabilities, damages, costs, or
-          expenses attributable to any failure to conform to any warranty, which will be our sole
-          responsibility, to the extent it cannot be disclaimed under applicable law.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          we and you acknowledge that we, not Apple, is responsible for addressing any claims of you
-          or any third party relating to the Apple-Enabled Software or your possession or use of
-          that Apple-Enabled Software, including: (a) product liability claims; (b) any claim that
-          the Apple-Enabled Software fails to conform to any applicable legal or regulatory
-          requirement; and (c) claims arising under consumer protection, privacy, or similar
-          legislation.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          In the event of any third-party claim that the Apple-Enabled Software or your possession
-          and use of that Apple-Enabled Software infringes that third party’s intellectual property
-          rights, as between us and Apple, we, not Apple, will be solely responsible for the
-          investigation, defense, settlement, and discharge of any such intellectual property
-          infringement claim.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          You represent and warrant that (i) you are not located in a country that is subject to a
-          United States government embargo, or that has been designated by the United States
-          government as a “terrorist supporting” country; and (ii) you are not listed on any United
-          States government list of prohibited or restricted parties.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          You must comply with applicable third-party terms of agreement when using the
-          Apple-Enabled Software, including your wireless data service agreement.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          we and you acknowledge and agree that Apple, and Apple’s subsidiaries, are third-party
-          beneficiaries of these Terms with respect to the Apple-Enabled Software, and that, upon
-          your acceptance of the terms and conditions of these Terms, Apple will have the right (and
-          will be deemed to have accepted the right) to enforce these Terms against you with respect
-          to the Apple-Enabled Software as a third-party beneficiary thereof.
-        </li>
-      </ul>
-      <ul>
-        <li>
-          If you have any questions, complaints, or claims with respect to the Apple-Enabled
-          Software, the foregoing should be directed to us in accordance with Section 17.2.
-        </li>
-      </ul>
-      <p>
-        <strong>19. CONTACT INFORMATION</strong>
-      </p>
-    </div>
+    </p>
+    <p>
+      You agree to cooperate with us in causing any unauthorized framing or linking immediately to
+      stop. We reserve the right to withdraw linking permission without notice.
+    </p>
+    <p>
+      We may disable all or any social media features and any links at any time without notice in
+      our discretion.
+    </p>
+
+    <h2>Links from the Website</h2>
+    <p>
+      If the Website contains links to and access to third-party content and resources, these links
+      are provided for your convenience only. This includes links contained in advertisements,
+      including banner advertisements and sponsored links, and digital asset trading protocols,
+      among other things. We have no control over the contents of those sites or resources, and
+      accept no responsibility for them or for any loss or damage that may arise from your use of
+      them. If you decide to access any of the third-party websites linked on the Website, you do so
+      entirely at your own risk and subject to the terms and conditions of use for such websites.
+    </p>
+
+    <h2>Geographic Restrictions</h2>
+    <p>
+      The owner of the Website is formed in the Cayman Islands. We make no claims that the Website
+      or any of their contents are accessible or appropriate for Blocked Persons or Restricted
+      Persons. Access to the Website by Blocked Persons or Restricted Persons may not be legal.
+    </p>
+
+    <h2>Disclaimer of Warranties</h2>
+    <p>
+      You understand that we cannot and do not guarantee or warrant that files available on the
+      internet or the Website will be free of Malicious Code. You are responsible for implementing
+      sufficient procedures and checkpoints to satisfy your particular requirements for anti-virus
+      protection and accuracy of data input and output, and for maintaining a means external to our
+      Website for any reconstruction of any lost data, including any information in your digital
+      wallet.
+    </p>
+    <p>
+      TO THE FULLEST EXTENT PERMITTED BY LAW, WE WILL NOT BE LIABLE FOR ANY LOSS OR DAMAGE CAUSED BY
+      A DISTRIBUTED DENIAL-OF-SERVICE ATTACK, VIRUSES, OR OTHER TECHNOLOGICALLY HARMFUL MATERIAL
+      THAT MAY INFECT YOUR COMPUTER EQUIPMENT, COMPUTER PROGRAMS, DATA, YOUR DIGITAL WALLET, OR
+      PROPRIETARY MATERIAL DUE TO YOUR USE OF THE WEBSITE, YOUR TRANSACTIONS OR EXCHANGES THROUGH
+      TOOLS ACCESSED THROUGH THE WEBSITE, OR YOUR ACCESS TO ANY MATERIAL, PROTOCOLS, SMART CONTRACTS
+      OR OTHER TOOLS PROVIDED ON OR THROUGH THE WEBSITE, POSTED ON THEM, OR POSTED ON ANY
+      THIRD-PARTY CONTENT OR BLOCKCHAINS LINKED TO THE WEBSITE.
+    </p>
+    <p>
+      YOUR USE OF THE WEBSITE, ITS CONTENT, AND ANY SERVICES OR ITEMS OBTAINED THROUGH THE WEBSITE
+      IS AT YOUR OWN RISK. THE WEBSITE, ITS CONTENT, AND ANY SERVICE OR ITEMS OBTAINED THROUGH THE
+      WEBSITE ARE PROVIDED ON AN “AS IS” AND “AS AVAILABLE” BASIS, WITHOUT ANY WARRANTIES OF ANY
+      KIND, EITHER EXPRESS OR IMPLIED. NEITHER COMPANY NOR ANY PERSON ASSOCIATED WITH COMPANY MAKES
+      ANY WARRANTY OR REPRESENTATION WITH RESPECT TO THE COMPLETENESS, SECURITY, RELIABILITY,
+      QUALITY, ACCURACY, OR AVAILABILITY OF THE WEBSITE. WITHOUT LIMITING THE FOREGOING, NEITHER
+      COMPANY NOR ANYONE ASSOCIATED WITH COMPANY REPRESENTS OR WARRANTS THAT THE WEBSITE, ITS
+      CONTENT, OR ANY SERVICE OR ITEMS OBTAINED OR ACCESSIBLE THROUGH THE WEBSITE INCLUDING THE
+      PROTOCOL AND ANY SMART CONTRACTS, WILL BE ACCURATE, RELIABLE, ERROR-FREE, OR UNINTERRUPTED,
+      THAT DEFECTS WILL BE CORRECTED, THAT OUR WEBSITE OR THE SERVER THAT MAKES IT AVAILABLE ARE
+      FREE OF MALICIOUS CODE OR OTHER HARMFUL COMPONENTS, OR THAT THE WEBSITE OR ANY SERVICES OR
+      ITEMS OBTAINED OR ACCESSED THROUGH THE WEBSITE WILL OTHERWISE MEET YOUR NEEDS OR EXPECTATIONS.
+    </p>
+    <p>
+      TO THE FULLEST EXTENT PERMITTED BY LAW, COMPANY HEREBY DISCLAIMS ALL WARRANTIES OF ANY KIND,
+      WHETHER EXPRESS OR IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING BUT NOT LIMITED TO ANY
+      WARRANTIES OF MERCHANTABILITY, NON-INFRINGEMENT, AND FITNESS FOR PARTICULAR PURPOSE.
+    </p>
+    <p>
+      THE FOREGOING DOES NOT AFFECT ANY WARRANTIES THAT CANNOT BE EXCLUDED OR LIMITED UNDER
+      APPLICABLE LAW.
+    </p>
+
+    <h2>Limitation on Liability</h2>
+    <p>
+      TO THE FULLEST EXTENT PERMITTED BY LAW, IN NO EVENT WILL COMPANY, ITS AFFILIATES, OR THEIR
+      LICENSORS, SERVICE PROVIDERS, EMPLOYEES, AGENTS, SHAREHOLDERS, OWNERS, MEMBERS, OFFICERS, OR
+      DIRECTORS BE LIABLE FOR DAMAGES OF ANY KIND, UNDER ANY LEGAL THEORY, ARISING OUT OF OR IN
+      CONNECTION WITH YOUR USE OF OR ACCESS TO, OR INABILITY TO USE OR ACCESS, THE WEBSITE, THE
+      THIRD-PARTY PROTOCOL OR ANY SMART CONTRACTS MADE ACCESSIBLE ON OR THROUGH THE WEBSITE, ANY
+      WEBSITES LINKED TO THE WEBSITE, ANY CONTENT ON THE WEBSITE OR SUCH OTHER WEBSITES, INCLUDING
+      ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT
+      NOT LIMITED TO, PERSONAL INJURY, PAIN AND SUFFERING, EMOTIONAL DISTRESS, LOSS OF REVENUE, LOSS
+      OF PROFITS, LOSS OF INCOME, LOSS OF BUSINESS OR ANTICIPATED SAVINGS, LOSS OF USE, LOSS OF
+      GOODWILL, LOSS OF DATA, AND WHETHER CAUSED BY TORT (INCLUDING NEGLIGENCE), BREACH OF CONTRACT,
+      OR OTHERWISE, EVEN IF FORESEEABLE.
+    </p>
+    <p>
+      THE FOREGOING DOES NOT AFFECT ANY LIABILITY THAT CANNOT BE EXCLUDED OR LIMITED UNDER
+      APPLICABLE LAW.
+    </p>
+
+    <h2>Indemnification</h2>
+    <p>
+      You agree to defend, indemnify, and hold harmless Company, its affiliates, licensors, and
+      service providers, and its and their respective officers, directors, employees, contractors,
+      agents, licensors, suppliers, successors, and assigns (each an <b>“Indemnified Party”</b>)
+      from and against any claims, liabilities, damages, judgments, awards, losses, costs, expenses,
+      or fees (including reasonable attorneys’ fees and legal costs) arising out of or relating to
+      your violation of these Terms of Use or your use of the Website.
+    </p>
+
+    <h2>Third Party Rights</h2>
+    <p>
+      Any Indemnified Party not being a party to these Terms of Use may enforce any rights granted
+      to it pursuant to these Terms of Use in its own right as if it were a party to these Terms of
+      Use. Unless expressly provided to the contrary in these Terms of Use, a person who is not a
+      party to these Terms of Use shall not have any rights under the Contracts (Rights of Third
+      Parties) Act (as amended) of the Cayman Islands to enforce any term of these Terms of Use.
+      Notwithstanding any term of these Terms of Use, the consent of or notice to any person who is
+      not a party to these Terms of Use shall not be required for any termination, rescission or
+      agreement to any variation, waiver, assignment, novation, release or settlement under these
+      Terms of Use at any time.
+    </p>
+
+    <h2>Governing Law and Jurisdiction</h2>
+    <p>
+      All matters relating to the Website and these Terms of Use and any dispute or claim arising
+      therefrom or related thereto (in each case, including non-contractual disputes or claims),
+      shall be governed by and construed in accordance with the internal laws of the Cayman Islands
+      without giving effect to any choice or conflict of law provision or rule (whether of the
+      Cayman Islands or any other jurisdiction).
+    </p>
+    <p>
+      Any legal suit, action, or proceeding arising out of, or related to, these Terms of Use or the
+      Website shall be instituted exclusively in the courts of the Cayman Islands although we retain
+      the right to bring any suit, action, or proceeding against you for breach of these Terms of
+      Use in your country of residence or any other relevant country. You waive any and all
+      objections to the exercise of jurisdiction over you by such courts and to venue in such
+      courts.
+    </p>
+
+    <h2>Arbitration</h2>
+    <p>
+      Any controversy, dispute or claim between the parties arising out of or relating to these
+      Terms of Use shall be settled by arbitration administered by the Cayman Islands Mediation
+      &amp; Arbitration Centre (CI-MAC) in accordance with the Arbitration Act (as amended) of the
+      Cayman Islands. The arbitration shall be seated in George Town, Cayman Islands and shall be
+      heard in the English language and determined by a sole arbitrator. Any award or decision made
+      by the arbitrator shall be in writing and shall be final and binding on the parties, and
+      judgment upon any award thus obtained may be entered in or enforced by any court of competent
+      jurisdiction. You shall not institute any action at law or in equity based upon any claim
+      arising out of or related to these Terms of Use in any court.
+    </p>
+
+    <h2>Limitation on Time to File Claims</h2>
+    <p>
+      Any claim arising out of or relating to these Terms of Use must be brought by you within 12
+      months of such claim arising, or your date of knowledge of the facts founding such claim if
+      later, and you hereby expressly agree to exclude the effect of the Limitation Act (1996
+      Revision) in this regard.
+    </p>
+    <p>
+      You agree to the fullest extent permitted by law that no class or collective action can be
+      asserted in relation to these Terms of Use, and that all claims, whether in arbitration or
+      otherwise, arising out of or relating to these Terms of Use must be brought by you in your
+      individual capacity and not as a plaintiff or class member in any purported class or
+      collective proceeding.
+    </p>
+
+    <h2>Waiver and Severability</h2>
+    <p>
+      No waiver by Company of any term or condition set out in these Terms of Use shall be deemed a
+      further or continuing waiver of such term or condition or a waiver of any other term or
+      condition, and any failure of Company to assert a right or provision under these Terms of Use
+      shall not constitute a waiver of such right or provision nor shall it preclude or restrict any
+      further exercise of that or any other right or remedy.
+    </p>
+    <p>
+      The provisions of these Terms of Use shall be severable in the event that any of the
+      provisions hereof are held by a court of competent jurisdiction to be invalid, void or
+      otherwise unenforceable, and the remaining provisions shall remain enforceable to the fullest
+      extent permitted by law and these Terms of Use will be construed in all respects as if such
+      invalid or unenforceable provision will be replaced with a valid and enforceable provision as
+      similar as possible to the one replaced.
+    </p>
+
+    <h2>Entire Agreement</h2>
+    <p>
+      The Terms of Use, and any documents which we may incorporate herein by reference from time to
+      time, constitute the sole and entire agreement between you and dYdX Operations Services
+      Limited regarding the Website and supersede all prior and contemporaneous understandings,
+      agreements, representations, and warranties, both written and oral, regarding the Website.
+    </p>
+
+    <h2>Your Comments and Questions</h2>
+    <p>
+      The Website is operated by dYdX Operations Services Limited, Ogier Global (Cayman) Limited, 89
+      Nexus Way, Camana Bay, Grand Cayman KY1- 9009, Cayman Islands
+    </p>
+    <p>
+      All feedback, comments, requests for technical support, and other communications relating to
+      the Website should be directed to: info@dydxopsservices.com
+    </p>
   </Styled.Article>
 );
 
@@ -1081,5 +654,44 @@ export default TermsOfUsePage;
 const Styled: Record<string, AnyStyledComponent> = {};
 
 Styled.Article = styled.article`
-  ${articleMixins.article}
+  padding: 2rem;
+
+  overflow-wrap: break-word;
+  user-select: text;
+
+  margin: 0 auto;
+  width: 60rem;
+  max-width: 100vw;
+
+  header {
+    color: var(--color-text-0);
+    margin-bottom: 2rem;
+
+    h1 {
+      font: var(--font-extra-book);
+      color: var(--color-text-2);
+    }
+  }
+
+  h2 {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  p {
+    padding: 0.5rem 0;
+  }
+
+  ul {
+    padding: 0.5rem 1rem;
+  }
+
+  b {
+    font-weight: bold;
+  }
+
+  strong {
+    color: var(--color-text-2);
+    text-decoration: underline;
+  }
 `;
