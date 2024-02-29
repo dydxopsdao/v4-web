@@ -1,3 +1,48 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/entry-points/generated/index.html"
+    },
+    {
+      "source": "/portfolio(/?)(.*)",
+      "destination": "/entry-points/generated/portfolio.html"
+    },
+    {
+      "source": "/markets(/?)(.*)",
+      "destination": "/entry-points/generated/markets.html"
+    },
+    {
+      "source": "/DYDX/trading-rewards(/?)(.*)",
+      "destination": "/entry-points/generated/trading-rewards.html"
+    },
+    {
+      "source": "/trade/ETH-USD(/?)(.*)",
+      "destination": "/entry-points/generated/trade-ETH-USD.html"
+    },
+    {
+      "source": "/trade/BTC-USD(/?)(.*)",
+      "destination": "/entry-points/generated/trade-BTC-USD.html"
+    },
+    {
+      "source": "/trade/SOL-USD(/?)(.*)",
+      "destination": "/entry-points/generated/trade-SOL-USD.html"
+    },
+    {
+      "source": "/trade/AVAX-USD(/?)(.*)",
+      "destination": "/entry-points/generated/trade-AVAX-USD.html"
+    },
+    {
+      "source": "/trade/LINK-USD(/?)(.*)",
+      "destination": "/entry-points/generated/trade-LINK-USD.html"
+    },
+    {
+      "source": "/trade/MATIC-USD(/?)(.*)",
+      "destination": "/entry-points/generated/trade-MATIC-USD.html"
+    },
+    {
+      "source": "/trade/DOGE-USD(/?)(.*)",
+      "destination": "/entry-points/generated/trade-DOGE-USD.html"
+    }
+  ]
 }

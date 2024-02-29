@@ -2,6 +2,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
+import fs from 'fs';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -61,5 +62,9 @@ export default defineConfig(({ mode }) => ({
       '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
       '**/e2e/**',
     ],
+  build: {
+    rollupOptions: {
+      input: fs.readdirSync('entry-points/generated').map(file => `/entry-points/generated/${file}`)
+    },
   },
 }));
