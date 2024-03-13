@@ -178,63 +178,6 @@
     }
   },
   {
-    "id": "9d373b43ad4d2cf190fb1a774ec964a1addf406d6fd24af94ab7596e58c291b2",
-    "name": "imToken",
-    "description": "",
-    "homepage": "https://token.im/",
-    "chains": [
-      "eip155:1"
-    ],
-    "versions": [
-      "1"
-    ],
-    "app": {
-      "browser": "",
-      "ios": "https://itunes.apple.com/us/app/imtoken2/id1384798940",
-      "android": "https://play.google.com/store/apps/details?id=im.token.app",
-      "mac": "",
-      "windows": "",
-      "linux": ""
-    },
-    "mobile": {
-      "native": "imtokenv2:",
-      "universal": ""
-    },
-    "desktop": {
-      "native": "",
-      "universal": ""
-    },
-    "metadata": {
-      "shortName": "imToken",
-      "colors": {
-        "primary": "rgb(255, 255, 255)",
-        "secondary": ""
-      }
-    },
-    "config": {
-      "comment": "imToken",
-      "iosMinVersion": "0",
-      "imageUrl": "",
-      "androidPackage": "im.token.app",
-      "connections": [
-        {
-          "type": "walletConnectV2",
-          "native": "imtokenv2:",
-          "universal": ""
-        }
-      ],
-      "methods": [
-        "eth_sendTransaction",
-        "personal_sign",
-        "eth_signTypedData"
-      ]
-    },
-    "userFields": {
-      "analyticEvent": "IMTOKEN",
-      "imageName": "imtoken.png"
-    }
-  },
-  {
     "id": "4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0",
     "name": "Trust Wallet",
     "description": "",
