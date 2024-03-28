@@ -1,4 +1,5 @@
 {
+  "buildCommand": "node scripts/generate-entry-points.js && vite build --mode staging && pnpm run build:inject-app-deeplinks",
   "rewrites": [
     {
       "source": "/(.*)",
