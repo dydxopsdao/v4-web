@@ -16,6 +16,8 @@ const ENTRY_POINTS = [
 ];
 
 export async function generateEntryPoints() {
+    console.log('Generating entry points...');
+    
     try {
         fs.mkdir(entryPointsDir, { recursive: true });
 
