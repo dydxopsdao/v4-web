@@ -10,6 +10,7 @@ function generateEntryPointsPlugin() {
 	return {
 		name: 'generate-entry-points',
 		buildStart() {
+      console.log('Generating entry points (plugin)...');
       (async () => await generateEntryPoints())();
 		}
 	};
