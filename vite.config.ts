@@ -38,6 +38,10 @@ export default defineConfig(({ mode, command }) => ({
     ],
   },
   plugins: [
+    {
+      name: 'build-script',
+      buildStart: async () => { await generateEntryPoints(); },
+    },
     react({
       babel: {
         plugins: [
@@ -61,14 +65,6 @@ export default defineConfig(({ mode, command }) => ({
         'local-abacus-hash',
       ]
     }),
-    {
-      name: 'build-script',
-      buildStart(options) {
-        if (command === 'build') {
-          (async () => await generateEntryPoints())();
-        }
-      },
-    },
   ],
   publicDir: 'public',
   test: {
