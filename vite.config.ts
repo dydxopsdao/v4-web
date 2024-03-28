@@ -9,9 +9,9 @@ import { generateEntryPoints } from './scripts/generate-entry-points';
 function generateEntryPointsPlugin() {
 	return {
 		name: 'generate-entry-points',
-		buildStart() {
+		async buildStart() {
       console.log('Generating entry points (plugin)...');
-      (async () => await generateEntryPoints())();
+      await generateEntryPoints();
 		}
 	};
 }
