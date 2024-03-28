@@ -6,6 +6,15 @@ import svgr from 'vite-plugin-svgr';
 import ViteRestart from 'vite-plugin-restart';
 import { generateEntryPoints } from './scripts/generate-entry-points';
 
+function generateEntryPointsPlugin() {
+	return {
+		name: 'generate-entry-points',
+		buildStart() {
+      (async () => await generateEntryPoints())();
+		}
+	};
+}
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   define: {
@@ -38,10 +47,7 @@ export default defineConfig(({ mode }) => ({
     ],
   },
   plugins: [
-    {
-      name: 'entry-points',
-      buildStart() { (async () => await generateEntryPoints())(); },
-    },
+    generateEntryPointsPlugin(),
     react({
       babel: {
         plugins: [
