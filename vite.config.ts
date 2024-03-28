@@ -4,9 +4,10 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 import ViteRestart from 'vite-plugin-restart';
+import { generateEntryPoints } from './scripts/generate-entry-points';
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
+export default defineConfig(({ mode, command }) => ({
   define: {
     'process.env': {},
   },
@@ -59,7 +60,15 @@ export default defineConfig(({ mode }) => ({
       restart: [
         'local-abacus-hash',
       ]
-    })
+    }),
+    {
+      name: 'build-script',
+      buildStart(options) {
+        if (command === 'build') {
+          (async () => await generateEntryPoints())();
+        }
+      },
+    },
   ],
   publicDir: 'public',
   test: {

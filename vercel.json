@@ -1,5 +1,4 @@
 {
-  "buildCommand": "pnpm run build:generate-entry-points && vite build --mode staging && pnpm run build:inject-app-deeplinks",
   "rewrites": [
     {
       "source": "/(.*)",
