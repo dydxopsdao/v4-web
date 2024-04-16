@@ -1,4 +1,20 @@
 {
-  "baseURL": "your-base-url",
-  "staticURLs": []
+  "baseURL": "https://dydx.trade",
+  "staticURLs": [
+    "https://dydx.trade/",
+    "https://dydx.trade/terms",
+    "https://dydx.trade/markets",
+    "https://dydx.trade/DYDX",
+    "https://dydx.trade/DYDX/trading-rewards",
+    "https://dydx.trade/portfolio",
+    "https://dydx.trade/portfolio/history/trades",
+    "https://dydx.trade/trade?inputCurrency=ada&amp;outputCurrency=usd",
+    "https://dydx.trade/trade?inputCurrency=atom&amp;outputCurrency=usd",
+    "https://dydx.trade/trade?inputCurrency=btc&amp;outputCurrency=usd",
+    "https://dydx.trade/trade?inputCurrency=doge&amp;outputCurrency=usd",
+    "https://dydx.trade/trade?inputCurrency=dot&amp;outputCurrency=usd",
+    "https://dydx.trade/trade?inputCurrency=xrp&amp;outputCurrency=usd",
+    "https://dydx.trade/?utm_source=twitter&amp;utm_medium=social-x&amp;utm_campaign=dydx-trading-rewards",
+    "https://dydx.trade/?utm_source=twitter&amp;utm_medium=social-x&amp;utm_campaign=incentive-program"
+  ]
 }

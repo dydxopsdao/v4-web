@@ -3,29 +3,61 @@
     {
       "source": "/entry-points/index.html",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     },
     {
       "source": "/currencies/(.*\\.png)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, s-maxage=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, s-maxage=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/assets/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, s-maxage=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, s-maxage=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/tradingview/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, s-maxage=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, s-maxage=31536000, immutable"
+        }
       ]
     }
   ],
   "rewrites": [
+    {
+      "source": "/portfolio(/?.*)",
+      "destination": "/entry-points/portfolio.html"
+    },
+    {
+      "source": "/markets(/?.*)",
+      "destination": "/entry-points/markets.html"
+    },
+    {
+      "source": "/DYDX",
+      "destination": "/entry-points/dydx.html"
+    },
+    {
+      "source": "/DYDX/trading-rewards(/?.*)",
+      "destination": "/entry-points/trading-rewards.html"
+    },
+    {
+      "source": "/trade/([A-Z]+-USD)(/?.*)",
+      "destination": "/entry-points/trade-$1.html"
+    },
     {
       "source": "/((?!assets/|tradingview/|currencies/|favicon.ico|robots.txt|sitemap.xml).*)",
       "destination": "/entry-points/index.html"
