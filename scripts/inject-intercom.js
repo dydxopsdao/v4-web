@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const INTERCOM_APP_ID = process.env.INTERCOM_APP_ID;
+const INTERCOM_API_BASE = process.env.INTERCOM_API_BASE;
 
 const currentPath = fileURLToPath(import.meta.url);
 const projectRoot = path.dirname(currentPath);
