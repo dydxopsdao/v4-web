@@ -65,6 +65,8 @@ Service used for live customer support (chat/inbox) as well as home for Help Art
 4. In your deploy scripts add `pnpm run build:inject-intercom` after your pnpm build / vite build command.
 5. If you are using with the Amplitude deployment scripts, your build command may look like the following: `pnpm build && pnpm run build:inject-amplitude && pnpm run build:inject-intercom`
 
+DOS is currently using a US workspace but is planning to migrate to the EU. We have introduced a temporary variable INTERCOM_API_BASE that will facilitate a smooth transition during the migration period. The plan after migration is to remove the variable and revert back to using a static definition with api_base set to 'https://api-iam.eu.intercom.io'.
+
 ### Smartbanner
 
 Smartbanner to show download links to iOS and/or Android native apps on mobile devices.
