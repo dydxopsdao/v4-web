@@ -24,7 +24,6 @@
     "chainId": "42161",
     "tokenAddress": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
     "name": "arbitrum"
-<<<<<<< HEAD
   },
   {
     "chainId": "8453",
@@ -35,7 +34,5 @@
     "chainId": "137",
     "tokenAddress": "0x3c499c542cef5e3811e1192ce70d8cc03d5c3359",
     "name": "Polygon"
-=======
->>>>>>> 5d7f9a82 (revert cctp.json to contain all CCTP tokens)
   }
 ]
