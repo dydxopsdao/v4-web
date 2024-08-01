@@ -64,7 +64,10 @@ const TermsOfUsePage = () => (
       IMPOSES SIMILAR SANCTIONS, INCLUDING THOSE LISTED ON OUR SERVICES (COLLECTIVELY, THE
       “RESTRICTED JURISDICTIONS” AND EACH A “RESTRICTED JURISDICTION”) OR ANY PERSON OWNED,
       CONTROLLED, LOCATED IN OR ORGANIZED UNDER THE LAWS OF ANY JURISDICTION UNDER EMBARGO OR
-      CONNECTED OR AFFILIATED WITH ANY SUCH PERSON (COLLECTIVELY, “RESTRICTED PERSONS”). THERE ARE
+      CONNECTED OR AFFILIATED WITH ANY SUCH PERSON (COLLECTIVELY, “RESTRICTED PERSONS”).
+      THE WEBSITE WAS NOT SPECIFICALLY DEVELOPED FOR, AND IS NOT AIMED AT OR BEING ACTIVELY MARKETED
+      TO, PERSONS OR ENTITIES WHO RESIDE IN, ARE LOCATED IN, ARE INCORPORATED IN, OR HAVE
+      A REGISTERED OFFICE OR PRINCIPAL PLACE OF BUSINESS IN THE EUROPEAN UNION. THERE ARE
       NO EXCEPTIONS. IF YOU ARE A BLOCKED PERSON OR A RESTRICTED PERSON, THEN DO NOT USE OR ATTEMPT
       TO USE THE SERVICES. USE OF ANY TECHNOLOGY OR MECHANISM, SUCH AS A VIRTUAL PRIVATE NETWORK
       (“VPN”) TO CIRCUMVENT THE RESTRICTIONS SET FORTH HEREIN IS PROHIBITED.
@@ -345,9 +348,8 @@ const TermsOfUsePage = () => (
       of such transactions.
     </p>
     <p>
-      Digital assets are not subject to Federal Deposit Insurance Corporation or Securities Investor
-      Protection Corporation protections or similar protections or regimes. Company is not a bank,
-      and we have no fiduciary duty to you.
+      Digital assets are not subject to deposit and/or securities insurance or protection regimes.
+      Company is not a bank, and we have no fiduciary duty to you.
     </p>
     <p>
       Our Services may be subject to expropriation and/or theft. Hackers or other malicious actors
