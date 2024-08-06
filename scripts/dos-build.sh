@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "Building (DOS)..."
+
 pnpm run build --mode production \
     && pnpm run build:inject-app-deeplinks \
     && pnpm run build:inject-analytics \
