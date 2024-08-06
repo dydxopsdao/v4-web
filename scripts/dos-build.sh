@@ -1,0 +1,10 @@
+#!/bin/sh
+
+echo "Building (DOS)..."
+
+pnpm run build --mode production \
+    && pnpm run build:inject-app-deeplinks \
+    && pnpm run build:inject-analytics \
+    && pnpm run build:inject-intercom \
+    && pnpm run build:inject-statuspage \
+    && pnpm run build:inject-smartbanner
