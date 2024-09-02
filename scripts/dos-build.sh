@@ -2,6 +2,8 @@
 
 echo "Building (DOS)..."
 
+node scripts/generate-sitemap.js
+
 pnpm run build --mode production \
     && pnpm run build:inject-app-deeplinks \
     && pnpm run build:inject-analytics \
