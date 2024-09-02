@@ -128,6 +128,14 @@ Edit `vercel.json` and configure the `rewrites` configuration option. It is an a
 
 Note: The first matching rule takes precedence over anything defined afterwards in the array.
 
+## Part 6: Configure sitemap (optional)
+
+1. Edit `public/configs/staticURLs.json` and provide the list of static URLs that you wish to appear in the sitemap.
+2. Edit the deploy command and ensure that `node scripts/generate-sitemap.js` is run before `pnpm run build`.
+
+The sitemap generation script will traverse the static URLs in `staticURLs.json` as well as market pairs in `public/configs/markets.json`.
+The resulting sitemal will contain entries from both sources.
+
 # Testing
 
 ## Unit testing
