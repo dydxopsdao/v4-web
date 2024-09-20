@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, Mock } from 'vitest';
-import { fetchActiveMarketPairs } from '../markets/active-market-pairs';
+import { fetchActiveMarketPairs } from '../markets/active-market-pairs.js';
 
 global.fetch = vi.fn() as Mock;
 
