@@ -159,10 +159,10 @@ const TermsOfUsePage = () => (
       permission of Company or Company’s licensors, as applicable.
     </p>
 
-    <h2>Use of dYdX Chain Software</h2>
+    <h2>Use of Open-Source Software</h2>
     <p>
       The Services use open-source software (“dYdX Software”) developed by dYdX Trading Inc., 
-      which is independent from and unaffiliated with Company. Any use of dYdX Chain Software 
+      which is independent from and unaffiliated with Company. Any use of dYdX Software 
       is subject to the terms and conditions available at https://dydx.exchange/v4-terms (the 
       “dYdX Software Terms”). In accordance with section 4 of the dYdX Software Terms, Annex A 
       (Risks Associated with Perpetual Contracts), Annex B (MegaVault Terms), Annex C (Affiliate 
