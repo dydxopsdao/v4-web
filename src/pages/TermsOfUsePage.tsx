@@ -7,6 +7,7 @@ const TermsOfUsePage = () => (
   <$Article>
     <header>
       <h1>Terms of Use</h1>
+      <h3>Last Updated: November 19, 2024</h3>
       <span />
     </header>
 
