@@ -13,34 +13,42 @@ const TermsOfUsePage = () => (
     <h2>Acceptance of the Terms of Use; Eligible Users</h2>
     <p>
       These terms of use are entered into by and between you (as defined below) and dYdX Operations
-      Services Limited (<b>“Company”</b>, <b>“we”</b> or <b>“us”</b>). The following terms and
+      Services Limited (“Company”, “we” or “us”). The following terms and
       conditions, together with any documents they expressly incorporate by reference (collectively,
-      these <b>“Terms of Use”</b>), govern your access to and use of dydx.trade and any subdomains
-      thereof (the <b>“Services”</b>) and use of our mobile applications (the <b>“Apps”</b> and
-      together with the Services, the <b>“Services”</b>).
+      these “Terms of Use”), govern your access to and use of dydx.trade and any subdomains
+      thereof (the “Services”) and use of our mobile applications (the “Apps” and
+      together with the Services, the “Services”).
     </p>
     <p>
       If the user engages with the Services under authority from a different party or on another
-      party’s behalf, then <b>“you”</b> (and its variants, including <b>“your”</b>, <b>“yours”</b>,
+      party’s behalf, then “you” (and its variants, including “your”, “yours”,
       etc.) as used herein refers to that person on whose behalf the Services are used (e.g., an
       employer). If the person engaging with our Services is an individual, acting in their own
-      individual capacity, then <b>“you”</b> (and its variants) refers to that individual. If you
+      individual capacity, then “you” (and its variants) refers to that individual. If you
       have anyone using the Services on your behalf, you agree that you are responsible for the
       actions and inactions of all such persons, as they were your own.
     </p>
     <p>
-      The Services provide access to third party content, protocols and software, including smart
+      The Services provide access to third-party content, protocols and software, including smart
       contracts, which may enable you to convert your Ethereum DYDX tokens into wrapped Ethereum
-      DYDX tokens and dYdX Chain DYDX tokens, swap other collateral for USD Coins (<b>“USDC”</b>),
+      DYDX tokens and dYdX Chain DYDX tokens, swap other collateral for USD Coins (“USDC”),
       and/or engage in other digital asset trading activities. USE OF THE PROTOCOL OR THE WETHDYDX
-      SMART CONTRACT ARE AT YOUR OWN RISK. THE SERVICES ARE A NONEXCLUSIVE MEANS TO FACILITATE
+      SMART CONTRACT ARE AT YOUR OWN RISK. THE SERVICES ARE A NON-EXCLUSIVE MEANS TO FACILITATE
       ACCESS TO THE RELEVANT PROTOCOL AND/OR SMART CONTRACTS. WE DO NOT OWN, CONTROL, OR HAVE ANY
       RESPONSIBILITY FOR THE DYDX CHAIN PROTOCOL OR THE WETHDYDX SMART CONTRACT. THESE TERMS OF USE
       DO NOT GOVERN YOUR USE OF THE PROTOCOL OR THE WETHDYDX SMART CONTRACT, WHICH ARE CONTROLLED,
-      MAINTAINED AND/OR OPERATED BY THIRD PARTIES. PLEASE CONSULT SUCH THIRD PARTIES’ USER
-      AGREEMENTS FOR INFORMATION REGARDING YOUR RIGHTS AND RISKS ASSOCIATED WITH YOUR USE OF AND
-      ACCESS TO THESE MATERIALS.
+      MAINTAINED AND/OR OPERATED BY THIRD PARTIES. PLEASE CONSULT SUCH THIRD PARTIES’ TERMS AND 
+      CONDITIONS OR OTHER USER AGREEMENTS FOR INFORMATION REGARDING YOUR RIGHTS AND RISKS ASSOCIATED 
+      WITH YOUR USE OF AND ACCESS TO THE FOREGOING.
     </p>
+
+    <p>
+      <strong>YOU AGREE THAT DISPUTES (AS DEFINED BELOW) ARISING OUT OF OR RELATED TO THESE TERMS OF USE 
+      OR THE SERVICES WILL BE RESOLVED BY BINDING INDIVIDUAL ARBITRATION, AND BY ACCEPTING THESE TERMS 
+      OF USE, YOU AND COMPANY ARE EACH WAIVING THE RIGHT TO A TRIAL BY JURY OR TO PARTICIPATE IN ANY 
+      CLASS ACTION OR REPRESENTATIVE PROCEEDING.</strong>  
+    </p>
+    
     <p>
       Please read these Terms of Use carefully before you start to use the Services.{' '}
       <b>
@@ -73,17 +81,17 @@ const TermsOfUsePage = () => (
       (“VPN”) TO CIRCUMVENT THE RESTRICTIONS SET FORTH HEREIN IS PROHIBITED.
     </p>
     <p>
-      BY USING THE SERVICES, YOU REPRESENT THAT (1) YOU ARE NOT A BLOCKED PERSON OR RESTRICTED
-      PERSON; AND (2) YOU (INCLUDING, IF APPLICABLE, YOUR INDIVIDUAL OWNERS, REPRESENTATIVES,
+      BY USING THE SERVICES, YOU REPRESENT THAT (a) YOU ARE NOT A BLOCKED PERSON OR RESTRICTED
+      PERSON; AND (b) YOU (INCLUDING, IF APPLICABLE, YOUR INDIVIDUAL OWNERS, REPRESENTATIVES,
       EMPLOYEES, OR ANY OTHER PERSON WITH ACCESS TO YOUR SERVICES ACCOUNT) WILL NOT COORDINATE,
       CONDUCT OR CONTROL (INCLUDING BY, IN SUBSTANCE OR EFFECT, MAKING DECISIONS WITH RESPECT TO)
       YOUR USE OF THE SERVICES FROM WITHIN THE UNITED STATES OF AMERICA, THE UNITED KINGDOM, CANADA
       OR ANY RESTRICTED JURISDICTION.
     </p>
     <p>
-      YOU ACKNOWLEDGE, UNDERSTAND AND AGREE THAT (1) YOU ARE NOT PERMITTED TO MODIFY, DISASSEMBLE,
+      YOU ACKNOWLEDGE, UNDERSTAND AND AGREE THAT (i) YOU ARE NOT PERMITTED TO MODIFY, DISASSEMBLE,
       DECOMPILE, ADAPT, ALTER, TRANSLATE, REVERSE ENGINEER OR CREATE DERIVATIVE WORKS OF THE
-      SERVICES TO MAKE IT AVAILABLE TO ANY BLOCKED PERSONS OR RESTRICTED PERSONS; AND (2) WE DO NOT
+      SERVICES TO MAKE IT AVAILABLE TO ANY BLOCKED PERSONS OR RESTRICTED PERSONS; AND (ii) WE DO NOT
       AND WILL NOT HAVE CONTROL OVER THE DEVELOPMENT, GROWTH, MAINTENANCE OR OPERATIONS OF ANY
       PROTOCOL OR SMART CONTRACT THAT YOU MAY BE ABLE TO ACCESS FROM OR THROUGH THE SERVICES, OR
       THEIR UNDERLYING SOFTWARE.
@@ -110,11 +118,9 @@ const TermsOfUsePage = () => (
     <p>
       We may revise and update these Terms of Use from time to time in our sole discretion. All
       changes are effective immediately when we post them, and apply to all access to and use of the
-      Services thereafter. However, any changes to the dispute resolution provisions set out in the{' '}
-      <strong>Governing Law and Jurisdiction</strong> section below will not apply to any disputes
-      for which the parties have actual notice on or before the date the change is posted on the
-      Services.
+      Services thereafter. 
     </p>
+    
     <p>
       Your continued use of the Services following the posting of revised Terms of Use means that
       you accept and agree to the changes. You are expected to check this page each time you access
@@ -135,7 +141,7 @@ const TermsOfUsePage = () => (
         <li>Making all arrangements necessary for you to have access to the Services.</li>
         <li>
           Ensuring that all persons who access the Services through your internet connection or on
-          your behalf are aware of these <strong>Terms of Use</strong> and comply with them.
+          your behalf are aware of these Terms of Use and comply with foregoing.
         </li>
       </ul>
     </p>
@@ -151,6 +157,20 @@ const TermsOfUsePage = () => (
       related names, logos, product and service names, designs, and slogans are trademarks of
       Company or Company’s licensors. You must not use such marks without the prior written
       permission of Company or Company’s licensors, as applicable.
+    </p>
+
+    <h2>Use of dYdX Chain Software</h2>
+    <p>
+      The Services use open-source software (“dYdX Software”) developed by dYdX Trading Inc., 
+      which is independent from and unaffiliated with Company. Any use of dYdX Chain Software 
+      is subject to the terms and conditions available at https://dydx.exchange/v4-terms (the 
+      “dYdX Software Terms”). In accordance with section 4 of the dYdX Software Terms, Annex A 
+      (Risks Associated with Perpetual Contracts), Annex B (MegaVault Terms), Annex C (Affiliate 
+      Feature Terms) and Annex D (Instant Market Listing Terms) are hereby incorporated in and 
+      made a part of these Terms of Use as if fully set forth herein; provided that any references 
+      therein to (a) “Deployer” in the foregoing annexes shall reference Company; (b) “Terms of Use” 
+      or “Terms and Conditions” shall reference these Terms of Use; and (c) “dYdX Software” or 
+      “software” shall include the Services.
     </p>
 
     <h2>Prohibited Uses</h2>
@@ -217,7 +237,7 @@ const TermsOfUsePage = () => (
         <li>
           Use, transmit, introduce or install any code, files, scripts, agents or programs intended
           to do harm or allow unauthorized access, including, for example, viruses, worms, time
-          bombs, back doors and Trojan horses (collectively, <b>“Malicious Code”</b>) on or through
+          bombs, back doors and Trojan horses (collectively, “Malicious Code”) on or through
           the Services, or accessing or attempting to access the Services for the purpose of
           infiltrating a computer or computing system or network, or damaging the software
           components of the Services, or the systems of the hosting provider, any other suppliers or
@@ -324,7 +344,7 @@ const TermsOfUsePage = () => (
       parties that are independent from and unaffiliated with us. In particular, you understand and
       acknowledge that, in order to successfully interact with on-chain protocols and transact in
       digital assets via our Services, you will need to rely on services provided by third parties,
-      including (but not limited to) remote procedure call node (<b>“RPC node”</b>) operators. An
+      including (but not limited to) remote procedure call node (“RPC node”) operators. An
       RPC node is a type of computer server that allows users to read data from and send
       transactions to a blockchain network. We do not operate any RPC nodes and are not responsible
       for the operation of any RPC nodes required for your successful interaction with on-chain
@@ -402,10 +422,10 @@ const TermsOfUsePage = () => (
       CONNECTION WITH OUR SERVICES. No content found on the Services, whether created by us, a third
       party, or another user is or should be considered as investment advice. You agree and
       understand that we accept no responsibility whatsoever for, and shall in no circumstances be
-      liable in connection with, your decisions or your use of our Services. Nothing contained on
+      liable in connection with, your decisions or your use of our Services. Nothing contained in
       the Services constitutes a solicitation, recommendation, endorsement, or offer by us or any
       third party to transact in any digital assets, securities, or other financial instruments.
-      Neither us nor any of our affiliates has endorsed or sponsored any digital assets made
+      Neither we nor any of our affiliates has endorsed or sponsored any digital assets made
       available or that can be transacted through third-party tools available from the Services.
     </p>
     <p>
@@ -489,11 +509,12 @@ const TermsOfUsePage = () => (
 
     <h2>Third-Party Materials; Links from the Services</h2>
     <p>
-      The Services may include content provided by third parties, including (without limitation)
-      materials provided by other users and third-party licensors and service providers, including
-      our storage provider Horkos, Inc. (D/B/A Privy). If you have any questions about the policies
-      and practices of our third-party service providers, please consult their respective terms and
-      conditions, including Privy’s at https://www.privy.io/user-terms-of-service.
+      The Services may include services and content provided by third parties, including (without 
+      limitation) materials provided by other users, and third-party licensors and service providers, 
+      including our storage provider Horkos, Inc. (d/b/a Privy). If you have any questions about the 
+      policies and practices of such third-party service providers, please consult their respective 
+      terms and conditions, including those of Privy, available at 
+      https://www.privy.io/user-terms-of-service.
     </p>
     <p>
       If the Services contain links to and access to third-party content and resources, these links
@@ -512,13 +533,6 @@ const TermsOfUsePage = () => (
       FEATURES PROVIDED BY ANY THIRD PARTIES, AND YOU AGREE THAT YOU BEARS SOLE AND ABSOLUTE
       RESPONSIBILITY TO EVALUATE AND SELECT ANY THIRD-PARTY FUNCTIONALITY WITH WHICH YOU INTERACT,
       WHETHER INTENTIONALLY OR INCIDENTALLY, VIA THE SERVICES.
-    </p>
-
-    <h2>Geographic Restrictions</h2>
-    <p>
-      The owner of the Services is formed in the Cayman Islands. We make no claims that the Services
-      or any of their contents are accessible or appropriate for Blocked Persons or Restricted
-      Persons. Access to the Services by Blocked Persons or Restricted Persons may not be legal.
     </p>
 
     <h2>Disclaimer of Warranties</h2>
@@ -587,7 +601,7 @@ const TermsOfUsePage = () => (
     <p>
       You agree to defend, indemnify, and hold harmless Company, its affiliates, licensors, and
       service providers, and its and their respective officers, directors, employees, contractors,
-      agents, licensors, suppliers, successors, and assigns (each an <b>“Indemnified Party”</b>)
+      agents, licensors, suppliers, successors, and assigns (each an “Indemnified Party”)
       from and against any claims, liabilities, damages, judgments, awards, losses, costs, expenses,
       or fees (including reasonable attorneys’ fees and legal costs) arising out of or relating to
       your violation of these Terms of Use or your use of the Services.
@@ -606,26 +620,34 @@ const TermsOfUsePage = () => (
       Terms of Use at any time.
     </p>
 
-    <h2>Governing Law and Jurisdiction</h2>
+    <h2>Governing Law and Dispute Resolution</h2>
     <p>
-      All matters relating to the Services and these Terms of Use and any dispute or claim arising
-      therefrom or related thereto (in each case, including non-contractual disputes or claims),
+      PLEASE READ THIS SECTION CAREFULLY BECAUSE IT MAY SIGNIFICANTLY IMPACT YOUR LEGAL RIGHTS, 
+      INCLUDING YOUR RIGHT TO BRING A LAWSUIT AGAINST COMPANY. THIS SECTION REQUIRES YOU TO SUBMIT 
+      ANY CONTROVERSY, DISPUTE, CLAIM OR DISAGREEMENT (EACH A “DISPUTE”) ARISING OUT OF THESE TERMS 
+      OF USE OR THE SERVICES, INCLUDING ANY DISPUTE THAT AROSE BEFORE THE EFFECTIVE DATES OF THESE 
+      TERMS OF USE, TO BINDING INDIVIDUAL ARBITRATION. THIS SECTION EXTENDS TO DISPUTES THAT AROSE 
+      OR INVOLVE FACTS OCCURING BEFORE THE EXISTENCE OF THIS SECTION OR ANY PRIOR VERSIONS OF THESE 
+      TERMS OF USE AS WELL AS DISPUTES THAT MAY ARISE AFTER THE TERMINATION OF THESE TERMS OF USE.
+    </p>
+
+    <p>
+      You and Company agree that any Dispute arising out of or related to these Terms of Use or 
+      the Services is personal to you and Company, and that any Dispute will be resolved solely through 
+      binding individual arbitration, and will not be brought as a class arbitration, class action or 
+      any other type of representative proceeding.
+    </p>
+      
+    <p>
+      All matters relating to the Services and these Terms of Use and any Dispute arising
+      therefrom or related thereto (in each case, including non-contractual Disputes),
       shall be governed by and construed in accordance with the internal laws of the Cayman Islands
       without giving effect to any choice or conflict of law provision or rule (whether of the
       Cayman Islands or any other jurisdiction).
     </p>
-    <p>
-      Any legal suit, action, or proceeding arising out of, or related to, these Terms of Use or the
-      Services shall be instituted exclusively in the courts of the Cayman Islands although we
-      retain the right to bring any suit, action, or proceeding against you for breach of these
-      Terms of Use in your country of residence or any other relevant country. You waive any and all
-      objections to the exercise of jurisdiction over you by such courts and to venue in such
-      courts.
-    </p>
 
-    <h2>Arbitration</h2>
     <p>
-      Any controversy, dispute or claim between the parties arising out of or relating to these
+      Any Dispute between the parties arising out of or relating to these
       Terms of Use shall be settled by arbitration administered by the Cayman Islands Mediation
       &amp; Arbitration Centre (CI-MAC) in accordance with the Arbitration Act (as amended) of the
       Cayman Islands. The arbitration shall be seated in George Town, Cayman Islands and shall be
@@ -633,7 +655,10 @@ const TermsOfUsePage = () => (
       by the arbitrator shall be in writing and shall be final and binding on the parties, and
       judgment upon any award thus obtained may be entered in or enforced by any court of competent
       jurisdiction. You shall not institute any action at law or in equity based upon any claim
-      arising out of or related to these Terms of Use in any court.
+      arising out of or related to these Terms of Use in any court. We retain the right to bring any 
+      suit, action, or proceeding against you for breach of these Terms of Use in your country of 
+      residence or any other relevant country. You waive any and all objections to the exercise of 
+      jurisdiction over you by such courts and to venue in such courts.
     </p>
 
     <h2>Limitation on Time to File Claims</h2>
@@ -677,10 +702,6 @@ const TermsOfUsePage = () => (
     </p>
 
     <h2>Your Comments and Questions</h2>
-    <p>
-      The Services are operated by dYdX Operations Services Limited, Ogier Global (Cayman) Limited,
-      89 Nexus Way, Camana Bay, Grand Cayman KY1- 9009, Cayman Islands
-    </p>
     <p>
       All feedback, comments, requests for technical support, and other communications relating to
       the Services should be directed to: info@dydxopsservices.com
