@@ -32,14 +32,14 @@ const TermsOfUsePage = () => (
       The Services provide access to third-party content, protocols and software, including smart
       contracts, which may enable you to convert your Ethereum DYDX tokens into wrapped Ethereum
       DYDX tokens and dYdX Chain DYDX tokens, swap other collateral for USD Coins (“USDC”),
-      and/or engage in other digital asset trading activities. USE OF THE PROTOCOL OR THE WETHDYDX
-      SMART CONTRACT ARE AT YOUR OWN RISK. THE SERVICES ARE A NON-EXCLUSIVE MEANS TO FACILITATE
-      ACCESS TO THE RELEVANT PROTOCOL AND/OR SMART CONTRACTS. WE DO NOT OWN, CONTROL, OR HAVE ANY
-      RESPONSIBILITY FOR THE DYDX CHAIN PROTOCOL OR THE WETHDYDX SMART CONTRACT. THESE TERMS OF USE
-      DO NOT GOVERN YOUR USE OF THE PROTOCOL OR THE WETHDYDX SMART CONTRACT, WHICH ARE CONTROLLED,
-      MAINTAINED AND/OR OPERATED BY THIRD PARTIES. PLEASE CONSULT SUCH THIRD PARTIES’ TERMS AND 
-      CONDITIONS OR OTHER USER AGREEMENTS FOR INFORMATION REGARDING YOUR RIGHTS AND RISKS ASSOCIATED 
-      WITH YOUR USE OF AND ACCESS TO THE FOREGOING.
+      and/or engage in other blockchain-based assets (“Digital Assets”) trading 
+      activities. USE OF THE PROTOCOL OR THE WETHDYDX SMART CONTRACT ARE AT YOUR OWN RISK. THE 
+      SERVICES ARE A NON-EXCLUSIVE MEANS TO FACILITATE ACCESS TO THE RELEVANT PROTOCOL AND/OR SMART 
+      CONTRACTS. WE DO NOT OWN, CONTROL, OR HAVE ANY RESPONSIBILITY FOR THE DYDX CHAIN PROTOCOL 
+      OR THE WETHDYDX SMART CONTRACT. THESE TERMS OF USE DO NOT GOVERN YOUR USE OF THE PROTOCOL OR THE 
+      WETHDYDX SMART CONTRACT, WHICH ARE CONTROLLED, MAINTAINED AND/OR OPERATED BY THIRD PARTIES. 
+      PLEASE CONSULT SUCH THIRD PARTIES’ TERMS AND CONDITIONS OR OTHER USER AGREEMENTS FOR INFORMATION 
+      REGARDING YOUR RIGHTS AND RISKS ASSOCIATED WITH YOUR USE OF AND ACCESS TO THE FOREGOING.
     </p>
 
     <p>
@@ -159,19 +159,397 @@ const TermsOfUsePage = () => (
       permission of Company or Company’s licensors, as applicable.
     </p>
 
-    <h2>Use of Open-Source Software</h2>
+    <h2>Use of Open-Source Software and Certain Services</h2>
     <p>
-      The Services use open-source software (“dYdX Software”) developed by dYdX Trading Inc., 
-      which is independent from and unaffiliated with Company. Any use of dYdX Software 
-      is subject to the terms and conditions available at https://dydx.exchange/v4-terms (the 
-      “dYdX Software Terms”). In accordance with section 4 of the dYdX Software Terms, Annex A 
-      (Risks Associated with Perpetual Contracts), Annex B (MegaVault Terms), Annex C (Affiliate 
-      Feature Terms) and Annex D (Instant Market Listing Terms) are hereby incorporated in and 
-      made a part of these Terms of Use as if fully set forth herein; provided that any references 
-      therein to (a) “Deployer” in the foregoing annexes shall reference Company; (b) “Terms of Use” 
-      or “Terms and Conditions” shall reference these Terms of Use; and (c) “dYdX Software” or 
-      “software” shall include the Services.
+      The Services use open-source software (“dYdX Software”) developed by dYdX Trading Inc. 
+      (the "Software Developer"), which is independent from and unaffiliated with Company. 
+      Any use of dYdX Software is subject to the terms and conditions available at 
+      https://dydx.exchange/v4-terms (the “dYdX Software Terms”). In accordance with section 4 of 
+      the dYdX Software Terms, the terms and conditions of Annex A (Risks Associated with 
+      Perpetual Contracts), Annex B (MegaVault Terms), Annex C (Affiliate Feature Terms) and 
+      Annex D (Instant Market Listing Terms) of the dYdX Software Terms are set forth below in 
+      substance. By using any of the Services, you acknowledge and agree that you are bound by, 
+      and will use the Services in compliance with, these Terms of Use and the dYdX Software Terms.
     </p>
+
+    <h3>Risks Associated with Perpetual Contracts</h3>
+    <p>
+      By using the Services to enter into perpetual contracts, you understand and agree that 
+      you expressly assume the following risks:
+      <ul>
+        <li>
+          Use of the Services in particular for entering into perpetual contracts carries 
+          significant financial risk. Digital Assets, especially in connection with perpetual 
+          contracts, are, by their nature, highly experimental, risky, and volatile. Transactions 
+          entered into using the Services are irreversible, final and there are no refunds. You 
+          acknowledge and agree that you will access and use the Services at your own risk. The risk 
+          of loss in trading Digital Assets, especially entering into perpetual contracts, can be 
+          substantial. You should, therefore, carefully consider whether such trading is suitable 
+          for you in light of your circumstances and financial resources. By using the Services, you 
+          represent and warrant that you have been, are, and will be solely responsible for making 
+          your independent appraisal and investigations into the risks of a given transaction and 
+          the underlying Digital Assets, including perpetual contracts. You represent that you have 
+          sufficient knowledge, market sophistication, professional advice, and experience to make 
+          your evaluation of the merits and risks of any transaction conducted in connection with 
+          the Services or any Digital Asset. You accept all consequences of using the Services, 
+          including the risk that you may lose access to your Digital Assets indefinitely. All 
+          transaction decisions are made solely by you. Notwithstanding anything in these Terms of Use, 
+          we accept no responsibility whatsoever for, and will in no circumstances be liable to you for 
+          any loss or injury sustained by you or any third parties in connection with, your use of 
+          the Services for performing Digital Asset transactions, including entering into perpetual 
+          contracts.
+        </li>
+        <li>
+          You understand and accept the risks and potential for loss of funds arising from the 
+          underlying mechanics of perpetual contracts, the dYdX Software and the Services; 
+          including, without limitation, (a) the risk of positions forcibly being liquidated due to 
+          insufficient collateral, (b) the risk of losses from payment of funding rates, (c) the 
+          risk of loss as a result of protocol deleveraging mechanisms, including that your 
+          expected trading returns could be reduced to offset under-collateralized positions of 
+          other traders; (d) risks arising from disruption of trading activities due to exchange 
+          issues such as downtime, technical glitches or hacks.
+        </li>
+        <li>
+          You understand that dYdX Software and the Services remains under development, which 
+          creates technological, trading and other risks when using the Services. These risks include, 
+          without limitation, delays in trades, withdrawals and deposits resulting from errors in 
+          dYdX Software and the Services, our servers being offline, or our software deployment 
+          being out of date or incorrectly configured. You acknowledge that these risks may have a 
+          material impact on your transactions using the Services, which may result in, among other 
+          things, failing to fulfill transactions at your desired price or at all.
+        </li>
+        <li>
+          You understand that you are responsible for all trades you place, including any erroneous 
+          orders that may be filled. No action will be taken to resolve erroneous trades that result 
+          from your errors.
+        </li>
+      </ul>
+    </p>
+    
+    <h3>MegaVault</h3>
+    <h4>
+      By choosing to use MegaVault via the Services ("MegaVault") you agree that deposited 
+      assets will be used to support liquidity on the dYdX Chain protocol; you are not relying on 
+      any publicly described annual percentage rate ("APR") or other expectation of profit to 
+      induce your deposit. You understand that MegaVault is a liquidity provider and trades based 
+      on pre-configured algorithms.
+    </h4>
+    
+    <p>
+      You understand that any assets deposited to MegaVault will be allocated so as to support 
+      dYdX Chain protocol liquidity, and may not maximize trading returns. Any APR shown is an 
+      estimate and provided for informational purposes only and could vary significantly. 
+      MegaVault has no investment track record, and any historical performance is not indicative 
+      of future performance, or actual results.
+    </p>
+    
+    <p>
+      We and the Software Developer do not make any representations or warranties on the accuracy, 
+      reliability or completeness of any public representations related to MegaVault, and do not 
+      accept any liability for any loss (whether direct or indirect) arising from public 
+      representations of APR.
+    </p>
+    
+    <h4>
+      By choosing to use MegaVault, you agree that there could be significant slippage or loss on 
+      your deposit. 
+    </h4>
+    
+    <p>
+      There is material risk of economic loss by using MegaVault and no return is 
+      guaranteed. You are solely responsible for any loss or liability from using MegaVault. 
+      MegaVault provides liquidity in highly illiquid and volatile markets and you may 
+      experience material slippage (difference between what you expect to receive and actual 
+      outcome on withdrawal) on withdrawal. 
+    </p>
+    
+    <h4>
+      By choosing to use MegaVault you agree that we and the Software Developer are not 
+      responsible for your losses and MegaVault relies on experimental open source software.
+    </h4>
+    
+    <p>
+      We and the Software Developer:
+      <ul>
+        <li>
+          do not operate MegaVault and are not responsible for your losses or liability;
+        </li>
+        <li>
+          have not recommended that you deposit funds into MegaVault;
+        </li>
+        <li>
+          do not custody or manage the funds you deposit into MegaVault;
+        </li>
+        <li>
+          do not have any ongoing oversight or responsibility for MegaVault; MegaVault 
+          operates without oversight and is subject to errors that can cause MegaVault to 
+          malfunction (including, without limitation, coding errors and security vulnerabilities). 
+        </li>
+        <li>
+          not responsible for any losses that result from software “bugs” or “hacks” of MegaVault;
+        </li>
+        <li>
+          do not select the market specific “sub-vaults” to which deposits are allocated; and 
+        </li>
+        <li>
+          are not subject to oversight by any government or regulatory authority and your 
+          deposits into MegaVault are not covered by any investor protection funds.
+        </li>
+      </ul>
+    </p>
+    
+    <p>
+      You acknowledge and agree that (a) MegaVault is based on experimental open-source software, 
+      which includes the use of automated smart contracts and trading algorithms which may 
+      yield unpredictable results in live markets; and (b) you have, together with your advisors, 
+      researched the “sub-vaults” and the risks (including, without limitaton, volatility, 
+      low liquidity, possible impermanent loss) of the “sub-vaults".
+    </p>
+
+    <h4>
+      By choosing to use MegaVault, you agree that you are not relying on us or the Software 
+      Developer.
+    </h4>
+    
+    <p>
+      You have made your own independent decision to deposit into MegaVault, based on advice 
+      from any advisors you deem necessary. You have, together with your advisors, researched 
+      the other uses or sources of earnings for your Digital Assets (including, without limitation, 
+      staking with a validator, and depositing with a centralized exchange to earn yield) 
+      before opting to participate in MegaVault.
+    </p>
+    
+    <p>
+      You have conducted your own research and consulted a qualified professional to advise you 
+      on the legality, regulatory compliance, tax treatment, investment and financial suitability 
+      of MegaVault as it applies to you, in your jurisdiction, and for your purposes.
+    </p>
+    
+    <p>
+      You are not relying on any communication (written or oral) from us, the Software Developer, 
+      or any other persons as investment advice or as a recommendation to make a deposit in 
+      MegaVault. Any information provided related to the operations of MegaVault were not 
+      considered investment advice or a recommendation to make deposits in MegaVault. We 
+      and the Software Developer do not act as a fiduciary or advisor to you in respect of 
+      your decision to deposit any Digital Assets into MegaVault.
+    </p>
+    
+    <h4>
+      By choosing to use MegaVault, you agree that an operator (the "Operator"), which is 
+      independent from and unaffiliated with Company, controls MegaVault.
+    </h4>
+    
+    <p>
+      You understand that MegaVault depends on the Operator (the “Operator”) to 
+      ensure the correct functioning of MegaVault.
+    </p>
+    
+    <p>
+      You understand that we and the Software Developer do not operate MegaVault. 
+      You understand that the Operator was not selected by us or the Software Developer.  
+      You understand that we and the Software Developer are not affiliated with the Operator 
+      and are not responsible for the Operator’s performance.
+    </p>
+    
+    <p>
+      The Operator responded to a governance community grants 
+      <a href="https://www.dydxgrants.com/discover-initiatives">request for proposal</a> 
+      and will be selected by a governance community vote available <a href="https://dydx.forum/t/proposal-to-set-greave-as-the-dydx-megavault-operator/3129/2">here</a>. 
+      The Operator has little or no operating history and you should not place undue reliance on 
+      the community vote. You should independently review the Operator and determine if it is a 
+      suitable party to manage MegaVault. We and the Software Developer are not responsible 
+      for the actions of the Operator.
+    </p>
+    
+    <h4>
+      By choosing to use MegaVault, you agree that you are responsible for your assets or funds.
+    </h4>
+    
+    <p>
+      You understand that we, the Software Developer or the Operator may not take custody of 
+      or access your Digital Assets that are deposited to MegaVault. You understand that 
+      MegaVault is a non-custodial solution. Accordingly, the private key associated with 
+      your wallet is the only private key that can withdraw your assets from MegaVault.
+    </p>
+    
+    <h4>
+      By choosing to use MegaVault, you agree that you are responsible for compliance with 
+      applicable laws, and indemnify us and the Software Developer for any losses as a result 
+      of your failure to comply with applicable laws
+    </h4>
+    
+    <p>
+      You will ensure that when you make a deposit in, operate or participate in MegaVault, 
+      your actions comply with all applicable laws and do not violate the rights of any 
+      other persons. We and the Software Developer make no representations (express or implied) 
+      about jurisdictions in which MegaVault is appropriate, and you are strongly encouraged 
+      to review all applicable laws prior to using MegaVault.
+    </p>
+    
+    <p>
+      We and the Software Developer are not responsible for and you agree not to make any 
+      claim against the foregoing for any of your direct or indirect losses or liability 
+      arising from your use of MegaVault. You agree to indemnify, defend, and hold harmless 
+      Company and the Software Developer against any claims or losses suffered by the foregoing 
+      as a result of your intentional or inadvertent non-compliance with any applicable laws.
+    </p>
+
+    <h3>Affiliates Feature</h3>
+    <h4>
+      By using the affiliates feature or participating as an affiliate or VIP affiliate, 
+      you agree that you have no relationship with us or the Software Developer and 
+      are not marketing for the foregoing.
+    </h4>
+    
+    <p>
+      Using the affiliate feature does not create any contractual, partnership, fiduciary, 
+      sales, franchise, agency, representative, contractor, employment or other relationship 
+      between you, and us or the Software Developer. You are not an affiliate for us 
+      or the Software Developer and are not marketing for us or the Software Developer.
+    </p>
+    
+    <h4>
+      By using the affiliates feature or participating as an affiliate or VIP affiliate, 
+      you agree that affiliate rewards are paid from dYdX Chain protocol revenues and 
+      controlled by the governance community.
+    </h4>
+    
+    <p>
+      You understand that affiliate rewards are paid solely from the dYdX Chain protocol fees 
+      by operation of automated open-source software. No centralized party is responsible for 
+      determining or paying the amount of payments that you receive. You understand that 
+      affiliate rewards tiers are set by governance community vote, and could be changed in 
+      the future.
+    </p>
+    
+    <h4>
+      By using the affiliates feature or participating as an affiliate or VIP affiliate, 
+      you agree that the affiliates feature rely on experimental open-source software.
+    </h4>
+    
+    <p>
+      You acknowledge and agree that the affiliates feature is based on experimental open-source 
+      software, which includes the use of automated smart contracts which may yield 
+      unpredictable results in live markets. The Software Developer does not have any ongoing 
+      oversight or ongoing responsibility for dYdX Software. The affiliates feature operate 
+      without oversight and is subject to errors that can cause the Services to malfunction 
+      (including, without limitation, coding errors and security vulnerabilities). 
+      The Software Developer is not responsible for any losses that result from software 
+      “bugs” or “hacks”.
+    </p>
+    
+    <h4>
+      By using the affiliates feature or participating as an affiliate or VIP affiliate, 
+      you agree that you will not conduct any marketing targeted at the Limited Jurisdictions 
+      or Restricted Jurisdictions.
+    </h4>
+    
+    <p>
+      You agree that you will not market or advertise, directly or indirectly, to persons in 
+      the Limited Jurisdictions or Restricted Jurisdictions, or suggest that any person 
+      from such jurisdiction use a VPN or other identity masking technology to access the 
+      dYdX Chain protocol. If the venue you use for marketing is available to persons who 
+      may reside in the Limited Jurisdictions or Restricted Jurisdictions, you are 
+      responsible for including appropriate disclaimers, such as “dYdX is not available 
+      in the the U.S. and this post is not intended for U.S. persons”.
+    </p>
+    
+    <p>
+      You agree to indemnify, defend and hold harmless Company and the Software Developer 
+      against any claims or losses suffered by the foregoing as a result of your intentional 
+      or inadvertent marketing to persons in Limited Jurisdictions or Restricted Jurisdictions.
+    </p>
+    
+    <h4>
+      By using the affiliates feature or participating as an affiliate or VIP affiliate, 
+      you agree that you will not conduct any false or misleading marketing.
+    </h4>
+    
+    <p>
+      You will not engage in any false, deceptive, misleading, derogatory or defamatory 
+      marketing, or create or publish any content that is unlawful, harmful or inaccurate.
+    </p>
+    
+    <h4>
+      By using the affiliates feature or participating as an affiliate or VIP affiliate, 
+      you agree that you are responsible for compliance with applicable law and 
+      indemnifying Company and the Software Developer for any losses as a result of your 
+      failure to comply with applicable laws.
+    </h4>
+    
+    <p>
+      You will ensure that your performance as an affiliate complies with all applicable laws 
+      and does not violate the rights of any other persons. We and the Software Developer are not 
+      responsible for, and you agree not to make, any claims against the foregoing with respect to 
+      any of your direct or indirect losses or liability arising from your use of the 
+      affiliates feature.
+    </p>
+    
+    <p>
+      We and the Software Developer make no representations (express or implied) about 
+      jurisdictions in which affiliate marketing is appropriate, and you are strongly 
+      encouraged to review all applicable laws prior to acting as an affiliate. 
+      You agree to indemnify, defend and hold harmless Company and the Software Developer 
+      against any claims or losses suffered by the foregoing as a result of your 
+      intentional or inadvertent non-compliance with any applicable laws.
+    </p>
+    
+    <h3>Instant Market Listings</h3>
+    <h4>
+      By using the instant market listing feature via the Services (“Instant Listing”), 
+      you agree that that to create an Instant Listing, you have to make a large deposit 
+      that is subject to a long lock-up period with a material risk of loss and 
+      no guaranteed return.
+    </h4>
+    
+    <p>
+      The large deposit you make to create an Instant Listing of a market has no guaranteed 
+      return and is subject to a long lock-up period and material risk of loss. The deposit 
+      you make does not solely support liquidity for the market you listed. The deposit 
+      supports liquidity for all markets on the dYdX Chain protocol. The deposit you make 
+      will be deposited into MegaVault which is operated by the Operator 
+      in accordance with the terms and conditions set forth herein. MegaVault provides 
+      liquidity in highly illiquid and volatile markets, and you may experience material 
+      slippage (which is the difference between what you expect to receive and the actual outcome 
+      on withdrawal) on withdrawal.
+    </p>
+    
+    <h4>
+      By using Instant Listing, you agree that you have no relationship with us or the 
+      Software Developer, and are not listing markets for the foregoing. You have made an 
+      independent decision to list a market.
+    </h4>
+    
+    <p>
+      Using Instant Listing does not create any contractual, partnership, fiduciary, sales, 
+      franchise, agency, representative, contractor, employment or other relationship between 
+      you, and Company or the Software Developer. You have made your own independent decision 
+      to instant list a market using Instant Listing. You are not listing markets for us 
+      or the Software Developer. You have not relied on any communication (written or oral) 
+      from us or the Software Developer as advice or a recommendation to list a market 
+      using Instant Listing.
+    </p>
+    
+    <h4>
+      By using Instant Listing, you agree that you are responsible for compliance with applicable 
+      law and indemnifying Company and the Software Developer for any losses as a result of 
+      your failure to comply with applicable laws.
+    </h4>
+    
+    <p>
+      You will ensure that when you instantly list a market through Instant Listing, 
+      your actions comply with all applicable laws and do not violate the rights of any other 
+      persons. We and the Software Developer make no representations (express or implied) 
+      about jurisdictions in which Instant Listing is appropriate, and you are 
+      strongly encouraged to review all applicable laws prior to using Instant Listing. 
+      We and the Software Developer are not responsible for and you agree not to make any 
+      claims against the foregoing with respect to any of your direct or indirect 
+      losses or liability arising from your use of Instant Listing. 
+      You agree to indemnify, defend and hold harmless Company and the Software Developer 
+      against any claims or losses suffered by the foregoing as a result of your 
+      intentional or inadvertent non-compliance with any applicable laws.
+    </p>
+
 
     <h2>Prohibited Uses</h2>
     <p>
@@ -181,8 +559,8 @@ const TermsOfUsePage = () => (
         <li>
           In any way that violates any applicable federal, state, local, or international law or
           regulation (including, without limitation, any laws regarding the export of data or
-          software to and from the United States, Canada, European Union, the United Kingdom or
-          other countries).
+          software to and from the United States, Canada, European Union, the United Kingdom 
+          (collectively "Limited Jurisdictions") or other countries).
         </li>
         <li>
           For the purpose of exploiting, harming, or attempting to exploit or harm minors in any way
@@ -323,14 +701,14 @@ const TermsOfUsePage = () => (
 
     <h2>Blockchain Transactions and Exchange of Crypto Assets</h2>
     <p>
-      The Services allow you access to on-chain protocols or other methods of transacting in digital
-      assets. That functionality is not provided by Company, and we do not control it. Our Services
+      The Services allow you access to on-chain protocols or other methods of transacting in Digital
+      Assets. That functionality is not provided by Company, and we do not control it. Our Services
       make such functionalities accessible only as a convenience to you.
     </p>
     <p>
-      You understand that we do not hold your digital assets, and take no custody of them. We have
+      You understand that we do not hold your Digital Assets, and take no custody of them. We have
       no access to your assets or funds. It is your responsibility to ensure that you maintain
-      control of your digital assets and you have sole responsibility for exchanging them (including
+      control of your Digital Assets and you have sole responsibility for exchanging them (including
       through the Services).
     </p>
     <p>
@@ -343,32 +721,32 @@ const TermsOfUsePage = () => (
       You also understand that, by using the Services, you may be interacting with other third
       parties that are independent from and unaffiliated with us. In particular, you understand and
       acknowledge that, in order to successfully interact with on-chain protocols and transact in
-      digital assets via our Services, you will need to rely on services provided by third parties,
+      Digital Assets via our Services, you will need to rely on services provided by third parties,
       including (but not limited to) remote procedure call node (“RPC node”) operators. An
       RPC node is a type of computer server that allows users to read data from and send
       transactions to a blockchain network. We do not operate any RPC nodes and are not responsible
       for the operation of any RPC nodes required for your successful interaction with on-chain
-      protocols or transacting in digital assets. Any RPC nodes that you rely on or use are
+      protocols or transacting in Digital Assets. Any RPC nodes that you rely on or use are
       independent from and unaffiliated with Company and Company shall not be held liable for the
       operation of any RPC nodes or the function or service to be performed by those RPC nodes.
     </p>
     <p>
       You also understand that we do not act as your financial advisors or give you any investment
-      advice of any kind with respect to your use or exchange of digital assets. As with any trading
+      advice of any kind with respect to your use or exchange of Digital Assets. As with any trading
       activities, it is your responsibility and you are solely responsible for the contents of your
-      wallet, your exchange decisions, how and when you trade digital assets and with whom. It is
+      wallet, your exchange decisions, how and when you trade Digital Assets and with whom. It is
       also your responsibility to ensure you understand crypto assets, how they work, what their
       value is, and how to trade such assets, as there are significant risks in doing so, all of
       which you solely assume.
     </p>
     <p>
-      You acknowledge that the time of a digital asset transaction can affect the value of the asset
+      You acknowledge that the time of a Digital Asset transaction can affect the value of the asset
       or the fees associated with a transaction or both. You hereby agree that you hold us harmless
-      against any and all claims arising from the transactions of your digital assets, or the timing
+      against any and all claims arising from the transactions of your Digital Assets, or the timing
       of such transactions.
     </p>
     <p>
-      Digital assets are not subject to deposit and/or securities insurance or protection regimes.
+      Digital Assets are not subject to deposit and/or securities insurance or protection regimes.
       Company is not a bank, and we have no fiduciary duty to you.
     </p>
     <p>
@@ -377,7 +755,7 @@ const TermsOfUsePage = () => (
       including, but not limited to, use of Malicious Code, denial of service attacks, Sybil
       attacks, and spoofing. Furthermore, because much of our Services rely on open-source software,
       there is the software underlying our code that may contain bugs or weaknesses which may
-      negatively affect the Services, or result in the loss of your digital assets, or your ability
+      negatively affect the Services, or result in the loss of your Digital Assets, or your ability
       to control your wallet. You hold us harmless from and against any losses you suffer as a
       result of such issues.
     </p>
@@ -390,7 +768,7 @@ const TermsOfUsePage = () => (
       All decisions you make based on information provided through the Services are your sole
       responsibility and you hold us harmless from and against any losses you suffer as a result of
       such decisions. The Services provide access to materials and tools offered by or created by
-      third parties, such as digital asset protocols or smart contracts. We do not control such
+      third parties, such as Digital Asset protocols or smart contracts. We do not control such
       materials, and provide no guarantee as to their accuracy, completeness, legality or
       usefulness. You acknowledge and agree that we are not responsible for any aspect of the
       information, content, or services contained in any such third-party materials comprising the
@@ -399,15 +777,15 @@ const TermsOfUsePage = () => (
     <p>
       By utilizing or interacting with the Services in any way, you represent and warrant that you
       understand the inherent risks associated with: cryptographic systems and blockchain-based
-      networks; digital assets, including the usage and intricacies of native digital assets, like
+      networks; Digital Assets, including the usage and intricacies of native Digital Assets, like
       DYDX (DYDX); smart contract-based tokens; and systems that interact with blockchain-based
       networks.
     </p>
     <p>
       You acknowledge and understand that cryptography is a progressing field with advances in code
       cracking or other technical advancements, such as the development of quantum computers, which
-      may present risks to digital assets and the smart contract to which the Services facilitate
-      access, and could result in the theft or loss of your digital assets. We are unable to update
+      may present risks to Digital Assets and the smart contract to which the Services facilitate
+      access, and could result in the theft or loss of your Digital Assets. We are unable to update
       the smart contracts and software to which the Services provide access for any advances in
       cryptography or to incorporate additional security measures necessary to address risks
       presented from technological advancements; thus, there can be no guarantee regarding the
@@ -424,8 +802,8 @@ const TermsOfUsePage = () => (
       understand that we accept no responsibility whatsoever for, and shall in no circumstances be
       liable in connection with, your decisions or your use of our Services. Nothing contained in
       the Services constitutes a solicitation, recommendation, endorsement, or offer by us or any
-      third party to transact in any digital assets, securities, or other financial instruments.
-      Neither we nor any of our affiliates has endorsed or sponsored any digital assets made
+      third party to transact in any Digital Assets, securities, or other financial instruments.
+      Neither we nor any of our affiliates has endorsed or sponsored any Digital Assets made
       available or that can be transacted through third-party tools available from the Services.
     </p>
     <p>
@@ -439,7 +817,7 @@ const TermsOfUsePage = () => (
     <h2>Taxes and Fraud</h2>
     <p>
       Depending on your location of residence, you may owe taxes on amounts you earn after
-      exchanging assets, including digital assets and crypto assets. It is your responsibility to
+      exchanging assets, including Digital Assets and crypto assets. It is your responsibility to
       ensure you have accounted for, reported to the proper governmental authority, and paid all
       such taxes to the applicable governmental authority. We do not undertake any obligation to
       report any such taxes, nor collect or disburse them on your behalf. The taxes you owe are
@@ -519,7 +897,7 @@ const TermsOfUsePage = () => (
     <p>
       If the Services contain links to and access to third-party content and resources, these links
       are provided for your convenience only. This includes links contained in advertisements,
-      including banner advertisements and sponsored links, and digital asset trading protocols,
+      including banner advertisements and sponsored links, and Digital Asset trading protocols,
       among other things. We have no control over the contents of those sites or resources, and
       accept no responsibility for them or for any loss or damage that may arise from your use of
       them. If you decide to access any of the third-party websites linked on the Services, you do
@@ -541,13 +919,13 @@ const TermsOfUsePage = () => (
       internet or the Services will be free of Malicious Code. You are responsible for implementing
       sufficient procedures and checkpoints to satisfy your particular requirements for anti-virus
       protection and accuracy of data input and output, and for maintaining a means external to our
-      Services for any reconstruction of any lost data, including any information in your digital
+      Services for any reconstruction of any lost data, including any information in your 
       wallet.
     </p>
     <p>
       TO THE FULLEST EXTENT PERMITTED BY LAW, WE WILL NOT BE LIABLE FOR ANY LOSS OR DAMAGE CAUSED BY
       A DISTRIBUTED DENIAL-OF-SERVICE ATTACK, VIRUSES, OR OTHER TECHNOLOGICALLY HARMFUL MATERIAL
-      THAT MAY INFECT YOUR COMPUTER EQUIPMENT, COMPUTER PROGRAMS, DATA, YOUR DIGITAL WALLET, OR
+      THAT MAY INFECT YOUR COMPUTER EQUIPMENT, COMPUTER PROGRAMS, DATA, YOUR WALLET, OR
       PROPRIETARY MATERIAL DUE TO YOUR USE OF THE SERVICES, YOUR TRANSACTIONS OR EXCHANGES THROUGH
       TOOLS ACCESSED THROUGH THE SERVICES, OR YOUR ACCESS TO ANY MATERIAL, PROTOCOLS, SMART
       CONTRACTS OR OTHER TOOLS PROVIDED ON OR THROUGH THE SERVICES, POSTED ON THEM, OR POSTED ON ANY
