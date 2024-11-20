@@ -341,8 +341,8 @@ const TermsOfUsePage = () => (
     </strong></h4>
     
     <p>
-      You understand that MegaVault depends on the Operator to ensure the correct functioning 
-      of MegaVault.
+      You understand that MegaVault depends on the Operator (the “Operator”) to 
+      ensure the correct functioning of MegaVault.
     </p>
     
     <p>
