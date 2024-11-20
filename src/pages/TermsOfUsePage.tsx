@@ -7,13 +7,14 @@ const TermsOfUsePage = () => (
   <$Article>
     <header>
       <h1>Terms of Use</h1>
+      <h3>Last Updated: November 19, 2024</h3>
       <span />
     </header>
 
     <h2>Acceptance of the Terms of Use; Eligible Users</h2>
     <p>
-      These terms of use are entered into by and between you (as defined below) and dYdX Operations
-      Services Limited (“Company”, “we” or “us”). The following terms and
+      These terms of use are entered into by and between you (as defined below) and dYdX Operations 
+      Services Limited (“Company”, “we” or “us”). The following terms and 
       conditions, together with any documents they expressly incorporate by reference (collectively,
       these “Terms of Use”), govern your access to and use of dydx.trade and any subdomains
       thereof (the “Services”) and use of our mobile applications (the “Apps” and
@@ -227,13 +228,13 @@ const TermsOfUsePage = () => (
     </p>
     
     <h3>MegaVault</h3>
-    <h4>
+    <h4><strong>
       By choosing to use MegaVault via the Services ("MegaVault") you agree that deposited 
       assets will be used to support liquidity on the dYdX Chain protocol; you are not relying on 
       any publicly described annual percentage rate ("APR") or other expectation of profit to 
       induce your deposit. You understand that MegaVault is a liquidity provider and trades based 
       on pre-configured algorithms.
-    </h4>
+    </strong></h4>
     
     <p>
       You understand that any assets deposited to MegaVault will be allocated so as to support 
@@ -250,10 +251,10 @@ const TermsOfUsePage = () => (
       representations of APR.
     </p>
     
-    <h4>
+    <h4><strong>
       By choosing to use MegaVault, you agree that there could be significant slippage or loss on 
       your deposit. 
-    </h4>
+    </strong></h4>
     
     <p>
       There is material risk of economic loss by using MegaVault and no return is 
@@ -263,10 +264,10 @@ const TermsOfUsePage = () => (
       outcome on withdrawal) on withdrawal. 
     </p>
     
-    <h4>
+    <h4><strong>
       By choosing to use MegaVault you agree that we and the Software Developer are not 
       responsible for your losses and MegaVault relies on experimental open source software.
-    </h4>
+    </strong></h4>
     
     <p>
       We and the Software Developer:
@@ -306,10 +307,10 @@ const TermsOfUsePage = () => (
       low liquidity, possible impermanent loss) of the “sub-vaults".
     </p>
 
-    <h4>
+    <h4><strong>
       By choosing to use MegaVault, you agree that you are not relying on us or the Software 
       Developer.
-    </h4>
+    </strong></h4>
     
     <p>
       You have made your own independent decision to deposit into MegaVault, based on advice 
@@ -334,14 +335,14 @@ const TermsOfUsePage = () => (
       your decision to deposit any Digital Assets into MegaVault.
     </p>
     
-    <h4>
+    <h4><strong>
       By choosing to use MegaVault, you agree that an operator (the "Operator"), which is 
       independent from and unaffiliated with Company, controls MegaVault.
-    </h4>
+    </strong></h4>
     
     <p>
-      You understand that MegaVault depends on the Operator (the “Operator”) to 
-      ensure the correct functioning of MegaVault.
+      You understand that MegaVault depends on the Operator to ensure the correct functioning 
+      of MegaVault.
     </p>
     
     <p>
@@ -352,18 +353,17 @@ const TermsOfUsePage = () => (
     </p>
     
     <p>
-      The Operator responded to a governance community grants 
-      <a href="https://www.dydxgrants.com/discover-initiatives">request for proposal</a> 
-      and will be selected by a governance community vote available <a href="https://dydx.forum/t/proposal-to-set-greave-as-the-dydx-megavault-operator/3129/2">here</a>. 
+      The Operator responded to a governance community grants <a href="https://www.dydxgrants.com/discover-initiatives">request for proposal</a> and 
+      will be selected by a governance community vote available <a href="https://dydx.forum/t/proposal-to-set-greave-as-the-dydx-megavault-operator/3129/2">here</a>. 
       The Operator has little or no operating history and you should not place undue reliance on 
       the community vote. You should independently review the Operator and determine if it is a 
       suitable party to manage MegaVault. We and the Software Developer are not responsible 
       for the actions of the Operator.
     </p>
     
-    <h4>
+    <h4><strong>
       By choosing to use MegaVault, you agree that you are responsible for your assets or funds.
-    </h4>
+    </strong></h4>
     
     <p>
       You understand that we, the Software Developer or the Operator may not take custody of 
@@ -372,11 +372,11 @@ const TermsOfUsePage = () => (
       your wallet is the only private key that can withdraw your assets from MegaVault.
     </p>
     
-    <h4>
+    <h4><strong>
       By choosing to use MegaVault, you agree that you are responsible for compliance with 
       applicable laws, and indemnify us and the Software Developer for any losses as a result 
       of your failure to comply with applicable laws
-    </h4>
+    </strong></h4>
     
     <p>
       You will ensure that when you make a deposit in, operate or participate in MegaVault, 
@@ -395,11 +395,11 @@ const TermsOfUsePage = () => (
     </p>
 
     <h3>Affiliates Feature</h3>
-    <h4>
+    <h4><strong>
       By using the affiliates feature or participating as an affiliate or VIP affiliate, 
       you agree that you have no relationship with us or the Software Developer and 
       are not marketing for the foregoing.
-    </h4>
+    </strong></h4>
     
     <p>
       Using the affiliate feature does not create any contractual, partnership, fiduciary, 
@@ -408,11 +408,11 @@ const TermsOfUsePage = () => (
       or the Software Developer and are not marketing for us or the Software Developer.
     </p>
     
-    <h4>
+    <h4><strong>
       By using the affiliates feature or participating as an affiliate or VIP affiliate, 
       you agree that affiliate rewards are paid from dYdX Chain protocol revenues and 
       controlled by the governance community.
-    </h4>
+    </strong></h4>
     
     <p>
       You understand that affiliate rewards are paid solely from the dYdX Chain protocol fees 
@@ -422,10 +422,10 @@ const TermsOfUsePage = () => (
       the future.
     </p>
     
-    <h4>
+    <h4><strong>
       By using the affiliates feature or participating as an affiliate or VIP affiliate, 
       you agree that the affiliates feature rely on experimental open-source software.
-    </h4>
+    </strong></h4>
     
     <p>
       You acknowledge and agree that the affiliates feature is based on experimental open-source 
@@ -438,11 +438,11 @@ const TermsOfUsePage = () => (
       “bugs” or “hacks”.
     </p>
     
-    <h4>
+    <h4><strong>
       By using the affiliates feature or participating as an affiliate or VIP affiliate, 
       you agree that you will not conduct any marketing targeted at the Limited Jurisdictions 
       or Restricted Jurisdictions.
-    </h4>
+    </strong></h4>
     
     <p>
       You agree that you will not market or advertise, directly or indirectly, to persons in 
@@ -460,22 +460,22 @@ const TermsOfUsePage = () => (
       or inadvertent marketing to persons in Limited Jurisdictions or Restricted Jurisdictions.
     </p>
     
-    <h4>
+    <h4><strong>
       By using the affiliates feature or participating as an affiliate or VIP affiliate, 
       you agree that you will not conduct any false or misleading marketing.
-    </h4>
+    </strong></h4>
     
     <p>
       You will not engage in any false, deceptive, misleading, derogatory or defamatory 
       marketing, or create or publish any content that is unlawful, harmful or inaccurate.
     </p>
     
-    <h4>
+    <h4><strong>
       By using the affiliates feature or participating as an affiliate or VIP affiliate, 
       you agree that you are responsible for compliance with applicable law and 
       indemnifying Company and the Software Developer for any losses as a result of your 
       failure to comply with applicable laws.
-    </h4>
+    </strong></h4>
     
     <p>
       You will ensure that your performance as an affiliate complies with all applicable laws 
@@ -495,12 +495,12 @@ const TermsOfUsePage = () => (
     </p>
     
     <h3>Instant Market Listings</h3>
-    <h4>
+    <h4><strong>
       By using the instant market listing feature via the Services (“Instant Listing”), 
       you agree that that to create an Instant Listing, you have to make a large deposit 
       that is subject to a long lock-up period with a material risk of loss and 
       no guaranteed return.
-    </h4>
+    </strong></h4>
     
     <p>
       The large deposit you make to create an Instant Listing of a market has no guaranteed 
@@ -514,11 +514,11 @@ const TermsOfUsePage = () => (
       on withdrawal) on withdrawal.
     </p>
     
-    <h4>
+    <h4><strong>
       By using Instant Listing, you agree that you have no relationship with us or the 
       Software Developer, and are not listing markets for the foregoing. You have made an 
       independent decision to list a market.
-    </h4>
+    </strong></h4>
     
     <p>
       Using Instant Listing does not create any contractual, partnership, fiduciary, sales, 
@@ -530,11 +530,11 @@ const TermsOfUsePage = () => (
       using Instant Listing.
     </p>
     
-    <h4>
+    <h4><strong>
       By using Instant Listing, you agree that you are responsible for compliance with applicable 
       law and indemnifying Company and the Software Developer for any losses as a result of 
       your failure to comply with applicable laws.
-    </h4>
+    </strong></h4>
     
     <p>
       You will ensure that when you instantly list a market through Instant Listing, 
