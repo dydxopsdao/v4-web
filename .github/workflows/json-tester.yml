@@ -1,0 +1,106 @@
+name: Compare JSONs Against dYdX
+
+on:
+  push:
+    branches:
+      - dos-*
+  workflow_dispatch:
+    inputs:
+      dydx_url:
+        description: "URL of the dYdX reference JSON file"
+        required: false
+        default: ""
+      dos_url:
+        description: "URL of the DOS comparison JSON file"
+        required: false
+        default: ""
+
+jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      # Step 1: Check out your repo
+      - name: Check out your repo
+        uses: actions/checkout@v3
+
+      # Step 2: Determine dYdX reference
+      - name: Set dYdX and DOS JSON URLs
+        id: set-urls
+        run: |
+          # Use manually provided URLs if available
+          if [[ -n "${{ github.event.inputs.dydx_url }}" && -n "${{ github.event.inputs.dos_url }}" ]]; then
+            DYDX_URL="${{ github.event.inputs.dydx_url }}"
+            DOS_URL="${{ github.event.inputs.dos_url }}"
+            echo "Manual URLs detected."
+          else
+            # Extract version if on a dos-x.y.z branch
+            if [[ "${GITHUB_REF_NAME}" == dos-* ]]; then
+              VERSION="${GITHUB_REF_NAME#dos-}"
+              DYDX_REFERENCE="refs/tags/release/v${VERSION}"
+              DYDX_URL="https://raw.githubusercontent.com/dydxprotocol/v4-web/${DYDX_REFERENCE}/public/configs/env.json"
+              DOS_URL="https://raw.githubusercontent.com/dydxopsdao/v4-web/${GITHUB_REF_NAME}/public/configs/env.json"
+
+              # Validate dYdX URL existence
+              if ! curl -s --head "${DYDX_URL}" | grep -q "200 OK"; then
+                echo "Error: dYdX release tag ${DYDX_REFERENCE} not found."
+                exit 1
+              fi
+            else
+              echo "Error: Branch name must follow the format dos-x.y.z or manual URLs must be provided."
+              exit 1
+            fi
+          fi
+
+          echo "DYDX_URL=${DYDX_URL}" >> $GITHUB_ENV
+          echo "DOS_URL=${DOS_URL}" >> $GITHUB_ENV
+          echo "Using dYdX JSON URL: ${DYDX_URL}"
+          echo "Using DOS JSON URL: ${DOS_URL}"
+
+      # Step 3: Clone the JSON Tester Repo
+      - name: Clone JSON Tester Repository
+        run: |
+          git clone https://github.com/dydxopsdao/json_test json-tester
+          echo "Cloned JSON tester repository."
+
+      # Step 4: Fetch JSON files
+      - name: Fetch JSON Files
+        run: |
+          echo "Fetching JSON files..."
+          curl -H "Accept: application/json" -L "${{ env.DYDX_URL }}" -o json-tester/src/dydx.json || { echo "Error: Unable to fetch dYdX JSON."; exit 1; }
+          curl -H "Accept: application/json" -L "${{ env.DOS_URL }}" -o json-tester/src/dos.json || { echo "Error: Unable to fetch DOS JSON."; exit 1; }
+
+      # Step 5: Validate JSON file content
+      - name: Validate JSON Content
+        run: |
+          echo "Validating downloaded JSON files..."
+          python -c "import json; json.load(open('json-tester/src/dydx.json'))" || { echo "Error: dYdX JSON is not valid."; cat json-tester/src/dydx.json; exit 1; }
+          python -c "import json; json.load(open('json-tester/src/dos.json'))" || { echo "Error: DOS JSON is not valid."; cat json-tester/src/dos.json; exit 1; }
+
+      # Step 6: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          cd json-tester
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Step 7: Run JSON Tester
+      - name: Validate JSON Files
+        run: |
+          cd json-tester/src
+          python env_config_validator.py dydx.json dos.json || exit 1
+
+      # Step 8: Post Validation Summary
+      - name: Post Validation Summary
+        if: success()
+        run: echo "✅ JSON validation completed successfully!"
+
+      - name: Report Failure
+        if: failure()
+        run: echo "❌ JSON validation failed. Check logs for details."
