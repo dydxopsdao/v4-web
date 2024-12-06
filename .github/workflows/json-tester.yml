@@ -36,13 +36,17 @@ jobs:
           else
             if [[ "${GITHUB_REF_NAME}" == dos-* ]]; then
               VERSION="${GITHUB_REF_NAME#dos-}"
-              DYDX_REFERENCE="release/v${VERSION}"
-              DYDX_URL="https://raw.githubusercontent.com/dydxprotocol/v4-web/${DYDX_REFERENCE}/public/configs/env.json"
-              DOS_URL="https://raw.githubusercontent.com/dydxopsdao/v4-web/${GITHUB_REF_NAME}/public/configs/env.json"
+              DYDX_REFERENCE="refs/tags/release/v${VERSION}"
+              DYDX_URL="https://raw.githubusercontent.com/dydxprotocol/v4-web/${DYDX_REFERENCE}/public/configs/v1/env.json"
+              DOS_URL="https://raw.githubusercontent.com/dydxopsdao/v4-web/${GITHUB_REF_NAME}/public/configs/v1/env.json"
+
+              # Debug constructed URLs
+              echo "Constructed DYDX URL: ${DYDX_URL}"
+              echo "Constructed DOS URL: ${DOS_URL}"
 
               # Validate dYdX URL existence
               if ! curl -s --head "${DYDX_URL}" | grep -q "200 OK"; then
-                echo "Error: dYdX release tag ${DYDX_REFERENCE} not found."
+                echo "Error: dYdX release tag ${DYDX_REFERENCE} not found or inaccessible."
                 exit 1
               fi
             else
