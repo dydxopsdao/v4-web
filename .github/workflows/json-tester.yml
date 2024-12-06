@@ -7,13 +7,13 @@ on:
   workflow_dispatch:
     inputs:
       dydx_url:
-        description: "URL of the dYdX reference JSON file"
+        description: 'URL of the dYdX reference JSON file'
         required: false
-        default: ""
+        default: ''
       dos_url:
-        description: "URL of the DOS comparison JSON file"
+        description: 'URL of the DOS comparison JSON file'
         required: false
-        default: ""
+        default: ''
 
 jobs:
   validate-json:
@@ -29,16 +29,14 @@ jobs:
       - name: Set dYdX and DOS JSON URLs
         id: set-urls
         run: |
-          # Use manually provided URLs if available
           if [[ -n "${{ github.event.inputs.dydx_url }}" && -n "${{ github.event.inputs.dos_url }}" ]]; then
             DYDX_URL="${{ github.event.inputs.dydx_url }}"
             DOS_URL="${{ github.event.inputs.dos_url }}"
             echo "Manual URLs detected."
           else
-            # Extract version if on a dos-x.y.z branch
             if [[ "${GITHUB_REF_NAME}" == dos-* ]]; then
               VERSION="${GITHUB_REF_NAME#dos-}"
-              DYDX_REFERENCE="refs/tags/release/v${VERSION}"
+              DYDX_REFERENCE="release/v${VERSION}"
               DYDX_URL="https://raw.githubusercontent.com/dydxprotocol/v4-web/${DYDX_REFERENCE}/public/configs/env.json"
               DOS_URL="https://raw.githubusercontent.com/dydxopsdao/v4-web/${GITHUB_REF_NAME}/public/configs/env.json"
 
@@ -52,7 +50,6 @@ jobs:
               exit 1
             fi
           fi
-
           echo "DYDX_URL=${DYDX_URL}" >> $GITHUB_ENV
           echo "DOS_URL=${DOS_URL}" >> $GITHUB_ENV
           echo "Using dYdX JSON URL: ${DYDX_URL}"
