@@ -1,0 +1,65 @@
+name: Deployment new version to preview
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: '*/30 * * * *'  # Run every 30 minutes
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Get full history
+          token: ${{ secrets.GITHUB_TOKEN }} # Use GITHUB_TOKEN for authentication
+          
+      - name: Import GPG key
+        run: |
+          echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --yes --import
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+
+      - name: Configure GPG for Git
+        run: |
+          git config --global user.signingkey $(gpg --list-secret-keys --keyid-format LONG | grep sec | awk '{print $2}' | cut -d'/' -f2)
+          git config --global commit.gpgSign true
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "rudi+github-actions@dydxopsservices.com"
+      
+      - name: Process Release
+        run: |
+          # Add upstream remote
+          git remote add upstream https://github.com/dydxprotocol/v4-web.git
+
+          # Fetch all tags from upstream
+          git fetch upstream
+
+          # Get the latest release tag
+          LATEST_TAG=$(git tag -l 'release/v*' | sort -V | tail -n 1)
+          echo "Latest upstream tag found: ${LATEST_TAG}"
+
+          # Check if LATEST_TAG is empty
+          if [ -z "$LATEST_TAG" ]; then
+              echo "No tags found matching 'release/v*'."
+              exit 1
+          fi
+            
+          VERSION=${LATEST_TAG#release/v}
+
+          # Check for new version branch existance
+          if git ls-remote --heads origin refs/heads/dos-$VERSION | grep -q .; then
+            echo "Branch dos-$VERSION already exists. Skipping."
+            exit 0
+          fi
+          
+          # Create new branch from main and check it out
+          git checkout -b dos-$VERSION origin/main
+          
+          # Fetch changes from upstream, replay my commits on top and re-sign
+          git rebase release/v$VERSION     
+          
+          # Push to origin using GITHUB_TOKEN
+          git push --set-upstream origin dos-$VERSION
