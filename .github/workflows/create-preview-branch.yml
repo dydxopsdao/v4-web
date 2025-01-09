@@ -1,0 +1,61 @@
+name: Create Preview Branch
+
+on:
+  # Manual trigger with optional version input
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to create branch for (e.g., 1.0.0)'
+        required: false
+  # Scheduled trigger
+  schedule:
+    - cron: '*/30 * * * *'  # Check every 30 minutes
+
+jobs:
+  create-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0          # Get full history for proper branching
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+          
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "rudi+github-actions@dydxopsservices.com"
+          
+      - name: Process Release
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            # Use manually specified version if provided
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            # Get latest release from upstream using git
+            LATEST_TAG=$(git ls-remote --tags https://github.com/dydxprotocol/v4-web.git \
+              | grep 'release/v' \
+              | sort -V \
+              | tail -n 1 \
+              | sed 's/.*refs\/tags\/release\/v//')
+            echo "Latest upstream tag found: release/v${LATEST_TAG}"
+            VERSION=$LATEST_TAG
+          fi
+          
+          # Check if branch already exists
+          if git ls-remote --heads origin refs/heads/dos-$VERSION | grep -q .; then
+            echo "Branch dos-$VERSION already exists. Skipping."
+            exit 0
+          fi
+          
+          # Create new branch from main and check it out
+          git checkout -b dos-$VERSION origin/main
+          
+          # Add upstream remote
+          git remote add upstream https://github.com/dydxprotocol/v4-web.git
+          
+          # Pull from upstream release tag with rebase
+          git pull --rebase upstream release/v$VERSION
+          
+          # Push to origin
+          git push --set-upstream origin dos-$VERSION
