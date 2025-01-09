@@ -1,0 +1,66 @@
+name: Create Preview Branch
+
+on:
+  # Manual trigger with optional version input
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to create branch for (e.g., 1.0.0)'
+        required: false
+  # Scheduled trigger
+  schedule:
+    - cron: '*/30 * * * *'  # Check every 30 minutes
+
+jobs:
+  create-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0          # Get full history for proper branching
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+          
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "rudi+github-actions@dydxopsservices.com"
+          
+      - name: Process Release
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            # Fetch all tags from upstream
+            git fetch --tags https://github.com/dydxprotocol/v4-web.git
+            
+            # Get the latest release tag
+            LATEST_TAG=$(git tag -l 'release/v*' | sort -V | tail -n 1)
+            echo "Latest upstream tag found: ${LATEST_TAG}"
+
+            # Check if LATEST_TAG is empty
+            if [ -z "$LATEST_TAG" ]; then
+                echo "No tags found matching 'release/v*'."
+                exit 1
+            fi
+            
+            VERSION=${LATEST_TAG#release/v}
+          fi
+          
+          # Check if branch already exists
+          if git ls-remote --heads origin refs/heads/dos-$VERSION | grep -q .; then
+            echo "Branch dos-$VERSION already exists. Skipping."
+            exit 0
+          fi
+          
+          # Create new branch from main and check it out
+          git checkout -b dos-$VERSION origin/main
+          
+          # Add upstream remote
+          git remote add upstream https://github.com/dydxprotocol/v4-web.git
+          
+          # Pull from upstream release tag with rebase
+          git pull --rebase upstream release/v$VERSION
+          
+          # Push to origin
+          git push --set-upstream origin dos-$VERSION
