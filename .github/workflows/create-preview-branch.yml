@@ -29,17 +29,22 @@ jobs:
       - name: Process Release
         run: |
           if [ -n "${{ github.event.inputs.version }}" ]; then
-            # Use manually specified version if provided
             VERSION="${{ github.event.inputs.version }}"
           else
-            # Get latest release from upstream using git
-            LATEST_TAG=$(git ls-remote --tags https://github.com/dydxprotocol/v4-web.git \
-              | grep 'release/v' \
-              | sort -V \
-              | tail -n 1 \
-              | sed 's/.*refs\/tags\/release\/v//')
-            echo "Latest upstream tag found: release/v${LATEST_TAG}"
-            VERSION=$LATEST_TAG
+            # Fetch all tags from upstream
+            git fetch --tags https://github.com/dydxprotocol/v4-web.git
+            
+            # Get the latest release tag
+            LATEST_TAG=$(git tag -l 'release/v*' | sort -V | tail -n 1)
+            echo "Latest upstream tag found: ${LATEST_TAG}"
+
+            # Check if LATEST_TAG is empty
+            if [ -z "$LATEST_TAG" ]; then
+                echo "No tags found matching 'release/v*'."
+                exit 1
+            fi
+            
+            VERSION=${LATEST_TAG#release/v}
           fi
           
           # Check if branch already exists
