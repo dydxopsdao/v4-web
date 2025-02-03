@@ -7,7 +7,7 @@ const TermsOfUsePage = () => (
   <$Article>
     <header>
       <h1>Terms of Use</h1>
-      <h3>Last Updated: November 19, 2024</h3>
+      <h3>Last Updated: February 3, 2025</h3>
       <span />
     </header>
 
@@ -68,7 +68,7 @@ const TermsOfUsePage = () => (
       CITIZENS OF, ARE LOCATED IN, ARE INCORPORATED IN, OR HAVE A REGISTERED OFFICE OR PRINCIPAL
       PLACE OF BUSINESS IN ANY RESTRICTED JURISDICTION OR COUNTRY SUBJECT TO ANY SANCTIONS OR
       RESTRICTIONS PURSUANT TO ANY APPLICABLE LAW, INCLUDING THE CRIMEA REGION, CUBA, IRAN, NORTH
-      KOREA, SYRIA, MYANMAR (BURMA, DONETSK, LUHANSK, OR ANY OTHER COUNTRY TO WHICH THE UNITED
+      KOREA, SYRIA, MYANMAR (BURMA), DONETSK, LUHANSK, OR ANY OTHER COUNTRY TO WHICH THE UNITED
       STATES, THE UNITED KINGDOM, THE EUROPEAN UNION OR ANY OTHER JURISDICTIONS EMBARGOES GOODS OR
       IMPOSES SIMILAR SANCTIONS, INCLUDING THOSE LISTED ON OUR SERVICES (COLLECTIVELY, THE
       “RESTRICTED JURISDICTIONS” AND EACH A “RESTRICTED JURISDICTION”) OR ANY PERSON OWNED,
@@ -273,27 +273,27 @@ const TermsOfUsePage = () => (
       We and the Software Developer:
       <ul>
         <li>
-          do not operate MegaVault and are not responsible for your losses or liability;
+          Do not operate MegaVault and are not responsible for your losses or liability.
         </li>
         <li>
-          have not recommended that you deposit funds into MegaVault;
+          Have not recommended that you deposit funds into MegaVault.
         </li>
         <li>
-          do not custody or manage the funds you deposit into MegaVault;
+          Do not custody or manage the funds you deposit into MegaVault.
         </li>
         <li>
-          do not have any ongoing oversight or responsibility for MegaVault; MegaVault 
+          Do not have any ongoing oversight or responsibility for MegaVault, which 
           operates without oversight and is subject to errors that can cause MegaVault to 
-          malfunction (including, without limitation, coding errors and security vulnerabilities). 
+          malfunction (including, without limitation, coding errors and security vulnerabilities).
         </li>
         <li>
-          not responsible for any losses that result from software “bugs” or “hacks” of MegaVault;
+          Are not responsible for any losses that result from software “bugs” or “hacks” of MegaVault.
         </li>
         <li>
-          do not select the market specific “sub-vaults” to which deposits are allocated; and 
+          Do not select the market specific “sub-vaults” to which deposits are allocated.
         </li>
         <li>
-          are not subject to oversight by any government or regulatory authority and your 
+          Are not subject to oversight by any government or regulatory authority and your 
           deposits into MegaVault are not covered by any investor protection funds.
         </li>
       </ul>
@@ -341,8 +341,7 @@ const TermsOfUsePage = () => (
     </strong></h4>
     
     <p>
-      You understand that MegaVault depends on the Operator (the “Operator”) to 
-      ensure the correct functioning of MegaVault.
+      You understand that MegaVault depends on the Operator to ensure the correct functioning of MegaVault.
     </p>
     
     <p>
@@ -362,26 +361,26 @@ const TermsOfUsePage = () => (
     </p>
     
     <h4><strong>
-      By choosing to use MegaVault, you agree that you are responsible for your assets or funds.
+      By choosing to use MegaVault, you agree that you are responsible for your Digital Assets.
     </strong></h4>
     
     <p>
       You understand that we, the Software Developer or the Operator may not take custody of 
       or access your Digital Assets that are deposited to MegaVault. You understand that 
       MegaVault is a non-custodial solution. Accordingly, the private key associated with 
-      your wallet is the only private key that can withdraw your assets from MegaVault.
+      your wallet is the only private key that can withdraw your Digital Assets from MegaVault.
     </p>
     
     <h4><strong>
       By choosing to use MegaVault, you agree that you are responsible for compliance with 
       applicable laws, and indemnify us and the Software Developer for any losses as a result 
-      of your failure to comply with applicable laws
+      of your failure to comply with applicable laws.
     </strong></h4>
     
     <p>
       You will ensure that when you make a deposit in, operate or participate in MegaVault, 
       your actions comply with all applicable laws and do not violate the rights of any 
-      other persons. We and the Software Developer make no representations (express or implied) 
+      other legal or natural persons, or other undertaking. We and the Software Developer make no representations (express or implied) 
       about jurisdictions in which MegaVault is appropriate, and you are strongly encouraged 
       to review all applicable laws prior to using MegaVault.
     </p>
@@ -430,17 +429,17 @@ const TermsOfUsePage = () => (
     <p>
       You acknowledge and agree that the affiliates feature is based on experimental open-source 
       software, which includes the use of automated smart contracts which may yield 
-      unpredictable results in live markets. The Software Developer does not have any ongoing 
-      oversight or ongoing responsibility for dYdX Software. The affiliates feature operate 
-      without oversight and is subject to errors that can cause the Services to malfunction 
-      (including, without limitation, coding errors and security vulnerabilities). 
-      The Software Developer is not responsible for any losses that result from software 
-      “bugs” or “hacks”.
+      unpredictable results in live markets. Neither the Company nor the Software Developer 
+      has any ongoing oversight or ongoing responsibility for dYdX Software. The affiliates 
+      feature operates without oversight and is subject to errors that can cause the Services 
+      to malfunction (including, without limitation, coding errors and security vulnerabilities). 
+      Company and the Software Developer are not responsible for any losses that result from 
+      software “bugs” or “hacks”.
     </p>
     
     <h4><strong>
-      By using the affiliates feature or participating as an affiliate or VIP affiliate, 
-      you agree that you will not conduct any marketing targeted at the Limited Jurisdictions 
+      By using the affiliates feature or participating as an affiliate or VIP affiliate, you agree 
+      that you will not conduct any marketing targeted at the Limited Jurisdictions (as defined below) 
       or Restricted Jurisdictions.
     </strong></h4>
     
@@ -448,7 +447,7 @@ const TermsOfUsePage = () => (
       You agree that you will not market or advertise, directly or indirectly, to persons in 
       the Limited Jurisdictions or Restricted Jurisdictions, or suggest that any person 
       from such jurisdiction use a VPN or other identity masking technology to access the 
-      dYdX Chain protocol. If the venue you use for marketing is available to persons who 
+      Services or the dYdX Chain protocol. If the venue you use for marketing is available to persons who 
       may reside in the Limited Jurisdictions or Restricted Jurisdictions, you are 
       responsible for including appropriate disclaimers, such as “dYdX is not available 
       in the the U.S. and this post is not intended for U.S. persons”.
@@ -497,14 +496,14 @@ const TermsOfUsePage = () => (
     <h3>Instant Market Listings</h3>
     <h4><strong>
       By using the instant market listing feature via the Services (“Instant Listing”), 
-      you agree that that to create an Instant Listing, you have to make a large deposit 
-      that is subject to a long lock-up period with a material risk of loss and 
+      you acknowledge and agree that to create an Instant Listing, you have to make a large 
+      deposit that is subject to a long lock-up period with a material risk of loss and 
       no guaranteed return.
     </strong></h4>
     
     <p>
       The large deposit you make to create an Instant Listing of a market has no guaranteed 
-      return and is subject to a long lock-up period and material risk of loss. The deposit 
+      return and is subject to a long lock-up period and material risk of loss. Furthermore, the deposit 
       you make does not solely support liquidity for the market you listed. The deposit 
       supports liquidity for all markets on the dYdX Chain protocol. The deposit you make 
       will be deposited into MegaVault which is operated by the Operator 
@@ -569,7 +568,7 @@ const TermsOfUsePage = () => (
         </li>
         <li>
           To send, knowingly receive, upload, download, use, or re-use any material that does not
-          comply with Terms of Use.{' '}
+          comply with these Terms of Use.{' '}
         </li>
         <li>
           To transmit, or procure the sending of, any advertising or promotional material, including
@@ -752,7 +751,7 @@ const TermsOfUsePage = () => (
     <p>
       Our Services may be subject to expropriation and/or theft. Hackers or other malicious actors
       may attempt to interfere with our Services or your use thereof in a variety of ways,
-      including, but not limited to, use of Malicious Code, denial of service attacks, Sybil
+      including, but not limited to, use of Malicious Code, denial of service attacks, sybil
       attacks, and spoofing. Furthermore, because much of our Services rely on open-source software,
       there is the software underlying our code that may contain bugs or weaknesses which may
       negatively affect the Services, or result in the loss of your Digital Assets, or your ability
@@ -877,8 +876,8 @@ const TermsOfUsePage = () => (
       </ul>
     </p>
     <p>
-      You agree to cooperate with us in causing any unauthorized framing or linking immediately to
-      stop. We reserve the right to withdraw linking permission without notice.
+      You agree to cooperate with us in immediately stopping any unauthorized framing or linking.
+      We reserve the right to withdraw linking permission without notice.
     </p>
     <p>
       We may disable all or any social media features and any links at any time without notice in
@@ -908,7 +907,7 @@ const TermsOfUsePage = () => (
       BY THIRD PARTIES AND BY USING ANY PART OF THE SERVICES YOU HEREBY ASSUME ALL RISKS ASSOCIATED
       WITH THE CONTENT, FUNCTIONALITY, AND/OR FEATURES MADE AVAILABLE ON OR THROUGH THE SERVICES. WE
       ARE NOT RESPONSIBLE OR LIABLE TO YOU OR ANY THIRD PARTY FOR THE CONTENT, FUNCTIONALITY, AND/OR
-      FEATURES PROVIDED BY ANY THIRD PARTIES, AND YOU AGREE THAT YOU BEARS SOLE AND ABSOLUTE
+      FEATURES PROVIDED BY ANY THIRD PARTIES, AND YOU AGREE THAT YOU BEAR SOLE AND ABSOLUTE
       RESPONSIBILITY TO EVALUATE AND SELECT ANY THIRD-PARTY FUNCTIONALITY WITH WHICH YOU INTERACT,
       WHETHER INTENTIONALLY OR INCIDENTALLY, VIA THE SERVICES.
     </p>
@@ -1036,7 +1035,9 @@ const TermsOfUsePage = () => (
       arising out of or related to these Terms of Use in any court. We retain the right to bring any 
       suit, action, or proceeding against you for breach of these Terms of Use in your country of 
       residence or any other relevant country. You waive any and all objections to the exercise of 
-      jurisdiction over you by such courts and to venue in such courts.
+      jurisdiction over you by such courts and to venue in such courts. Notwithstanding the foregoing, 
+      nothing in this section shall be construed to limit any right that cannot be waived or limited by 
+      applicable law.
     </p>
 
     <h2>Limitation on Time to File Claims</h2>
