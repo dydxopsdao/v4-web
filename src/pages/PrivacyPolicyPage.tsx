@@ -7,14 +7,14 @@ const PrivacyPolicyPage = () => (
   <$Article>
     <header>
       <h1>Privacy Policy</h1>
-      Last updated April 4, 2024
+      Last updated February 2025
     </header>
     <p>
-      This Privacy Policy (“Policy”) describes how dYdX Operations Services Limited and its
-      affiliates (“dYdX”, “we”, “us” or “our”) may collect, process, use, store and disclose
-      personal information, and your rights and choices regarding this information. For the purposes
-      of this Policy, “personal information” is any information related to an identified or
-      identifiable natural person.
+      This Privacy Policy (“Policy”) describes how dYdX Operations Services Ltd., Cayman Islands
+      (info@dydxopsservices.com) and its affiliates (“dYdX”, “we”, “us” or “our”) may collect,
+      process, use, store and disclose personal information as data controller, and your rights and
+      choices regarding this information. For the purposes of this Policy, “personal information” is
+      any information related to an identified or identifiable natural person.
     </p>
     <p>
       If the user engages with the Services under authority from a different party or on another
@@ -26,23 +26,18 @@ const PrivacyPolicyPage = () => (
       and inactions of all such persons, as they were your own.
     </p>
     <p>
-      Please note that we may change this Policy from time to time. It is your responsibility to
-      check this Policy each time you access the Services so that you are aware of such changes, as
-      they are binding on you.
-    </p>
-    <p>
       Please read this Policy carefully. You can contact us with questions using the details in the
       “Contact Us” section of this Policy.
     </p>
 
-    <h2>Applicability of This Policy</h2>
+    <h2>Applicability of this Policy</h2>
     <p>
       This Policy applies to personal information collected in connection with the Services (in each
       case, as defined in the <strong>Terms of Use</strong>). If you do not agree with the terms of
       this Policy, do not access or use the Services, or any other aspect of our business.
     </p>
 
-    <h2>What We Collect</h2>
+    <h2>What we collect</h2>
     <p>
       When you interact with the Services, we and/or our service providers may collect personal
       information about you from different sources listed below.
@@ -51,13 +46,12 @@ const PrivacyPolicyPage = () => (
     <h3>Personal information you provide to us</h3>
     <ul>
       <li>
-        <b>Contact Information</b>, such as your name, email address, physical address and country
-        information.
+        <b>Contact Information</b>, such as your name, email address and country information.
       </li>
       <li>
-        <b>Financial Information</b>, such as your Ethereum network address, cryptocurrency wallet
-        IDs and other wallet information, transaction history, trading data and associated fees
-        paid.
+        <b>Financial Information</b>, such as your dYdX and/or Ethereum network address,
+        cryptocurrency wallet IDs and other wallet information, notably by an extension of the
+        browser, transaction history, trading data and associated fees paid.
       </li>
       <li>
         <b>Transaction Information</b>, such as information about the transactions you make on or
@@ -69,16 +63,19 @@ const PrivacyPolicyPage = () => (
         information you provide to our support teams, including via our help chat or social media
         messaging channels.
       </li>
+      <li>
+        <b>Chat (bot)</b>, the messages you write in the chat.
+      </li>
     </ul>
 
     <h3>Personal information collected via automated means</h3>
     <ul>
       <li>
-        <b>Online Identifiers</b>, such as username, geo-location or tracking details, browser
-        fingerprint, operating system, browser name and version, and IP addresses.
+        <b>Online identifiers</b>, such as username, geo-location (country), browser fingerprint,
+        operating system, browser name and version, and IP addresses.
       </li>
       <li>
-        <b>Usage and Diagnostics Data</b>, such as conversion events, user preferences, crash logs,
+        <b>Usage and diagnostics data</b>, such as conversion events, user preferences, crash logs,
         device information and other data collected via cookies and similar technologies.
       </li>
       <li>
@@ -91,38 +88,47 @@ const PrivacyPolicyPage = () => (
         properly.
       </li>
     </ul>
-    <h3>Personal Information We Receive from Third Parties.</h3>
+
+    <h3>Personal information we receive from third parties</h3>
     <ul>
       <li>
         <b>Personal information we receive from third parties</b>. Sometimes, we receive personal
-        information about you from other sources, including from our affiliates and public
-        databases. We may combine the information collected from these sources with the information
-        we get from the Services for our own purposes.
+        information about you from other sources, including from our affiliates, vendors, notably
+        when you connect your wallet to our Services, and public databases. We may combine the
+        information collected from these sources with the information we get from the Services for
+        our own purposes.
       </li>
     </ul>
-
-    <h2>How We Use Information</h2>
     <p>
-      We will use your personal information as disclosed herein, if we have your consent, or if
-      there is another lawful basis to do so. This includes when it is in our legitimate business
-      interest to use the personal information. We can only rely on our legitimate business
-      interest, if it is fair and reasonable to do so.
+      The personal information mentioned above are mandatory to allow us to perform the Services as
+      set out in the <strong>Terms of Use</strong>.
     </p>
-    <p>Some examples of how we may use your personal information are set out below.</p>
+    <p>
+      In certain circumstances, we may anonymize your personal information so that it can no longer
+      be associated with you.
+    </p>
+
+    <h2>How we use information</h2>
+    <p>
+      We will use your personal information as disclosed herein, if we have a contractual
+      relationship or your consent or if it is in our legitimate business interest to use the
+      personal information notably to ensure that the website can function properly, promote our
+      services and realize statistics or if there is another lawful basis to do so. We can only rely
+      on our legitimate business interest, if it is fair and reasonable to do so.
+    </p>
     <p>
       We may use your personal information to make the Services available in accordance with our{' '}
       <strong>Terms of Use</strong> and for:
       <ul>
         <li>
-          <b>Providing the Services and Features</b>. We may use the personal information we collect
+          <b>Providing the Services and features</b>. We may use the personal information we collect
           to provide, maintain, and improve the Services, including as we described in the{' '}
-          <strong>Terms of Use</strong>. This includes using information to:
+          <strong>Terms of Use</strong>. This includes using your personal information to:
           <ul>
             <li>
               operate, maintain, customize, measure, and improve the Services, and manage our
               business;
             </li>
-            <li>create and update user accounts;</li>
             <li>process transactions; and</li>
             <li>
               send information, including confirmations, notices, updates, security alerts, and
@@ -130,7 +136,7 @@ const PrivacyPolicyPage = () => (
             </li>
           </ul>
         </li>
-        <b>Safety and Security</b>. We may use your personal information in our efforts to:
+        <b>Safety and security</b>. We may use your personal information in our efforts to:
         <ul>
           <li>
             protect, investigate, and prevent against fraudulent, unauthorized, or illegal activity;
@@ -150,7 +156,7 @@ const PrivacyPolicyPage = () => (
           <li>comply with applicable security laws and regulations.</li>
         </ul>
         <li>
-          <b>Customer Support</b>. We may use your personal information in our efforts to:
+          <b>Customer support</b>. We may use your personal information in our efforts to:
           <ul>
             <li>direct user questions to the appropriate customer support person;</li>
             <li>contact you;</li>
@@ -164,12 +170,12 @@ const PrivacyPolicyPage = () => (
           information for any other purposes, with your consent.
         </li>
         <li>
-          <b>Research and Development</b>. We may use your personal information for testing,
+          <b>Research and development</b>. We may use your personal information for testing,
           research, analysis, product development, and to develop new features and products relating
           to the Services.
         </li>
         <li>
-          <b>Legal and Regulatory Compliance</b>. We may use your personal information to enforce
+          <b>Legal and regulatory compliance</b>. We may use your personal information to enforce
           compliance with our terms and policies, including our <strong>Terms of Use</strong>, to
           defend ourselves against legal claims or disputes, for identity verification purposes, to
           investigate or address claims or disputes relating to use of the Services, as permitted by
@@ -187,80 +193,72 @@ const PrivacyPolicyPage = () => (
           in the “Contact Us” section of this Policy or by following instructions in any email
           communication you receive from us.
         </li>
-        <li>
-          <b>Anonymization and Aggregation</b>. We may aggregate or anonymize your personal
-          information in a form that does not allow you to be personally identified and use the
-          resulting information for any purpose.
-        </li>
       </ul>
     </p>
 
-    <h2>When We Share and Disclose Information</h2>
+    <h2>When we share and disclose information</h2>
     <p>
-      We may share your information in the following circumstances, or for any other purpose with
-      your consent.
+      We may share your information in the following circumstances, or for any other purpose:
       <ul>
         <li>
-          <b>To Comply with Our Legal Obligations</b>. We may share your information: (a) to
+          <b>To Comply with our legal obligations</b>. We may share your information: (a) to
           cooperate with government or regulatory enquiries or investigations; (b) when we are
           compelled to do so by a subpoena, court order, or similar legal procedure; (c) when we
           believe in good faith that the disclosure of personal information is necessary to prevent
           harm to you, us, or another person; (d) to report suspected illegal activity; or (e) to
-          investigate violations of our
-          <strong>Terms of Use</strong>, agreements for other products or services, or any other
-          applicable policies.
+          investigate violations of our <strong>Terms of Use</strong>, agreements for other products
+          or services, or any other applicable policies.
         </li>
         <li>
-          <b>With Service Providers or Other Third Parties</b>. We may share your personal
-          information with service providers or other third parties who help facilitate our business
-          operations (collectively, <strong>“Service Providers”</strong>), such as marketing,
-          technology, customer service, storage and chatbot services. These Service Providers may
-          also use this information where it is necessary for compliance with a legal obligation to
-          which they are subject.
-        </li>
-        <li>
-          <b>Partners</b>. We may share your personal information with business partners, for
-          example marketing partners.
+          <b>With Service Providers, vendors, partners or other third parties</b>. We may share your
+          personal information with service providers, vendors, partners or other third parties who
+          need access to personal information to provide services to us (collectively,{' '}
+          <strong>“Service Providers”</strong>), such as connecting to your wallet, marketing and
+          analytics, technology, customer service, storage, geo-blocking for compliance purposes and
+          chatbot services. These Service Providers may also use this information where it is
+          necessary for compliance with a legal obligation to which they are subject.
         </li>
         <li>
           <b>Affiliates</b>. We may share your personal information with our subsidiaries and
           affiliates.
         </li>
         <li>
-          <b>During a Change to Our Business</b>. If we engage in a merger, acquisition, bankruptcy,
+          <b>During a change to our business</b>. If we engage in a merger, acquisition, bankruptcy,
           dissolution, reorganization, sale of some or all of our assets or stock, financing, public
           offering of securities, acquisition of all or a portion of our business, a similar
           transaction or proceeding, or steps in contemplation of such activities, some or all of
           your personal information may be shared or transferred.
         </li>
-        <li>
-          <b>Aggregated or De-identified Data</b>. We may share aggregated or anonymized data with
-          other persons for their own uses.
-        </li>
       </ul>
     </p>
 
-    <h2>International Data Transfers</h2>
+    <h2>Transfer outside the EU or adequate country</h2>
     <p>
       We, our affiliates, subsidiaries, and third-party providers may process your personal
-      information outside of your home country. Data privacy laws in the countries to which your
-      personal information is transferred may not be equivalent to, or as protective as, the laws in
-      your home country. We will take steps aimed at ensuring that specific measures have been or
-      will be taken to provide a reasonable level of protection for your personal information.
+      information outside of your home country.
+    </p>
+    <p>
+      We will employ a suitable transfer mechanism as required by applicable data protection laws
+      and ensure that your personal information receives an adequate level of protection (e.g.
+      Standard Contractual Clauses adopted pursuant to applicable data protection laws of the EU).
     </p>
     <p>
       For more information about how we transfer personal information internationally, please
       contact us using the details in the “Contact Us” section of this Policy.
     </p>
 
-    <h2>Data Retention</h2>
+    <h2>Data retention</h2>
     <p>
       We retain your personal information as long as is necessary to fulfill the purposes for which
-      it was collected and processed, in accordance with our retention procedures, in accordance
-      with applicable laws, or until you withdraw your consent (where applicable).
+      it was collected and processed, in accordance with good practices in accordance with
+      applicable laws, or until you withdraw your consent (where applicable).
+    </p>
+    <p>
+      Personal information required to establish proof of a right or contract, or to comply with a
+      legal obligation, will be kept for the period stipulated by the law in force.
     </p>
 
-    <h2>Your Rights and Choices</h2>
+    <h2>Your rights and choices</h2>
     <p>
       You may submit requests relating to the personal information that we hold about you, including
       requests to access, correct/update, delete, restrict the processing of, or transfer such
@@ -272,8 +270,8 @@ const PrivacyPolicyPage = () => (
       the following:
       <ol>
         <li>
-          You have the right to access personal data we hold about you and to ask that your personal
-          data be corrected, or (in some limited circumstances) erased.
+          You have the right to access personal information we hold about you and to ask that your
+          personal information be corrected, or (in some limited circumstances) erased.
         </li>
         <li>
           You also have the right to object to receiving direct marketing, or to request that we
@@ -285,43 +283,52 @@ const PrivacyPolicyPage = () => (
           to be prejudicial to you).
         </li>
         <li>
-          You have the right to file a complaint regarding our data protection practices with the
-          Cayman Islands Ombudsman.{' '}
+          You have the right to have your personal information transmitted directly to another party
+          in a portable or machine-readable format (right to data portability).
+        </li>
+        <li>
+          You have the right to withdraw your consent for processing for which the consent is
+          required, at any time.
+        </li>
+        <li>
+          You have the right to file a complaint regarding our data protection practices with your
+          relevant data protection authority.
         </li>
       </ol>
     </p>
+
+    <h3>For EU individuals</h3>
     <p>
-      We will review and respond to such requests in our sole discretion, taking into account which
-      laws may be applicable to the processing of your personal information. We may have valid legal
-      reasons to refuse your request, and will inform you if that is the case.
+      Please note that the rights described above are not all absolute and may not apply in all
+      circumstances. For more information about your rights please refer to Chapter III of GDPR.
+    </p>
+    <p>
+      We will review and respond to such requests without exceeding the maximum period of one month,
+      or in the case of a complex request, we will notify you of the additional one-month period. We
+      may have valid legal reasons to refuse your request, and will inform you if that is the case.
     </p>
     <p>
       To submit such a request, contact us using the details in the “Contact Us” section of this
       Policy.
     </p>
+    <p>
+      If you find necessary to file a complaint, you can find the relevant EU data protection
+      authority here.
+    </p>
 
     <h2>Security</h2>
     <p>
+      We undertake to protect the security, confidentiality and integrity of your personal
+      information provided on the website through the use of physical and logistical security
+      measures.
+    </p>
+    <p>
       No internet system can be completely secure. Therefore, although we take steps in an effort to
       secure your information, we cannot guarantee that your information, searches or other
-      communication will always remain secure. You are responsible for all activity on the Services
-      relating to any of your personal information, Ethereum network addresses and cryptocurrency
-      wallets.
-    </p>
-    <p>
-      We are not responsible for circumvention of any privacy settings or security measures
-      contained on the Services.
+      communication will always remain secure.
     </p>
 
-    <h2>Age Limitations</h2>
-    <p>
-      To the extent prohibited by applicable law, we do not allow use of the Services by anyone
-      younger than 18 years old. If you learn that anyone younger than 18 years old has unlawfully
-      provided us with personal information, please contact us using the details in the “Contact Us”
-      section of this Policy.
-    </p>
-
-    <h2>Third-Party Matters</h2>
+    <h2>Third-party matters</h2>
     <p>
       Through the Services, we may provide links to websites, mobile applications or any other
       online assets that are not owned or controlled by us. This Policy does not apply to those
@@ -331,14 +338,17 @@ const PrivacyPolicyPage = () => (
       privacy policies or practices of any third-party sites or services.
     </p>
 
-    <h2>Changes to This Policy</h2>
+    <h2>Changes to this Policy</h2>
     <p>
-      If we make any changes to this Policy, we will change the Last Updated date above. It is your
-      responsibility to check this Policy each time you access the Services so that you are aware of
-      such changes, as they are binding on you.
+      Please note that we may change this Policy from time to time. If we make any changes to this
+      Policy, we will change the last updated date above and, in some cases, we will provide further
+      notice (for example, by publishing a statement on our website home pages or by sending you an
+      e-mail). We encourage you to review the Policy whenever you interact with us to stay informed
+      about our privacy practices, and to stay informed about the methods you can use to control the
+      use of your personal information and protect your privacy.
     </p>
 
-    <h2>Online Tracking</h2>
+    <h2>Cookies</h2>
     <p>
       Cookies are small text files of letters and numbers that are stored and accessed on your
       browser or the hard drive of your device. Like many companies online, we use services provided
@@ -351,25 +361,24 @@ const PrivacyPolicyPage = () => (
       enhance the functionality of the Services, aid in our security efforts, and measure the use
       and effectiveness of the Services.
     </p>
-
     <p>
       This Policy also governs:
       <ul>
         <li>
-          <b>Pixels</b>: A pixel is a small amount of code on a web page or in an email notification
-          that typically works in conjunction with cookies to identify users and record user
-          behavior. We use pixels to learn whether you have interacted with certain web or email
-          content. This may help us measure and improve the Services and personalize your
+          <b>Pixels</b>: A tracking pixel is a small amount of code on a web page or in an email
+          notification that typically works in conjunction with cookies to identify users and track
+          user behavior. We use pixels to learn whether you have interacted with certain web or
+          email content. This may help us measure and improve the Services and personalize your
           experience.
         </li>
         <li>
-          <b>Local Storage</b>: Local storage is a technology that allows a website or application
+          <b>Local storage</b>: Local storage is a technology that allows a website or application
           to store information locally on your computer or mobile device. We may use local storage,
           including HTML5, to customize what we show you based on your content consumption and other
           past interactions with the Services.
         </li>
         <li>
-          <b>Device Identifiers</b>: Device identifiers are distinctive numbers associated with a
+          <b>Device identifiers</b>: Device identifiers are distinctive numbers associated with a
           smartphone or similar handheld device. We may use mobile device identifiers for purposes
           set out in this Policy, for example to recognize your device when you return to the
           Services or otherwise use the Services.
@@ -388,7 +397,7 @@ const PrivacyPolicyPage = () => (
           you about these cookies, but then some parts of the Services will not work.
         </li>
         <li>
-          <b>Analytical or Performance cookies</b>: These cookies allow us to count visits and
+          <b>Analytical or performance cookies</b>: These cookies allow us to count visits and
           traffic sources so we can measure and improve the performance of the Services. They help
           us to know which pages are the most and least popular and see how visitors move around the
           Services.
@@ -402,6 +411,10 @@ const PrivacyPolicyPage = () => (
           <b>Marketing cookies</b>: These cookies are used by third-party advertisers or publishers
           to display personalized advertising. They do this by tracking your activity across
           websites.
+        </li>
+        <li>
+          <b>Chat (bot)</b>: The cookie is used to provide you the chat (bot) for any questions you
+          have. The chat uses AI for the responses.
         </li>
       </ul>
     </p>
@@ -448,35 +461,14 @@ const PrivacyPolicyPage = () => (
           <ul>
             <li>Digital Advertising Alliance: http://optout.aboutads.info</li>
             <li>Network Advertising Initiative: http://optout.networkadvertising.org/</li>
-            <li>Google: https://adssettings.google.com;</li>
+            <li>Google: https://adssettings.google.com</li>
           </ul>
         </li>
       </ul>
     </p>
-
-    <h2>Google Analytics</h2>
     <p>
-      We use Google Analytics, a service provided by Google, Inc. (“Google”) for various purposes,
-      including potentially to analyze traffic on our Services, to grow our business, to improve and
-      develop our services, to monitor and analyze use of our services, to aid our technical
-      administration, to increase the functionality and user-friendliness of our services, and to
-      verify that users have the authorization needed for us to process their request. Google may
-      collect your IP address, and other information (although typically not your name), and
-      utilizes the data collected to track and examine the use of our Services, and to prepare
-      reports for us based on your activities online, among other uses. As part of Google Analytics,
-      Google tracks many variables, including what website you visited prior to coming to our
-      Services, how long you stay on a particular page, and your geographic location. Please be
-      aware that Google uses the data it collects from our Services for its own purposes, and we do
-      not control or direct such usage. Please visit Google’s privacy policy to understand how
-      Google uses the information it collects: https://policies.google.com/privacy?hl=en-US
-    </p>
-    <p>
-      You may be able to opt out of the use of Google Analytics by visiting
-      https://tools.google.com/dlpage/gaoptout/. You may be able to opt out of having your website
-      activity available to Google Analytics by visiting
-      https://support.google.com/analytics/answer/181881?hl=en and installing the Google Analytics
-      opt-out browser add-on available at
-      https://chrome.google.com/webstore/detail/google-analytics-opt-out/fllaojicojecljbmefodhfapmkghcbnh?hl=en
+      You can obtain a complete list of our analytic providers by contacting us by using the details
+      in the “Contact Us” section of this Policy.
     </p>
 
     <h2>Do Not Track</h2>
@@ -486,7 +478,7 @@ const PrivacyPolicyPage = () => (
       control the tracking of their online activities across websites. Currently, various browsers
       (including Internet Explorer, Firefox, and Safari) offer a DNT option that allows a user to
       set a preference in the browser to not have his/her activities on the internet tracked. You
-      can usually access your browser's DNT option in your browser's preferences. When a user’s
+      can usually access your browser's DNT option in your browser's preferences. When a user's
       browser is set to DNT, some cookies and other tracking technologies may become inactive,
       depending on how the website visited responds to DNT browser settings. If that occurs, the
       website visited will not recognize you upon return to that website, save your passwords or
