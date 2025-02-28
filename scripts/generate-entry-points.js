@@ -7,76 +7,80 @@ const projectRoot = path.dirname(currentPath);
 const templateFilePath = path.resolve(projectRoot, '../template.html');
 const entryPointsDir = path.resolve(projectRoot, '../entry-points');
 
+const TOP_MARKETS_URL = 'https://indexer.dydx.trade/v4/perpetualMarkets';
 const ENTRY_POINTS = [
     {
-        title: 'dYdX Chain | Leading Decentralized Platform for Crypto Perpetual Trading',
-        description: 'Experience the future of decentralized finance with dYdX Chain, the premier platform for secure, transparent, and efficient perpetual trading in the DeFi Space.',
+        title: 'dYdX | Leading Decentralized Platform for Crypto Perpetual Trading',
+        description: 'Experience dYdX, DeFi\'s pro decentralized trading platform, offering secure, transparent, and powerful perpetual trading.',
         fileName: 'index.html',
     },
     {
-        title: 'dYdX Chain Portfolio | Track Your Orders and Holdings Seamlessly',
-        description: 'Manage and review your portfolio on dYdX Chain with real-time insights, balance updates, and performance analytics for informed trading decisions.',
+        title: 'dYdX Portfolio | Track Your Orders and Holdings Seamlessly',
+        description: 'Manage and review your portfolio on dYdX with real-time insights, balance updates, and performance analytics for informed trading decisions.',
         fileName: 'portfolio.html',
     },
     {
-        title: 'dYdX Chain Markets | Explore Tradable Pairs and Market Dynamics',
-        description: 'Discover a wide range of cryptocurrency pairs on dYdX Chain. Stay updated with the latest market trends, pricing, and trading opportunities in real-time.',
+        title: 'dYdX Markets | Explore BTC, ETH, SOL and 180 more Crypto Markets',
+        description: 'Access over 180 cryptocurrency markets on dYdX. Trade popular crypto pairs with competitive fees and robust security on our decentralized platform.',
         fileName: 'markets.html',
     },
     {
-        title: 'dYdX Chain Trading Rewards | Earn $DYDX Tokens Through Active Trading',
-        description: 'Maximize your trading on dYdX Chain and earn DYDX token rewards. Engage with the platform, contribute to the liquidity, and get rewarded.',
+        title: 'dYdX Trading Rewards | Earn $DYDX Tokens Through Trading & Staking',
+        description: 'Maximize your trading on dYdX and earn $DYDX token rewards. Engage with the platform, contribute to the liquidity, and get rewarded.',
         fileName: 'trading-rewards.html',
-    },
-    {
-        title: 'Trade ETH-USD on dYdX Chain | Ethereum Trading with Deep Liquidity',
-        description: 'Engage in Ethereum trading on dYdX Chain with ETH-USD pair, benefiting from deep liquidity, tight spreads, and advanced trading features.',
-        fileName: 'trade-ETH-USD.html',
-    },
-    {
-        title: 'Trade BTC-USD on dYdX Chain | Bitcoin Trading with Deep Liquidity',
-        description: 'Engage in Bitcoin trading on dYdX Chain with BTC-USD pair, benefiting from deep liquidity, tight spreads, and advanced trading features.',
-        fileName: 'trade-BTC-USD.html',
-    },
-    {
-        title: 'Trade SOL-USD on dYdX Chain | Solana Trading with Deep Liquidity',
-        description: 'Engage in Solana trading on dYdX Chain with SOL-USD pair, benefiting from deep liquidity, tight spreads, and advanced trading features.',
-        fileName: 'trade-SOL-USD.html',
-    },
-    {
-        title: 'Trade AVAX-USD on dYdX Chain | Avalanche Trading with Deep Liquidity',
-        description: 'Engage in Avalanche trading on dYdX Chain with AVAX-USD pair, benefiting from deep liquidity, tight spreads, and advanced trading features.',
-        fileName: 'trade-AVAX-USD.html',
-    },
-    {
-        title: 'Trade LINK-USD on dYdX Chain | Chainlink Trading with Deep Liquidity',
-        description: 'Engage in Chainlink trading on dYdX Chain with LINK-USD pair, benefiting from deep liquidity, tight spreads, and advanced trading features.',
-        fileName: 'trade-LINK-USD.html',
-    },
-    {
-        title: 'Trade MATIC-USD on dYdX Chain | Polygon Trading with Deep Liquidity',
-        description: 'Engage in Polygon trading on dYdX Chain with MATIC-USD pair, benefiting from deep liquidity, tight spreads, and advanced trading features.',
-        fileName: 'trade-MATIC-USD.html',
-    },
-    {
-        title: 'Trade DOGE-USD on dYdX Chain | Dogecoin Trading with Deep Liquidity',
-        description: 'Engage in Dogecoin trading on dYdX Chain with DOGE-USD pair, benefiting from deep liquidity, tight spreads, and advanced trading features.',
-        fileName: 'trade-DOGE-USD.html',
     },
 ];
 
 try {
-    fs.mkdir(entryPointsDir, { recursive: true });
+    console.log(`Fetching top markets from ${TOP_MARKETS_URL} ...`);
+    for (const market of await fetchTopMarkets(TOP_MARKETS_URL)) {
+        ENTRY_POINTS.push({
+            title: `Trade ${market} on dYdX | DeFi's pro decentralized trading platform`,
+            description: `Engage in decentralized ${market} trading on dYdX, benefit from deep liquidity, self-custody, and advanced trading features.`,
+            fileName: `trade-${market}.html`,
+        });
+    }
 
+    await fs.mkdir(entryPointsDir, { recursive: true });
+
+    console.log(`Generating entry points (${ENTRY_POINTS.length})...`);
+    const templateHtml = await fs.readFile(templateFilePath, 'utf-8');
     for (const entryPoint of ENTRY_POINTS) {
-        const html = await fs.readFile(templateFilePath, 'utf-8');
         const destinationFilePath = path.resolve(entryPointsDir, entryPoint.fileName);
-        const injectedHtml = html.replace(
+        const injectedHtml = templateHtml.replace(
             '<title>dYdX</title>',
             `<title>${entryPoint.title}</title>\n    <meta name="description" content="${entryPoint.description}" />`
         );
         await fs.writeFile(destinationFilePath, injectedHtml, 'utf-8');
     }
+    console.log(`Done!`);
 } catch (err) {
     console.error('Error generating entry points:', err);
+}
+
+/**
+ * Fetches the top 100 trade pairs by volume from the dYdX indexer API
+ * @returns {Promise<string[]>} Array of top trade pairs
+ * @throws {Error} If the API request fails
+ */
+async function fetchTopMarkets(url) {
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+
+    // Convert markets object to array of entries and sort by volume
+    const sortedMarkets = Object.entries(data.markets)
+        .sort((a, b) => {
+            const volumeA = parseFloat(a[1].volume24H);
+            const volumeB = parseFloat(b[1].volume24H);
+            return volumeB - volumeA;
+        })
+        .slice(0, 100) // Take top 100
+        .map(([_, market]) => {
+            return market.ticker;
+        });
+
+    return sortedMarkets;
 }
