@@ -3,7 +3,7 @@ name: Deploying to preview
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/30 * * * *'  # Run every 30 minutes
+    - cron: '*/10 * * * *'  # Run every 10 minutes
 
 jobs:
   deploy:
@@ -27,7 +27,7 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "196231098+hedgie-svc@users.noreply.github.com"
             
-      - name: Fetch upstream tags and identify the latest release
+      - name: Identify the latest upstream code release
         run: |
           # Add upstream remote
           git remote add upstream https://github.com/dydxprotocol/v4-web.git
@@ -47,20 +47,69 @@ jobs:
 
           # Export LATEST_TAG to the environment
           echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
-          echo "VERSION=${LATEST_TAG#release/v}" >> $GITHUB_ENV
+          echo "LATEST_VERSION=${LATEST_TAG#release/v}" >> $GITHUB_ENV
 
-      - name: Check if branch already exists and create a new one for Vercel deployment
+      - name: Identify the latest production release
         run: |
-          if git ls-remote --heads origin refs/heads/dos-${{ env.VERSION }} | grep -q .; then
-            echo "Branch dos-${{ env.VERSION }} already exists. Skipping."
-            exit 0
+          # Fetch all tags from the main branch
+          git fetch origin main --tags
+
+          # Get the latest tag on the main branch
+          PRODUCTION_TAG=$(git tag --merged origin/main | sort -V | tail -n 1)
+          echo "Latest production tag on main branch: ${PRODUCTION_TAG}"
+
+          # Check if PRODUCTION_TAG is empty
+          if [ -z "$PRODUCTION_TAG" ]; then
+              echo "No production tags found on main branch."
+              exit 1
           fi
 
+          # Export PRODUCTION_TAG to the environment
+          echo "PRODUCTION_TAG=${PRODUCTION_TAG}" >> $GITHUB_ENV
+          echo "PRODUCTION_VERSION=${PRODUCTION_TAG#release/v}" >> $GITHUB_ENV
+
+      - name: Determine version type
+        run: |
+          echo "Checking if the version is a patch, minor, or major"
+          
+          # Extract version numbers from environment variables
+          IFS='.' read -r PROD_MAJOR PROD_MINOR PROD_PATCH <<< "${{ env.PRODUCTION_VERSION }}"
+          IFS='.' read -r UPSTREAM_MAJOR UPSTREAM_MINOR UPSTREAM_PATCH <<< "${{ env.LATEST_VERSION }}"
+
+          # Log the extracted version numbers
+          echo "Production Version - Major: $PROD_MAJOR, Minor: $PROD_MINOR, Patch: $PROD_PATCH"
+          echo "Latest Version - Major: $UPSTREAM_MAJOR, Minor: $UPSTREAM_MINOR, Patch: $UPSTREAM_PATCH"
+
+          # Determine if a new patch version is detected
+          if [ "$UPSTREAM_MAJOR" -eq "$PROD_MAJOR" ] && [ "$UPSTREAM_MINOR" -eq "$PROD_MINOR" ] && [ "$UPSTREAM_PATCH" -gt "$PROD_PATCH" ]; then
+              echo "New patch version detected: ${LATEST_TAG}"
+              echo "NEW_PATCH_VERSION=true" >> $GITHUB_ENV
+          else
+              echo "No new patch version detected."
+              echo "NEW_PATCH_VERSION=false" >> $GITHUB_ENV
+              exit 1
+          fi
+
+      - name: Create a new release branch for Vercel deployment
+        if: env.NEW_PATCH_VERSION == 'true'
+        run: |
           # Create a new branch from the latest release tag
-          git checkout -b dos-${{ env.VERSION }} origin/main
+          git checkout -b dos-${{ env.LATEST_VERSION }} origin/main
 
           # Rebase commits from the latest release tag onto the new release branch
           git rebase ${{ env.LATEST_TAG }}
 
           # Push the rebased branch to the remote repository
-          git push --set-upstream origin dos-${{ env.VERSION }}
+          git push --set-upstream origin dos-${{ env.LATEST_VERSION }}
+
+      - name: Reset main to the feature branch for production deployment
+        if: env.NEW_PATCH_VERSION == 'true'
+        run: |
+          # Checkout the main branch
+          git checkout main
+
+          # Hard reset the main branch to the feature branch
+          git reset --hard dos-${{ env.LATEST_VERSION }}
+
+          # Force push the changes to the main branch
+          git push --force origin main
