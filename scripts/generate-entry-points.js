@@ -34,8 +34,9 @@ const ENTRY_POINTS = [
 try {
     console.log(`Fetching top markets from ${TOP_MARKETS_URL} ...`);
     for (const market of await fetchTopMarkets(TOP_MARKETS_URL)) {
+        const marketNoUSD = market.replace('-USD', '');
         ENTRY_POINTS.push({
-            title: `Trade ${market} on dYdX | DeFi's pro decentralized trading platform`,
+            title: `Trade ${marketNoUSD} on dYdX | DeFi's pro trading platform`,
             description: `Engage in decentralized ${market} trading on dYdX, benefit from deep liquidity, self-custody, and advanced trading features.`,
             fileName: `trade-${market}.html`,
         });
