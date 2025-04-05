@@ -122,4 +122,5 @@ jobs:
           git reset --hard origin/dos-${{ env.LATEST_VERSION }}
 
           # Force push the changes to the main branch
+          sleep 5
           git push --force origin main
