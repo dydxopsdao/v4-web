@@ -29,6 +29,11 @@ const ENTRY_POINTS = [
         description: 'Maximize your trading on dYdX and earn $DYDX token rewards. Engage with the platform, contribute to the liquidity, and get rewarded.',
         fileName: 'trading-rewards.html',
     },
+    {
+        title: '$DYDX Dashboard | Track Your Surge Rewards & Trading History',
+        description: 'Stay on top of your dYdX Surge Points. Track real-time rewards, view detailed trading history, and monitor your performance throughout each season, all in one dashboard.',
+        fileName: 'dydx.html',
+    },
 ];
 
 try {
