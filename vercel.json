@@ -29,6 +29,10 @@
       "destination": "/entry-points/markets.html"
     },
     {
+      "source": "/DYDX",
+      "destination": "/entry-points/dydx.html"
+    },
+    {
       "source": "/DYDX/trading-rewards(/?.*)",
       "destination": "/entry-points/trading-rewards.html"
     },
