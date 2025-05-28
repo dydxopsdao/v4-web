@@ -36,8 +36,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          repository: 'dydxopsdao/v4-web'
-          ssh-key: ${{ secrets.DEPLOY_KEY }}
           fetch-depth: 0
           fetch-tags: true
 
@@ -48,7 +46,7 @@ jobs:
           git config --global user.signingkey $(gpg --list-secret-keys --keyid-format LONG | grep sec | awk '{print $2}' | cut -d'/' -f2)
           git config --global commit.gpgSign true
           git config --global user.name "GitHub Actions Bot (dydxopsdao/v4-web)"
-          git config --global user.email "196231098+hedgie-svc@users.noreply.github.com" # Or your preferred bot email
+          git config --global user.email "196231098+hedgie-svc@users.noreply.github.com"
 
       - name: Process Webhook Input
         id: upstream_info
