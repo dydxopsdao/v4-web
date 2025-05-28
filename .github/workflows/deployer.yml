@@ -93,14 +93,14 @@ jobs:
           fi
 
       - name: Determine if New Version is Deployable
-        id: version_check 
+        id: version_check
         run: |
           echo "Production Version: ${{ env.PRODUCTION_VERSION }} (${{ env.PRODUCTION_TAG }})"
           echo "Latest Upstream (from webhook): ${{ env.LATEST_VERSION }} (${{ env.LATEST_TAG }})"
 
-          # We deploy if LATEST_VERSION is strictly newer than PRODUCTION_VERSION
-          if printf '%s\n' "${{ env.LATEST_VERSION }}" "${{ env.PRODUCTION_VERSION }}" | sort -V -C && [[ "${{ env.LATEST_VERSION }}" != "${{ env.PRODUCTION_VERSION }}" ]]; then
-            # This condition means LATEST_VERSION > PRODUCTION_VERSION
+          HIGHEST_VERSION=$(printf '%s\n' "${{ env.LATEST_VERSION }}" "${{ env.PRODUCTION_VERSION }}" | sort -V | tail -n 1)
+
+          if [[ "$HIGHEST_VERSION" == "${{ env.LATEST_VERSION }}" && "${{ env.LATEST_VERSION }}" != "${{ env.PRODUCTION_VERSION }}" ]]; then
             echo "New version detected for deployment: ${{ env.LATEST_TAG }}"
             echo "::set-output name=should_deploy::true"
           else
