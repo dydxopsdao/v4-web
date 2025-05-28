@@ -9,11 +9,11 @@ on:
         type: string
       release_name:
         description: 'The name of the upstream release (from webhook)'
-        required: false # Set to true if your Lambda always sends a non-empty value and you require it
+        required: false
         type: string
       release_url:
         description: 'The URL to the upstream release notes (from webhook)'
-        required: false # Set to true if your Lambda always sends a non-empty value and you require it
+        required: false
         type: string
       upstream_event_timestamp: 
         description: 'Webhook event timestamp (ms) from webhook processor'
@@ -77,18 +77,23 @@ jobs:
           git remote set-url origin git@github.com:dydxopsdao/v4-web.git
           git fetch origin main --tags # Ensure origin is up-to-date with tags
 
-          PRODUCTION_TAG=$(git tag --merged origin/main --sort=-v:refname | grep '^release/v' | head -n 1)
-          echo "Latest production tag on main branch: ${PRODUCTION_TAG}"
-          if [ -z "$PRODUCTION_TAG" ]; then
+          # Store the full tag in a shell variable first
+          PRODUCTION_TAG_FROM_GIT=$(git tag --merged origin/main --sort=-v:refname | grep '^release/v' | head -n 1)
+          echo "Latest production tag on main branch: ${PRODUCTION_TAG_FROM_GIT}"
+
+          if [ -z "$PRODUCTION_TAG_FROM_GIT" ]; then
               echo "No production tags found on main branch matching 'release/v*'. Assuming first deployment or using a base version."
               echo "PRODUCTION_TAG=release/v0.0.0" >> $GITHUB_ENV # Fallback for comparison
+              echo "PRODUCTION_VERSION=0.0.0" >> $GITHUB_ENV      # Corresponding version for fallback
           else
-              echo "PRODUCTION_TAG=${PRODUCTION_TAG}" >> $GITHUB_ENV
+              echo "PRODUCTION_TAG=${PRODUCTION_TAG_FROM_GIT}" >> $GITHUB_ENV
+              # Perform string manipulation using shell parameter expansion
+              PRODUCTION_VERSION_SHELL_VAR="${PRODUCTION_TAG_FROM_GIT#release/v}"
+              echo "PRODUCTION_VERSION=${PRODUCTION_VERSION_SHELL_VAR}" >> $GITHUB_ENV
           fi
-          echo "PRODUCTION_VERSION=${{ env.PRODUCTION_TAG#release/v }}" >> $GITHUB_ENV
 
       - name: Determine if New Version is Deployable
-        id: version_check # Give this step an ID
+        id: version_check 
         run: |
           echo "Production Version: ${{ env.PRODUCTION_VERSION }} (${{ env.PRODUCTION_TAG }})"
           echo "Latest Upstream (from webhook): ${{ env.LATEST_VERSION }} (${{ env.LATEST_TAG }})"
@@ -103,25 +108,28 @@ jobs:
             echo "::set-output name=should_deploy::false"
           fi
 
-      # This step ensures the LATEST_TAG (which comes from dydxprotocol/v4-web) is available locally for rebase
       - name: Fetch Upstream Tag for Rebase (if deploying)
         if: steps.version_check.outputs.should_deploy == 'true'
         run: |
           echo "Fetching upstream tag ${{ env.LATEST_TAG }} to ensure it's available for rebase..."
           git remote add upstream_source_repo git@github.com:dydxprotocol/v4-web.git || echo "Upstream remote already exists or failed to add (non-critical if tag is already available)"
-          git fetch upstream_source_repo --tags --depth=1 ${{ env.LATEST_TAG }} || echo "Failed to fetch specific tag, will try fetching all tags. This might happen if tag is not directly on a branch tip."
-          # Fallback to fetching all tags if specific tag fetch fails (e.g. not on a tip)
-          if [ $? -ne 0 ]; then
-            echo "Fetching all upstream tags as specific tag fetch failed..."
-            git fetch upstream_source_repo --tags
+          # Try fetching the specific tag with enough history for rebase (e.g. --depth=50, or adjust as needed)
+          # If specific tag fetch is problematic, fetching all tags is a more robust fallback.
+          echo "Attempting to fetch specific tag: ${{ env.LATEST_TAG }}"
+          if ! git fetch upstream_source_repo --depth=50 ${{ env.LATEST_TAG }}; then
+            echo "Failed to fetch specific tag with depth. Attempting to fetch all tags from upstream_source_repo."
+            if ! git fetch upstream_source_repo --tags; then
+              echo "Error: Failed to fetch tags from upstream_source_repo."
+              exit 1
+            fi
           fi
           # Verify tag exists locally
-          git rev-parse --verify ${{ env.LATEST_TAG }}^{commit} > /dev/null || (echo "Error: Tag ${{ env.LATEST_TAG }} not found locally after fetch." && exit 1)
-          echo "Tag ${{ env.LATEST_TAG }} is available."
+          if ! git rev-parse --verify ${{ env.LATEST_TAG }}^{commit} > /dev/null; then
+            echo "Error: Tag ${{ env.LATEST_TAG }} not found locally after fetch attempts."
+            exit 1
+          fi
+          echo "Tag ${{ env.LATEST_TAG }} is available locally."
 
-
-      # --- BRANCH TESTING SAFETY CHECK ---
-      # If running on a branch that is NOT 'main', and we should deploy, this step will "complete" the test.
       - name: Branch Test Safety - Skip Actual Git Push
         if: steps.version_check.outputs.should_deploy == 'true' && github.ref_name != 'main'
         run: |
@@ -130,7 +138,6 @@ jobs:
           echo "::set-output name=branch_test_skip_push::true"
         id: branch_test_safety
 
-      # --- Actual Git Operations ---
       - name: Create a new release branch for Vercel deployment
         if: steps.version_check.outputs.should_deploy == 'true' && steps.branch_test_safety.outputs.branch_test_skip_push != 'true'
         run: |
@@ -145,11 +152,11 @@ jobs:
           echo "Resetting main to origin/dos-${{ env.LATEST_VERSION }} and force pushing"
           git checkout main
           git reset --hard origin/dos-${{ env.LATEST_VERSION }}
-          sleep 5 # Kept as per discussion
+          sleep 5 
           git push --force origin main
 
       - name: Final Log
-        if: always() # Run always to see the final status
+        if: always() 
         run: |
           echo "Workflow finished."
           echo "Should deploy: ${{ steps.version_check.outputs.should_deploy || 'false' }}"
