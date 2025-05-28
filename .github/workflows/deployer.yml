@@ -7,6 +7,18 @@ on:
         description: 'The upstream release tag from webhook'
         required: true
         type: string
+      release_name:
+        description: 'The name of the upstream release (from webhook)'
+        required: false # Set to true if your Lambda always sends a non-empty value and you require it
+        type: string
+      release_url:
+        description: 'The URL to the upstream release notes (from webhook)'
+        required: false # Set to true if your Lambda always sends a non-empty value and you require it
+        type: string
+      upstream_event_timestamp: 
+        description: 'Webhook event timestamp (ms) from webhook processor'
+        required: true 
+        type: string
 
 jobs:
   deploy:
