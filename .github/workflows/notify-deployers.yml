@@ -29,7 +29,7 @@ jobs:
       # This step is specific to dYdX Ops DAO and uses its own secrets.
       # It will only effectively run if its specific secrets are also present.
       - name: Send Webhook Notification to dYdX Ops DAO
-        if: secrets.DYDXOPSDAO_WEBHOOK_TOKEN != '' && secrets.DYDXOPSDAO_WEBHOOK_URL_BASE != ''
+        if: ${{ secrets.DYDXOPSDAO_WEBHOOK_TOKEN != '' && secrets.DYDXOPSDAO_WEBHOOK_URL_BASE != '' }}
         env:
           SECRET_FOR_DYDXOPSDAO_TOKEN: ${{ secrets.DYDXOPSDAO_WEBHOOK_TOKEN }}
           SECRET_FOR_DYDXOPSDAO_URL_BASE: ${{ secrets.DYDXOPSDAO_WEBHOOK_URL_BASE }}
