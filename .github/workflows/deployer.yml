@@ -50,19 +50,27 @@ jobs:
           git config --global user.email "196231098+hedgie-svc@users.noreply.github.com"
 
       - name: Set Upstream Release Tag from Webhook Input
-        id: set_upstream_tag # Give this step an ID
+        id: set_upstream_tag
         run: |
           echo "Triggered by: Webhook (workflow_dispatch)"
-          echo "Received upstream release_tag: ${{ github.event.inputs.release_tag }}"
+          FULL_RELEASE_TAG="${{ github.event.inputs.release_tag }}"
+          echo "Received upstream release_tag: ${FULL_RELEASE_TAG}"
 
           # Validate input format
-          if [[ ! "${{ github.event.inputs.release_tag }}" =~ ^release/v ]]; then
-            echo "Error: Webhook provided release_tag '${{ github.event.inputs.release_tag }}' is not in the expected 'release/vX.Y.Z' format."
+          if [[ ! "${FULL_RELEASE_TAG}" =~ ^release/v ]]; then
+            echo "Error: Webhook provided release_tag '${FULL_RELEASE_TAG}' is not in the expected 'release/vX.Y.Z' format."
             exit 1
           fi
-          echo "LATEST_TAG=${{ github.event.inputs.release_tag }}" >> $GITHUB_ENV
-          echo "LATEST_VERSION=${{ github.event.inputs.release_tag#release/v }}" >> $GITHUB_ENV
 
+          # Set LATEST_TAG env var
+          echo "LATEST_TAG=${FULL_RELEASE_TAG}" >> $GITHUB_ENV
+
+          # Perform string manipulation using shell parameter expansion
+          LATEST_VERSION_SHELL_VAR="${FULL_RELEASE_TAG#release/v}"
+          echo "LATEST_VERSION=${LATEST_VERSION_SHELL_VAR}" >> $GITHUB_ENV
+          
+          echo "Successfully set LATEST_TAG=${FULL_RELEASE_TAG} and LATEST_VERSION=${LATEST_VERSION_SHELL_VAR}"
+          
       - name: Identify the latest production release
         run: |
           # Ensure origin is set correctly if not default
