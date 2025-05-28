@@ -77,14 +77,14 @@ jobs:
           git remote set-url origin git@github.com:dydxopsdao/v4-web.git
           git fetch origin main --tags # Ensure origin is up-to-date with tags
 
-          # Store the full tag in a shell variable first
           PRODUCTION_TAG_FROM_GIT=$(git tag --merged origin/main --sort=-v:refname | grep '^release/v' | head -n 1)
           echo "Latest production tag on main branch: ${PRODUCTION_TAG_FROM_GIT}"
 
           if [ -z "$PRODUCTION_TAG_FROM_GIT" ]; then
-              echo "No production tags found on main branch matching 'release/v*'. Assuming first deployment or using a base version."
-              echo "PRODUCTION_TAG=release/v0.0.0" >> $GITHUB_ENV # Fallback for comparison
-              echo "PRODUCTION_VERSION=0.0.0" >> $GITHUB_ENV      # Corresponding version for fallback
+              echo "Error: No production tags found on main branch matching 'release/v*'."
+              echo "Manual intervention may be required to tag the current production release on the 'main' branch."
+              echo "Alternatively, for a first-time deployment, ensure the 'Determine if New Version is Deployable' step handles this scenario if a very old base version is acceptable for comparison."
+              exit 1 # Fail the workflow step
           else
               echo "PRODUCTION_TAG=${PRODUCTION_TAG_FROM_GIT}" >> $GITHUB_ENV
               # Perform string manipulation using shell parameter expansion
