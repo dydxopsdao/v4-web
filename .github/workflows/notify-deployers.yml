@@ -1,0 +1,76 @@
+name: Notify Downstream Deployers of New Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  notify_deployers:
+    name: Send Release Notification to downstream deployers
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Gather Release Information
+        id: release_info
+        run: |
+          echo "RELEASE_TAG=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+          echo "RELEASE_NAME=${{ github.event.release.name }}" >> $GITHUB_ENV
+          echo "RELEASE_URL=${{ github.event.release.html_url }}" >> $GITHUB_ENV
+          EVENT_TIMESTAMP_MS=$(date +%s%3N)
+          echo "EVENT_TIMESTAMP_MS=${EVENT_TIMESTAMP_MS}" >> $GITHUB_ENV
+          
+          echo "--- Gathered Release Information ---"
+          echo "Release Tag: ${{ github.event.release.tag_name }}"
+          echo "Release Name: ${{ github.event.release.name }}"
+          echo "Release URL: ${{ github.event.release.html_url }}"
+          echo "Event Timestamp (ms): ${EVENT_TIMESTAMP_MS}"
+          echo "------------------------------------"
+
+      # This step is specific to dYdX Ops DAO and uses its own secrets.
+      # It will only effectively run if its specific secrets are also present.
+      - name: Send Webhook Notification to dYdX Ops DAO
+        if: secrets.DYDXOPSDAO_WEBHOOK_TOKEN != '' && secrets.DYDXOPSDAO_WEBHOOK_URL_BASE != ''
+        env:
+          SECRET_FOR_DYDXOPSDAO_TOKEN: ${{ secrets.DYDXOPSDAO_WEBHOOK_TOKEN }}
+          SECRET_FOR_DYDXOPSDAO_URL_BASE: ${{ secrets.DYDXOPSDAO_WEBHOOK_URL_BASE }}
+        run: |
+          # Use the environment variables passed into this step (from secrets)
+          URL_BASE="$SECRET_FOR_DYDXOPSDAO_URL_BASE"
+          TOKEN="$SECRET_FOR_DYDXOPSDAO_TOKEN"
+
+          # Construct the full webhook URL using the shell variables
+          FULL_WEBHOOK_URL="${URL_BASE}/${TOKEN}"
+
+          # Access other env vars set by the previous 'Gather Release Information' step
+          RELEASE_TAG_ESCAPED=$(echo "$RELEASE_TAG" | sed 's/"/\\"/g')
+          RELEASE_NAME_ESCAPED=$(echo "$RELEASE_NAME" | sed 's/"/\\"/g')
+          RELEASE_URL_ESCAPED=$(echo "$RELEASE_URL" | sed 's/"/\\"/g')
+
+          JSON_PAYLOAD=$(printf '{
+            "event_type": "new_upstream_release",
+            "release_tag": "%s",
+            "release_name": "%s",
+            "release_url": "%s",
+            "upstream_event_timestamp_ms": %s
+          }' \
+            "${RELEASE_TAG_ESCAPED}" \
+            "${RELEASE_NAME_ESCAPED}" \
+            "${RELEASE_URL_ESCAPED}" \
+            "${EVENT_TIMESTAMP_MS}"
+          )
+
+          echo "Sending dYdX Ops DAO notification to: ${URL_BASE}/[TOKEN_REDACTED]"
+          echo "Payload being sent:"
+          echo "${JSON_PAYLOAD}"
+
+          curl -X POST \
+               -H "Content-Type: application/json" \
+               -H "Accept: application/json" \
+               -d "${JSON_PAYLOAD}" \
+               "${FULL_WEBHOOK_URL}" \
+               -Ss --fail-with-body \
+               --retry 3 \
+               --retry-delay 5 \
+               --retry-max-time 60
+      
+    # Other deployers can be added below.
