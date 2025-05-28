@@ -111,24 +111,37 @@ jobs:
       - name: Fetch Upstream Tag for Rebase (if deploying)
         if: steps.version_check.outputs.should_deploy == 'true'
         run: |
-          echo "Fetching upstream tag ${{ env.LATEST_TAG }} to ensure it's available for rebase..."
-          git remote add upstream_source_repo git@github.com:dydxprotocol/v4-web.git || echo "Upstream remote already exists or failed to add (non-critical if tag is already available)"
-          # Try fetching the specific tag with enough history for rebase (e.g. --depth=50, or adjust as needed)
-          # If specific tag fetch is problematic, fetching all tags is a more robust fallback.
-          echo "Attempting to fetch specific tag: ${{ env.LATEST_TAG }}"
-          if ! git fetch upstream_source_repo --depth=50 ${{ env.LATEST_TAG }}; then
-            echo "Failed to fetch specific tag with depth. Attempting to fetch all tags from upstream_source_repo."
-            if ! git fetch upstream_source_repo --tags; then
-              echo "Error: Failed to fetch tags from upstream_source_repo."
-              exit 1
-            fi
-          fi
-          # Verify tag exists locally
-          if ! git rev-parse --verify ${{ env.LATEST_TAG }}^{commit} > /dev/null; then
-            echo "Error: Tag ${{ env.LATEST_TAG }} not found locally after fetch attempts."
+          echo "Ensuring upstream remote 'upstream_source_repo' exists for dydxprotocol/v4-web..."
+          # Add remote if it doesn't exist. `|| true` makes this command not fail if remote already exists.
+          git remote add upstream_source_repo git@github.com:dydxprotocol/v4-web.git || true 
+          
+          echo "Fetching all tags from upstream_source_repo (dydxprotocol/v4-web) to ensure ${{ env.LATEST_TAG }} is available..."
+          # Fetch all tags. --force updates local tags if they exist and point to different commits.
+          # --no-tags on a prior fetch might prevent this, but actions/checkout usually fetches tags by default.
+          # We also need to make sure we have enough history if the tag is old.
+          # Fetching with full depth for tags is safest, or at least a very large depth.
+          # Let's try fetching all tags and unshallow if necessary.
+          
+          # First, ensure the main repo (dydxopsdao/v4-web) isn't shallow if it was checked out that way.
+          # actions/checkout with fetch-depth: 0 should make it non-shallow.
+          
+          # Now fetch tags from the upstream protocol repo
+          if ! git fetch upstream_source_repo --tags --force; then
+            echo "Error: Failed to fetch tags from upstream_source_repo (dydxprotocol/v4-web)."
             exit 1
           fi
-          echo "Tag ${{ env.LATEST_TAG }} is available locally."
+
+          echo "Verifying tag ${{ env.LATEST_TAG }} locally..."
+          # Check if the tag exists locally
+          if ! git rev-parse --verify ${{ env.LATEST_TAG }}^{commit} > /dev/null 2>&1; then
+            echo "Error: Tag ${{ env.LATEST_TAG }} not found locally or does not point to a commit after fetching all tags."
+            echo "This can happen if the tag exists on the remote but the commit it points to was not fetched (e.g., due to shallow clone of your own repo or the tag pointing to a commit not on any fetched branch)."
+            echo "Listing local tags matching 'release/v*' for debugging:"
+            git tag -l 'release/v*'
+            echo "Consider if your main repository (dydxopsdao/v4-web) needs to be unshallowed or fetch more history if the tag is very old."
+            exit 1
+          fi
+          echo "Tag ${{ env.LATEST_TAG }} is available locally and points to a commit."
 
       - name: Branch Test Safety - Skip Actual Git Push
         if: steps.version_check.outputs.should_deploy == 'true' && github.ref_name != 'main'
