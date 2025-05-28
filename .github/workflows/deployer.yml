@@ -1,23 +1,23 @@
-name: Deploy New Upstream Patch Release to Vercel (Webhook Triggered)
+name: Deploy Upstream Patch to Vercel via Webhook
 
 on:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: 'The upstream release tag from webhook'
+        description: 'Upstream release tag (e.g., release/vX.Y.Z)'
         required: true
         type: string
       release_name:
-        description: 'The name of the upstream release (from webhook)'
+        description: 'Upstream release name (optional)'
         required: false
         type: string
       release_url:
-        description: 'The URL to the upstream release notes (from webhook)'
+        description: 'URL to upstream release notes (optional)'
         required: false
         type: string
-      upstream_event_timestamp: 
-        description: 'Webhook event timestamp (ms) from webhook processor'
-        required: true 
+      upstream_event_timestamp:
+        description: 'Webhook event timestamp (ms)'
+        required: true
         type: string
 
 jobs:
@@ -25,128 +25,134 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Configure SSH
+      - name: Configure SSH for Git
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git config --global core.sshCommand "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes"
 
-      - name: Checkout repository (dydxopsdao/v4-web)
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
+          repository: 'dydxopsdao/v4-web'
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
           fetch-depth: 0
+          fetch-tags: true
 
-      - name: Import GPG key
+      - name: Import GPG Key & Configure Git User
         run: |
           echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --yes --import
           echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
-
-      - name: Configure GPG for Git
-        run: |
           git config --global user.signingkey $(gpg --list-secret-keys --keyid-format LONG | grep sec | awk '{print $2}' | cut -d'/' -f2)
           git config --global commit.gpgSign true
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "196231098+hedgie-svc@users.noreply.github.com"
+          git config --global user.name "GitHub Actions Bot (dydxopsdao/v4-web)"
+          git config --global user.email "196231098+hedgie-svc@users.noreply.github.com" # Or your preferred bot email
 
-      - name: Set Upstream Release Info from Webhook Input
-        id: set_upstream_info
+      - name: Process Webhook Input
+        id: upstream_info
         run: |
-          echo "Webhook triggered. Received release_tag: ${{ github.event.inputs.release_tag }}"
+          echo "Processing webhook input for release: ${{ github.event.inputs.release_tag }}"
           FULL_RELEASE_TAG="${{ github.event.inputs.release_tag }}"
-
           if [[ ! "${FULL_RELEASE_TAG}" =~ ^release/v ]]; then
-            echo "Error: Webhook provided release_tag '${FULL_RELEASE_TAG}' is not in the expected 'release/vX.Y.Z' format."
+            echo "Error: Invalid release_tag format: ${FULL_RELEASE_TAG}. Expected 'release/vX.Y.Z'."
             exit 1
           fi
           echo "LATEST_TAG=${FULL_RELEASE_TAG}" >> $GITHUB_ENV
           LATEST_VERSION_SHELL_VAR="${FULL_RELEASE_TAG#release/v}"
           echo "LATEST_VERSION=${LATEST_VERSION_SHELL_VAR}" >> $GITHUB_ENV
-          
-      - name: Identify current production release (from dydxopsdao/v4-web)
-        id: get_production_info
+          echo "WEBHOOK_RELEASE_NAME=${{ github.event.inputs.release_name }}" >> $GITHUB_ENV
+          echo "WEBHOOK_EVENT_TIMESTAMP=${{ github.event.inputs.upstream_event_timestamp }}" >> $GITHUB_ENV
+
+      - name: Identify Current Production Version
+        id: production_info
         run: |
-          git remote set-url origin git@github.com:dydxopsdao/v4-web.git
-          git fetch origin --tags
-
+          # Origin is dydxopsdao/v4-web, tags fetched by checkout
+          git fetch origin main # Ensure main ref is up-to-date
           PRODUCTION_TAG_FROM_GIT=$(git tag --merged origin/main --sort=-v:refname | grep '^release/v' | head -n 1)
-          echo "Latest production tag on main (dydxopsdao/v4-web): ${PRODUCTION_TAG_FROM_GIT:-None found}"
-
+          echo "Current production tag on origin/main: ${PRODUCTION_TAG_FROM_GIT:-None found}"
           if [ -z "$PRODUCTION_TAG_FROM_GIT" ]; then
-            echo "Error: No production tags (release/v*) found on main branch of dydxopsdao/v4-web. Cannot determine patch."
+            echo "Error: No existing 'release/v*' tag found on origin/main. Cannot determine current production version."
             exit 1 
           fi
           echo "PRODUCTION_TAG=${PRODUCTION_TAG_FROM_GIT}" >> $GITHUB_ENV
           PRODUCTION_VERSION_SHELL_VAR="${PRODUCTION_TAG_FROM_GIT#release/v}"
           echo "PRODUCTION_VERSION=${PRODUCTION_VERSION_SHELL_VAR}" >> $GITHUB_ENV
 
-      - name: Determine if New Version is a Deployable Patch
+      - name: Check if Deployable Patch
         id: version_check
         run: |
-          echo "Current Production: ${{ env.PRODUCTION_TAG }} (Version: ${{ env.PRODUCTION_VERSION }})"
-          echo "Incoming Upstream: ${{ env.LATEST_TAG }} (Version: ${{ env.LATEST_VERSION }})"
-
+          echo "Comparing Upstream (${{ env.LATEST_TAG }}) with Production (${{ env.PRODUCTION_TAG }})"
           IFS='.' read -r PROD_MAJOR PROD_MINOR PROD_PATCH <<< "${{ env.PRODUCTION_VERSION }}"
           IFS='.' read -r UPSTREAM_MAJOR UPSTREAM_MINOR UPSTREAM_PATCH <<< "${{ env.LATEST_VERSION }}"
-
           if [[ "$UPSTREAM_MAJOR" -eq "$PROD_MAJOR" && \
                 "$UPSTREAM_MINOR" -eq "$PROD_MINOR" && \
                 "$UPSTREAM_PATCH" -gt "$PROD_PATCH" ]]; then
-            echo "Decision: New PATCH version detected (${{ env.LATEST_TAG }}). Proceeding to deploy."
+            echo "Decision: New PATCH version (${{ env.LATEST_TAG }}) detected. Proceeding."
             echo "::set-output name=is_deployable_patch::true"
           else
-            echo "Decision: Version ${{ env.LATEST_TAG }} is NOT a direct patch update to production ${{ env.PRODUCTION_TAG }}. No automatic deployment."
+            echo "Decision: Upstream version (${{ env.LATEST_TAG }}) is NOT a direct patch update to production (${{ env.PRODUCTION_TAG }}). Skipping deployment."
             echo "::set-output name=is_deployable_patch::false"
           fi
 
-      - name: Fetch Upstream Data from dydxprotocol/v4-web (if deploying patch)
+      - name: Fetch Upstream Protocol Data
         if: steps.version_check.outputs.is_deployable_patch == 'true'
         run: |
-          git remote add upstream_protocol git@github.com:dydxprotocol/v4-web.git || echo "Remote 'upstream_protocol' already exists."
-          echo "Fetching data from upstream_protocol (dydxprotocol/v4-web) for tag ${{ env.LATEST_TAG }}..."
-          if ! git fetch upstream_protocol --force --tags; then
-             echo "Error: Failed to fetch tags from upstream_protocol (dydxprotocol/v4-web)."
+          if ! git remote | grep -q '^upstream_protocol$'; then
+            git remote add upstream_protocol git@github.com:dydxprotocol/v4-web.git
+          else
+            git remote set-url upstream_protocol git@github.com:dydxprotocol/v4-web.git
+          fi
+          echo "Fetching from upstream_protocol (dydxprotocol/v4-web) for tag ${{ env.LATEST_TAG }}..."
+          if ! git fetch upstream_protocol --force --tags || ! git fetch upstream_protocol; then
+             echo "Error: Failed to fetch data from upstream_protocol."
              exit 1
           fi
-          if ! git fetch upstream_protocol; then # Fetch branches to get commit history
-             echo "Error: Failed to fetch branches from upstream_protocol (dydxprotocol/v4-web)."
-             exit 1
-          fi
-          
           if ! git rev-parse --verify ${{ env.LATEST_TAG }}^{commit} > /dev/null 2>&1; then
-            echo "Error: Tag ${{ env.LATEST_TAG }} (from dydxprotocol/v4-web) not found locally or does not point to a commit after fetch."
+            echo "Error: Upstream tag ${{ env.LATEST_TAG }} not resolvable after fetch."
             exit 1
           fi
-          echo "Tag ${{ env.LATEST_TAG }} is available for rebase."
+          echo "Upstream tag ${{ env.LATEST_TAG }} is available."
 
-      - name: Branch Test Safety - Skip Actual Git Push
+      - name: Branch Test Safety Check
         if: steps.version_check.outputs.is_deployable_patch == 'true' && github.ref_name != 'main'
         run: |
-          echo "BRANCH TEST SAFETY: Running on non-main branch ('${{ github.ref_name }}'). Actual Git push operations will be SKIPPED."
+          echo "BRANCH TEST SAFETY: Workflow running on non-main branch ('${{ github.ref_name }}'). Actual Git push operations will be SKIPPED."
           echo "::set-output name=branch_test_skip_push::true"
         id: branch_test_safety
 
-      - name: Create new release branch (dos-<version>)
+      - name: Create and Rebase Release Branch
         if: steps.version_check.outputs.is_deployable_patch == 'true' && steps.branch_test_safety.outputs.branch_test_skip_push != 'true'
         run: |
-          echo "Creating branch dos-${{ env.LATEST_VERSION }}, rebasing onto ${{ env.LATEST_TAG }}, and pushing..."
-          git checkout -b dos-${{ env.LATEST_VERSION }} origin/main
-          git rebase ${{ env.LATEST_TAG }} 
-          git push --set-upstream origin dos-${{ env.LATEST_VERSION }}
+          BRANCH_NAME="dos-${{ env.LATEST_VERSION }}"
+          echo "Creating/checking out branch ${BRANCH_NAME} from origin/main..."
+          git checkout -B "${BRANCH_NAME}" origin/main # -B creates if not exist, or resets if it does
+          echo "Rebasing ${BRANCH_NAME} onto upstream tag ${{ env.LATEST_TAG }}..."
+          git rebase "${{ env.LATEST_TAG }}"
+          echo "Pushing branch ${BRANCH_NAME} to origin..."
+          git push --set-upstream origin "${BRANCH_NAME}" --force # Force push in case branch existed and was reset
 
-      - name: Reset main to the new release branch
+      - name: Update Main Branch and Tag
         if: steps.version_check.outputs.is_deployable_patch == 'true' && steps.branch_test_safety.outputs.branch_test_skip_push != 'true'
         run: |
-          echo "Resetting 'main' to 'origin/dos-${{ env.LATEST_VERSION }}' and force pushing..."
+          BRANCH_NAME="dos-${{ env.LATEST_VERSION }}"
+          echo "Updating 'main' to 'origin/${BRANCH_NAME}'..."
           git checkout main
-          git reset --hard origin/dos-${{ env.LATEST_VERSION }}
+          git reset --hard "origin/${BRANCH_NAME}"
           sleep 5 
+          echo "Force pushing 'main' to origin..."
           git push --force origin main
+          echo "Tagging 'main' with ${{ env.LATEST_TAG }} and pushing tag..."
+          git tag -f "${{ env.LATEST_TAG }}" main
+          git push origin "${{ env.LATEST_TAG }}" --force
 
-      - name: Final Log
+      - name: Final Summary
         if: always() 
         run: |
           echo "Workflow finished."
+          echo "  Input release_tag: ${{ github.event.inputs.release_tag }}"
+          echo "  Processed LATEST_TAG: ${{ env.LATEST_TAG || 'N/A' }}"
+          echo "  Current PRODUCTION_TAG: ${{ env.PRODUCTION_TAG || 'N/A' }}"
           echo "  Is deployable patch: ${{ steps.version_check.outputs.is_deployable_patch || 'false' }}"
-          echo "  Branch test skip push active: ${{ steps.branch_test_safety.outputs.branch_test_skip_push || 'false' }}"
-          echo "  Upstream tag processed: ${{ env.LATEST_TAG || 'N/A' }}"
+          echo "  Branch test (skip push active): ${{ steps.branch_test_safety.outputs.branch_test_skip_push || 'false' }}"
