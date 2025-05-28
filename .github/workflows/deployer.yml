@@ -1,9 +1,12 @@
-name: Deploy new upstream release to Vercel
+name: Deploy new upstream release to Vercel (Webhook Triggered)
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '*/10 * * * *'  # Run every 10 minutes
+    inputs:
+      release_tag: 
+        description: 'The upstream release tag from webhook'
+        required: true
+        type: string
 
 jobs:
   deploy:
@@ -20,107 +23,115 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch full history
+          fetch-depth: 0 # Fetch full history
 
       - name: Import GPG key
         run: |
           echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --yes --import
           echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
-  
+
       - name: Configure GPG for Git
         run: |
           git config --global user.signingkey $(gpg --list-secret-keys --keyid-format LONG | grep sec | awk '{print $2}' | cut -d'/' -f2)
           git config --global commit.gpgSign true
           git config --global user.name "GitHub Actions"
           git config --global user.email "196231098+hedgie-svc@users.noreply.github.com"
-            
-      - name: Identify the latest upstream code release
+
+      - name: Set Upstream Release Tag from Webhook Input
+        id: set_upstream_tag # Give this step an ID
         run: |
-          # Add upstream remote using SSH URL
-          git remote add upstream git@github.com:dydxprotocol/v4-web.git
+          echo "Triggered by: Webhook (workflow_dispatch)"
+          echo "Received upstream release_tag: ${{ github.event.inputs.release_tag }}"
 
-          # Update origin to use SSH URL
-          git remote set-url origin git@github.com:dydxopsdao/v4-web.git
-
-          # Fetch all tags from upstream
-          git fetch upstream
-
-          # Get the latest release tag
-          LATEST_TAG=$(git tag -l 'release/v*' | sort -V | tail -n 1)
-          echo "Latest upstream tag found: ${LATEST_TAG}"
-
-          # Check if LATEST_TAG is empty
-          if [ -z "$LATEST_TAG" ]; then
-              echo "No tags found matching 'release/v*'."
-              exit 1
+          # Validate input format
+          if [[ ! "${{ github.event.inputs.release_tag }}" =~ ^release/v ]]; then
+            echo "Error: Webhook provided release_tag '${{ github.event.inputs.release_tag }}' is not in the expected 'release/vX.Y.Z' format."
+            exit 1
           fi
-
-          # Export LATEST_TAG to the environment
-          echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
-          echo "LATEST_VERSION=${LATEST_TAG#release/v}" >> $GITHUB_ENV
+          echo "LATEST_TAG=${{ github.event.inputs.release_tag }}" >> $GITHUB_ENV
+          echo "LATEST_VERSION=${{ github.event.inputs.release_tag#release/v }}" >> $GITHUB_ENV
 
       - name: Identify the latest production release
         run: |
-          # Fetch all tags from the main branch
-          git fetch origin main --tags
+          # Ensure origin is set correctly if not default
+          git remote set-url origin git@github.com:dydxopsdao/v4-web.git
+          git fetch origin main --tags # Ensure origin is up-to-date with tags
 
-          # Get the latest tag on the main branch
-          PRODUCTION_TAG=$(git tag --merged origin/main | sort -V | tail -n 1)
+          PRODUCTION_TAG=$(git tag --merged origin/main --sort=-v:refname | grep '^release/v' | head -n 1)
           echo "Latest production tag on main branch: ${PRODUCTION_TAG}"
-
-          # Check if PRODUCTION_TAG is empty
           if [ -z "$PRODUCTION_TAG" ]; then
-              echo "No production tags found on main branch."
-              exit 1
-          fi
-
-          # Export PRODUCTION_TAG to the environment
-          echo "PRODUCTION_TAG=${PRODUCTION_TAG}" >> $GITHUB_ENV
-          echo "PRODUCTION_VERSION=${PRODUCTION_TAG#release/v}" >> $GITHUB_ENV
-
-      - name: Determine version type
-        run: |
-          echo "Checking if the version is a patch, minor, or major"
-          
-          # Extract version numbers from environment variables
-          IFS='.' read -r PROD_MAJOR PROD_MINOR PROD_PATCH <<< "${{ env.PRODUCTION_VERSION }}"
-          IFS='.' read -r UPSTREAM_MAJOR UPSTREAM_MINOR UPSTREAM_PATCH <<< "${{ env.LATEST_VERSION }}"
-
-          # Log the extracted version numbers
-          echo "Production Version - Major: $PROD_MAJOR, Minor: $PROD_MINOR, Patch: $PROD_PATCH"
-          echo "Latest Version - Major: $UPSTREAM_MAJOR, Minor: $UPSTREAM_MINOR, Patch: $UPSTREAM_PATCH"
-
-          # Determine if a new patch version is detected
-          if [ "$UPSTREAM_MAJOR" -eq "$PROD_MAJOR" ] && [ "$UPSTREAM_MINOR" -eq "$PROD_MINOR" ] && [ "$UPSTREAM_PATCH" -gt "$PROD_PATCH" ]; then
-              echo "New patch version detected: ${LATEST_TAG}"
-              echo "NEW_PATCH_VERSION=true" >> $GITHUB_ENV
+              echo "No production tags found on main branch matching 'release/v*'. Assuming first deployment or using a base version."
+              echo "PRODUCTION_TAG=release/v0.0.0" >> $GITHUB_ENV # Fallback for comparison
           else
-              echo "No new patch version detected."
-              echo "NEW_PATCH_VERSION=false" >> $GITHUB_ENV
-              exit 0
+              echo "PRODUCTION_TAG=${PRODUCTION_TAG}" >> $GITHUB_ENV
+          fi
+          echo "PRODUCTION_VERSION=${{ env.PRODUCTION_TAG#release/v }}" >> $GITHUB_ENV
+
+      - name: Determine if New Version is Deployable
+        id: version_check # Give this step an ID
+        run: |
+          echo "Production Version: ${{ env.PRODUCTION_VERSION }} (${{ env.PRODUCTION_TAG }})"
+          echo "Latest Upstream (from webhook): ${{ env.LATEST_VERSION }} (${{ env.LATEST_TAG }})"
+
+          # We deploy if LATEST_VERSION is strictly newer than PRODUCTION_VERSION
+          if printf '%s\n' "${{ env.LATEST_VERSION }}" "${{ env.PRODUCTION_VERSION }}" | sort -V -C && [[ "${{ env.LATEST_VERSION }}" != "${{ env.PRODUCTION_VERSION }}" ]]; then
+            # This condition means LATEST_VERSION > PRODUCTION_VERSION
+            echo "New version detected for deployment: ${{ env.LATEST_TAG }}"
+            echo "::set-output name=should_deploy::true"
+          else
+            echo "Latest upstream version (${{ env.LATEST_TAG }}) is not newer than or is the same as current production (${{ env.PRODUCTION_TAG }}). No deployment needed."
+            echo "::set-output name=should_deploy::false"
           fi
 
-      - name: Create a new release branch for Vercel deployment
-        if: env.NEW_PATCH_VERSION == 'true'
+      # This step ensures the LATEST_TAG (which comes from dydxprotocol/v4-web) is available locally for rebase
+      - name: Fetch Upstream Tag for Rebase (if deploying)
+        if: steps.version_check.outputs.should_deploy == 'true'
         run: |
-          # Create a new branch from the latest release tag
+          echo "Fetching upstream tag ${{ env.LATEST_TAG }} to ensure it's available for rebase..."
+          git remote add upstream_source_repo git@github.com:dydxprotocol/v4-web.git || echo "Upstream remote already exists or failed to add (non-critical if tag is already available)"
+          git fetch upstream_source_repo --tags --depth=1 ${{ env.LATEST_TAG }} || echo "Failed to fetch specific tag, will try fetching all tags. This might happen if tag is not directly on a branch tip."
+          # Fallback to fetching all tags if specific tag fetch fails (e.g. not on a tip)
+          if [ $? -ne 0 ]; then
+            echo "Fetching all upstream tags as specific tag fetch failed..."
+            git fetch upstream_source_repo --tags
+          fi
+          # Verify tag exists locally
+          git rev-parse --verify ${{ env.LATEST_TAG }}^{commit} > /dev/null || (echo "Error: Tag ${{ env.LATEST_TAG }} not found locally after fetch." && exit 1)
+          echo "Tag ${{ env.LATEST_TAG }} is available."
+
+
+      # --- BRANCH TESTING SAFETY CHECK ---
+      # If running on a branch that is NOT 'main', and we should deploy, this step will "complete" the test.
+      - name: Branch Test Safety - Skip Actual Git Push
+        if: steps.version_check.outputs.should_deploy == 'true' && github.ref_name != 'main'
+        run: |
+          echo "BRANCH TEST: New version ${{ env.LATEST_TAG }} detected on branch ${{ github.ref_name }}."
+          echo "Actual Git push operations will be SKIPPED for this test run on a non-main branch."
+          echo "::set-output name=branch_test_skip_push::true"
+        id: branch_test_safety
+
+      # --- Actual Git Operations ---
+      - name: Create a new release branch for Vercel deployment
+        if: steps.version_check.outputs.should_deploy == 'true' && steps.branch_test_safety.outputs.branch_test_skip_push != 'true'
+        run: |
+          echo "Creating new branch dos-${{ env.LATEST_VERSION }} from origin/main and rebasing with ${{ env.LATEST_TAG }}"
           git checkout -b dos-${{ env.LATEST_VERSION }} origin/main
-
-          # Rebase commits from the latest release tag onto the new release branch
           git rebase ${{ env.LATEST_TAG }}
-
-          # Push the rebased branch to the remote repository
           git push --set-upstream origin dos-${{ env.LATEST_VERSION }}
 
       - name: Reset main to the feature branch for production deployment
-        if: env.NEW_PATCH_VERSION == 'true'
+        if: steps.version_check.outputs.should_deploy == 'true' && steps.branch_test_safety.outputs.branch_test_skip_push != 'true'
         run: |
-          # Checkout the main branch
+          echo "Resetting main to origin/dos-${{ env.LATEST_VERSION }} and force pushing"
           git checkout main
-
-          # Hard reset the main branch to the feature branch
           git reset --hard origin/dos-${{ env.LATEST_VERSION }}
-
-          # Force push the changes to the main branch
-          sleep 5
+          sleep 5 # Kept as per discussion
           git push --force origin main
+
+      - name: Final Log
+        if: always() # Run always to see the final status
+        run: |
+          echo "Workflow finished."
+          echo "Should deploy: ${{ steps.version_check.outputs.should_deploy || 'false' }}"
+          echo "Branch test skip push: ${{ steps.branch_test_safety.outputs.branch_test_skip_push || 'false' }}"
+          echo "Upstream tag used: ${{ env.LATEST_TAG || 'N/A' }}"
