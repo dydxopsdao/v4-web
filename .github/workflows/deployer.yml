@@ -58,7 +58,7 @@ jobs:
 
       - name: Identify the latest production release
         run: |
-          git fetch origin main
+          git fetch origin main --tags
           git checkout main 
           git pull origin main
           PRODUCTION_TAG=$(git tag --merged HEAD --sort=-v:refname | grep '^release/v' | head -n 1)
