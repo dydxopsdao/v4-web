@@ -14,6 +14,7 @@ jobs:
           echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan github.com >> ~/.ssh/known_hosts
+          
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -50,6 +51,7 @@ jobs:
           # Export LATEST_TAG to the environment
           echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
           echo "LATEST_VERSION=${LATEST_TAG#release/v}" >> $GITHUB_ENV
+
       - name: Identify the latest production release
         run: |
           # Fetch all tags from the main branch
@@ -65,6 +67,7 @@ jobs:
           # Export PRODUCTION_TAG to the environment
           echo "PRODUCTION_TAG=${PRODUCTION_TAG}" >> $GITHUB_ENV
           echo "PRODUCTION_VERSION=${PRODUCTION_TAG#release/v}" >> $GITHUB_ENV
+
       - name: Determine version type
         run: |
           echo "Checking if the version is a patch, minor, or major"
@@ -84,6 +87,7 @@ jobs:
               echo "NEW_PATCH_VERSION=false" >> $GITHUB_ENV
               exit 0
           fi
+
       - name: Create a new release branch for Vercel deployment
         if: env.NEW_PATCH_VERSION == 'true'
         run: |
@@ -93,6 +97,7 @@ jobs:
           git rebase ${{ env.LATEST_TAG }}
           # Push the rebased branch to the remote repository
           git push --set-upstream origin dos-${{ env.LATEST_VERSION }}
+
       - name: Reset main to the feature branch for production deployment
         if: env.NEW_PATCH_VERSION == 'true'
         run: |
