@@ -1,13 +1,14 @@
-name: Notify Downstream Deployers of New Release
+name: Notify Downstream Systems of New Release
 
 on:
   release:
     types: [published]
 
 jobs:
-  notify_deployers:
-    name: Send Release Notification to downstream deployers
+  notify_downstream_deployers:
+    name: Send Release Notification to Configured Downstream Systems
     runs-on: ubuntu-latest
+    if: ${{ secrets.DYDXOPSDAO_WEBHOOK_AUTH_TOKEN != '' && secrets.DYDXOPSDAO_WEBHOOK_URL != '' }}
 
     steps:
       - name: Gather Release Information
@@ -16,6 +17,7 @@ jobs:
           echo "RELEASE_TAG=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
           echo "RELEASE_NAME=${{ github.event.release.name }}" >> $GITHUB_ENV
           echo "RELEASE_URL=${{ github.event.release.html_url }}" >> $GITHUB_ENV
+          echo "UPSTREAM_REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV # If you want to send this
           EVENT_TIMESTAMP_MS=$(date +%s%3N)
           echo "EVENT_TIMESTAMP_MS=${EVENT_TIMESTAMP_MS}" >> $GITHUB_ENV
           
@@ -23,54 +25,52 @@ jobs:
           echo "Release Tag: ${{ github.event.release.tag_name }}"
           echo "Release Name: ${{ github.event.release.name }}"
           echo "Release URL: ${{ github.event.release.html_url }}"
+          echo "Repository: ${{ github.repository }}" # If sending
           echo "Event Timestamp (ms): ${EVENT_TIMESTAMP_MS}"
           echo "------------------------------------"
 
-      # This step is specific to dYdX Ops DAO and uses its own secrets.
-      # It will only effectively run if its specific secrets are also present.
       - name: Send Webhook Notification to dYdX Ops DAO
-        if: ${{ secrets.DYDXOPSDAO_WEBHOOK_TOKEN != '' && secrets.DYDXOPSDAO_WEBHOOK_URL_BASE != '' }}
         env:
-          SECRET_FOR_DYDXOPSDAO_TOKEN: ${{ secrets.DYDXOPSDAO_WEBHOOK_TOKEN }}
-          SECRET_FOR_DYDXOPSDAO_URL_BASE: ${{ secrets.DYDXOPSDAO_WEBHOOK_URL_BASE }}
+          TARGET_WEBHOOK_URL_FROM_SECRET: ${{ secrets.DYDXOPSDAO_WEBHOOK_URL }}
+          AUTH_TOKEN_FOR_HEADER: ${{ secrets.DYDXOPSDAO_WEBHOOK_AUTH_TOKEN }}
         run: |
-          # Use the environment variables passed into this step (from secrets)
-          URL_BASE="$SECRET_FOR_DYDXOPSDAO_URL_BASE"
-          TOKEN="$SECRET_FOR_DYDXOPSDAO_TOKEN"
-
-          # Construct the full webhook URL using the shell variables
-          FULL_WEBHOOK_URL="${URL_BASE}/${TOKEN}"
+          # Use the environment variables passed into this step from secrets
+          FULL_WEBHOOK_URL="$TARGET_WEBHOOK_URL_FROM_SECRET" # This is now the complete URL
+          TOKEN_VALUE_FOR_HEADER="$AUTH_TOKEN_FOR_HEADER"
 
           # Access other env vars set by the previous 'Gather Release Information' step
           RELEASE_TAG_ESCAPED=$(echo "$RELEASE_TAG" | sed 's/"/\\"/g')
           RELEASE_NAME_ESCAPED=$(echo "$RELEASE_NAME" | sed 's/"/\\"/g')
           RELEASE_URL_ESCAPED=$(echo "$RELEASE_URL" | sed 's/"/\\"/g')
+          UPSTREAM_REPO_NAME_ESCAPED=$(echo "$UPSTREAM_REPO_NAME" | sed 's/"/\\"/g') # If sending
 
           JSON_PAYLOAD=$(printf '{
             "event_type": "new_upstream_release",
             "release_tag": "%s",
             "release_name": "%s",
             "release_url": "%s",
+            "repository": "%s", # Include if your Lambda expects/uses it
             "upstream_event_timestamp_ms": %s
           }' \
             "${RELEASE_TAG_ESCAPED}" \
             "${RELEASE_NAME_ESCAPED}" \
             "${RELEASE_URL_ESCAPED}" \
-            "${EVENT_TIMESTAMP_MS}"
+            "${UPSTREAM_REPO_NAME_ESCAPED}" \ # If sending
+            "${EVENT_TIMESTAMP_MS}" 
           )
 
-          echo "Sending dYdX Ops DAO notification to: ${URL_BASE}/[TOKEN_REDACTED]"
+          echo "Sending dYdX Ops DAO notification to: ${FULL_WEBHOOK_URL}"
           echo "Payload being sent:"
           echo "${JSON_PAYLOAD}"
+          # The token will be sent in a header, not logged here.
 
           curl -X POST \
                -H "Content-Type: application/json" \
                -H "Accept: application/json" \
+               -H "X-Webhook-Secret: ${TOKEN_VALUE_FOR_HEADER}" \ # Token sent in header
                -d "${JSON_PAYLOAD}" \
-               "${FULL_WEBHOOK_URL}" \
+               "${FULL_WEBHOOK_URL}" \                            # URL without token
                -Ss --fail-with-body \
                --retry 3 \
                --retry-delay 5 \
                --retry-max-time 60
-      
-    # Other deployers can be added below.
