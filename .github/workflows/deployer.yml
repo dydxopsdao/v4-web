@@ -1,9 +1,7 @@
 name: Deploy new upstream release to Vercel
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '*/10 * * * *'  # Run every 10 minutes
+  workflow_dispatch: {}
 
 jobs:
   deploy:
@@ -63,7 +61,7 @@ jobs:
         run: |
           # Fetch all tags from the main branch
           git fetch origin main --tags
-
+          
           # Get the latest tag on the main branch
           PRODUCTION_TAG=$(git tag --merged origin/main | sort -V | tail -n 1)
           echo "Latest production tag on main branch: ${PRODUCTION_TAG}"
