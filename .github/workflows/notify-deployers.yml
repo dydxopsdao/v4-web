@@ -1,0 +1,74 @@
+name: Notify Downstream Systems of New Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  notify_downstream_deployers:
+    name: Send Release Notification to Configured Downstream Systems
+    runs-on: ubuntu-latest
+    if: ${{ secrets.DYDXOPSDAO_WEBHOOK_AUTH_TOKEN != '' && secrets.DYDXOPSDAO_WEBHOOK_URL != '' }}
+
+    steps:
+      - name: Gather Release Information
+        id: release_info
+        run: |
+          echo "RELEASE_TAG=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+          echo "RELEASE_NAME=${{ github.event.release.name }}" >> $GITHUB_ENV
+          echo "RELEASE_URL=${{ github.event.release.html_url }}" >> $GITHUB_ENV
+          echo "UPSTREAM_REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
+          EVENT_TIMESTAMP_MS=$(date +%s%3N)
+          echo "EVENT_TIMESTAMP_MS=${EVENT_TIMESTAMP_MS}" >> $GITHUB_ENV
+          
+          echo "--- Gathered Release Information ---"
+          echo "Release Tag: ${{ github.event.release.tag_name }}"
+          echo "Release Name: ${{ github.event.release.name }}"
+          echo "Release URL: ${{ github.event.release.html_url }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Event Timestamp (ms): ${EVENT_TIMESTAMP_MS}"
+          echo "------------------------------------"
+
+      - name: Send Webhook Notification to dYdX Ops DAO
+        env:
+          TARGET_WEBHOOK_URL: ${{ secrets.DYDXOPSDAO_WEBHOOK_URL }}
+          AUTH_TOKEN: ${{ secrets.DYDXOPSDAO_WEBHOOK_AUTH_TOKEN }}
+        run: |
+          FULL_WEBHOOK_URL="$TARGET_WEBHOOK_URL" 
+          BEARER_TOKEN_VALUE="$AUTH_TOKEN"
+
+          RELEASE_TAG_ESCAPED=$(echo "$RELEASE_TAG" | sed 's/"/\\"/g')
+          RELEASE_NAME_ESCAPED=$(echo "$RELEASE_NAME" | sed 's/"/\\"/g')
+          RELEASE_URL_ESCAPED=$(echo "$RELEASE_URL" | sed 's/"/\\"/g')
+          UPSTREAM_REPO_NAME_ESCAPED=$(echo "$UPSTREAM_REPO_NAME" | sed 's/"/\\"/g')
+
+
+          JSON_PAYLOAD=$(printf '{
+            "event_type": "new_upstream_release",
+            "release_tag": "%s",
+            "release_name": "%s",
+            "release_url": "%s",
+            "repository": "%s",
+            "upstream_event_timestamp_ms": %s
+          }' \
+            "${RELEASE_TAG_ESCAPED}" \
+            "${RELEASE_NAME_ESCAPED}" \
+            "${RELEASE_URL_ESCAPED}" \
+            "${UPSTREAM_REPO_NAME_ESCAPED}" \
+            "${EVENT_TIMESTAMP_MS}" 
+          )
+
+          echo "Sending dYdX Ops DAO notification"
+          echo "Payload being sent:"
+          echo "${JSON_PAYLOAD}"
+
+          curl -X POST \
+               -H "Content-Type: application/json" \
+               -H "Accept: application/json" \
+               -H "Authorization: Bearer ${BEARER_TOKEN_VALUE}" \
+               -d "${JSON_PAYLOAD}" \
+               "${FULL_WEBHOOK_URL}" \                            
+               -Ss --fail-with-body \
+               --retry 3 \
+               --retry-delay 5 \
+               --retry-max-time 60
