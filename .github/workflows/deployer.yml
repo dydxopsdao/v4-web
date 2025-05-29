@@ -39,9 +39,10 @@ jobs:
 
           # Update origin to use SSH URL
           git remote set-url origin git@github.com:dydxopsdao/v4-web.git
-          
+
           # Fetch all tags from upstream
           git fetch upstream
+
           # Get the latest release tag
           LATEST_TAG=$(git tag -l 'release/v*' | sort -V | tail -n 1)
           echo "Latest upstream tag found: ${LATEST_TAG}"
@@ -60,6 +61,7 @@ jobs:
         run: |
           # Fetch all tags from the main branch
           git fetch origin main --tags
+          
           # Get the latest tag on the main branch
           PRODUCTION_TAG=$(git tag --merged origin/main | sort -V | tail -n 1)
           echo "Latest production tag on main branch: ${PRODUCTION_TAG}"
