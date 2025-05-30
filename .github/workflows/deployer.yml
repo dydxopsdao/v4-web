@@ -8,39 +8,32 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0  # Fetch full history
 
-      - name: Import GPG key
+      - name: Configure Git with GitHub App
         run: |
-          echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --yes --import
-          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
-  
-      - name: Configure GPG for Git
-        run: |
-          git config --global user.signingkey $(gpg --list-secret-keys --keyid-format LONG | grep sec | awk '{print $2}' | cut -d'/' -f2)
-          git config --global commit.gpgSign true
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "196231098+hedgie-svc@users.noreply.github.com"
-            
+          git config --global user.name "dos-automation-bot[bot]"
+          git config --global user.email "dos-automation-bot[bot]@users.noreply.github.com"
+
       - name: Identify the latest upstream code release
         run: |
-          # Add upstream remote using SSH URL
-          git remote add upstream git@github.com:dydxprotocol/v4-web.git
+          # Add upstream remote using HTTPS with token
+          git remote add upstream https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/dydxprotocol/v4-web.git
 
-          # Update origin to use SSH URL
-          git remote set-url origin git@github.com:dydxopsdao/v4-web.git
+          # Update origin to use HTTPS with token
+          git remote set-url origin https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/dydxopsdao/v4-web.git
 
           # Fetch all tags from upstream
           git fetch upstream
