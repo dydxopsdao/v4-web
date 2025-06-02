@@ -1,9 +1,7 @@
 name: Deploy new upstream release to Vercel
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '*/10 * * * *'  # Run every 10 minutes
+  workflow_dispatch: {}
 
 jobs:
   # ========================================
