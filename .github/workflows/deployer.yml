@@ -16,6 +16,8 @@ jobs:
       latest-tag: ${{ steps.upstream.outputs.latest-tag }}
       production-version: ${{ steps.production.outputs.production-version }}
       production-tag: ${{ steps.production.outputs.production-tag }}
+      latest-patch-in-line-version: ${{ steps.patch-in-line.outputs.latest-patch-in-line-version }}
+      latest-patch-in-line-tag: ${{ steps.patch-in-line.outputs.latest-patch-in-line-tag }}
 
     steps:
       - name: Log trigger information
@@ -44,7 +46,7 @@ jobs:
           git config --global user.name "dos-automation-bot[bot]"
           git config --global user.email "dos-automation-bot[bot]@users.noreply.github.com"
 
-      - name: Identify the latest upstream code release
+      - name: Identify the latest upstream version
         id: upstream
         run: |
           # Add upstream remote using HTTPS with token
@@ -70,7 +72,7 @@ jobs:
           echo "latest-tag=${LATEST_TAG}" >> $GITHUB_OUTPUT
           echo "latest-version=${LATEST_TAG#release/v}" >> $GITHUB_OUTPUT
 
-      - name: Identify the latest production release
+      - name: Identify the latest production version
         id: production
         run: |
           # Fetch all tags from the main branch
@@ -90,6 +92,33 @@ jobs:
           echo "production-tag=${PRODUCTION_TAG}" >> $GITHUB_OUTPUT
           echo "production-version=${PRODUCTION_TAG#release/v}" >> $GITHUB_OUTPUT
 
+      - name: Identify the latest patch in production version line
+        id: patch-in-line
+        run: |
+          # Get the production version to extract major.minor
+          PRODUCTION_VERSION="${{ steps.production.outputs.production-version }}"
+          IFS='.' read -r PROD_MAJOR PROD_MINOR PROD_PATCH <<< "$PRODUCTION_VERSION"
+          
+          echo "Production version: $PRODUCTION_VERSION (Major: $PROD_MAJOR, Minor: $PROD_MINOR, Patch: $PROD_PATCH)"
+          echo "Looking for latest patch in upstream version line: $PROD_MAJOR.$PROD_MINOR.x"
+          
+          # Find the latest tag in the same major.minor version line from upstream
+          LATEST_PATCH_IN_LINE_TAG=$(git tag -l "release/v$PROD_MAJOR.$PROD_MINOR.*" | sort -V | tail -n 1)
+          
+          if [ -z "$LATEST_PATCH_IN_LINE_TAG" ]; then
+              echo "No upstream tags found for version line $PROD_MAJOR.$PROD_MINOR.x"
+              echo "Using production version as fallback"
+              echo "latest-patch-in-line-tag=${{ steps.production.outputs.production-tag }}" >> $GITHUB_OUTPUT
+              echo "latest-patch-in-line-version=$PRODUCTION_VERSION" >> $GITHUB_OUTPUT
+          else
+              LATEST_PATCH_IN_LINE_VERSION="${LATEST_PATCH_IN_LINE_TAG#release/v}"
+              echo "Latest patch in upstream version line: $LATEST_PATCH_IN_LINE_TAG ($LATEST_PATCH_IN_LINE_VERSION)"
+              
+              # Export to outputs
+              echo "latest-patch-in-line-tag=${LATEST_PATCH_IN_LINE_TAG}" >> $GITHUB_OUTPUT
+              echo "latest-patch-in-line-version=${LATEST_PATCH_IN_LINE_VERSION}" >> $GITHUB_OUTPUT
+          fi
+
   # ========================================
   # JOB 2: Determine If Deployment Is Needed
   # ========================================
@@ -108,14 +137,16 @@ jobs:
           # Extract version numbers from outputs
           IFS='.' read -r PROD_MAJOR PROD_MINOR PROD_PATCH <<< "${{ needs.fetch-versions.outputs.production-version }}"
           IFS='.' read -r UPSTREAM_MAJOR UPSTREAM_MINOR UPSTREAM_PATCH <<< "${{ needs.fetch-versions.outputs.latest-version }}"
+          IFS='.' read -r PATCH_LINE_MAJOR PATCH_LINE_MINOR PATCH_LINE_PATCH <<< "${{ needs.fetch-versions.outputs.latest-patch-in-line-version }}"
 
           # Log the extracted version numbers
           echo "Production Version - Major: $PROD_MAJOR, Minor: $PROD_MINOR, Patch: $PROD_PATCH"
+          echo "Latest Patch in Line - Major: $PATCH_LINE_MAJOR, Minor: $PATCH_LINE_MINOR, Patch: $PATCH_LINE_PATCH"
           echo "Latest Version - Major: $UPSTREAM_MAJOR, Minor: $UPSTREAM_MINOR, Patch: $UPSTREAM_PATCH"
 
-          # Determine if a new patch version is detected
-          if [ "$UPSTREAM_MAJOR" -eq "$PROD_MAJOR" ] && [ "$UPSTREAM_MINOR" -eq "$PROD_MINOR" ] && [ "$UPSTREAM_PATCH" -gt "$PROD_PATCH" ]; then
-              echo "New patch version detected: ${{ needs.fetch-versions.outputs.latest-tag }}"
+          # Determine if a new patch version is detected within the same major.minor line
+          if [ "$PATCH_LINE_MAJOR" -eq "$PROD_MAJOR" ] && [ "$PATCH_LINE_MINOR" -eq "$PROD_MINOR" ] && [ "$PATCH_LINE_PATCH" -gt "$PROD_PATCH" ]; then
+              echo "New patch version detected: ${{ needs.fetch-versions.outputs.latest-patch-in-line-tag }}"
               echo "new-patch-version=true" >> $GITHUB_OUTPUT
           else
               echo "No new patch version detected."
@@ -158,6 +189,9 @@ jobs:
           # Update origin to use HTTPS with token
           git remote set-url origin https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/dydxopsdao/v4-web.git
 
+          # Fetch all tags from upstream to ensure they are available locally
+          git fetch upstream --tags
+
       - name: Create a new release branch for Vercel deployment
         run: |
           # Create a new branch from the latest release tag
@@ -165,6 +199,9 @@ jobs:
 
           # Rebase commits from the latest release tag onto the new release branch
           git rebase ${{ needs.fetch-versions.outputs.latest-tag }}
+
+          # Push the release branch to the remote repository  
+          git push --set-upstream origin dos-${{ needs.fetch-versions.outputs.latest-version }}
 
       - name: Reset main to the feature branch for production deployment and push all changes
         run: |
@@ -175,8 +212,6 @@ jobs:
           git reset --hard origin/dos-${{ needs.fetch-versions.outputs.latest-version }}
 
           # Force push the changes to the main branch
+          sleep 1
           git push --force origin main
 
-          # Push the release branch to the remote repository  
-          sleep 2
-          git push --set-upstream origin dos-${{ needs.fetch-versions.outputs.latest-version }}
