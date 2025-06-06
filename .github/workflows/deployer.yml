@@ -44,7 +44,7 @@ jobs:
       - name: Configure Git with GitHub App
         run: |
           git config --global user.name "dos-automation-bot[bot]"
-          git config --global user.email "dos-automation-bot[bot]@users.noreply.github.com"
+          git config --global user.email "dos-automation-bot@users.noreply.github.com"
 
       - name: Identify the latest upstream version
         id: upstream
@@ -176,10 +176,19 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0  # Fetch full history
 
-      - name: Configure Git with GitHub App
+      - name: Configure Git with GitHub App and GPG signing
         run: |
-          git config --global user.name "dos-automation-bot[bot]"
-          git config --global user.email "dos-automation-bot[bot]@users.noreply.github.com"
+          git config --global user.name "dos-automation"
+          git config --global user.email "196231098+hedgie-svc@users.noreply.github.com"
+          
+          # Configure GPG for non-interactive use
+          mkdir -p ~/.gnupg
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+          
+          # Import GPG key and configure signing  
+          echo "${{ secrets.BOT_GPG_PRIVATE_KEY }}" | gpg --batch --yes --import
+          git config --global user.signingkey $(gpg --list-secret-keys --keyid-format LONG | grep sec | awk '{print $2}' | cut -d'/' -f2)
+          git config --global commit.gpgsign true
 
       - name: Setup git remotes
         run: |
@@ -214,4 +223,3 @@ jobs:
           # Force push the changes to the main branch
           sleep 1
           git push --force origin main
-
