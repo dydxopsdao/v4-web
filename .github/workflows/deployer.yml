@@ -77,7 +77,7 @@ jobs:
         run: |
           # Fetch all tags from the main branch
           git fetch origin main --tags
-          
+
           # Get the latest tag on the main branch
           PRODUCTION_TAG=$(git tag --merged origin/main | sort -V | tail -n 1)
           echo "Latest production tag on main branch: ${PRODUCTION_TAG}"
@@ -98,13 +98,13 @@ jobs:
           # Get the production version to extract major.minor
           PRODUCTION_VERSION="${{ steps.production.outputs.production-version }}"
           IFS='.' read -r PROD_MAJOR PROD_MINOR PROD_PATCH <<< "$PRODUCTION_VERSION"
-          
+
           echo "Production version: $PRODUCTION_VERSION (Major: $PROD_MAJOR, Minor: $PROD_MINOR, Patch: $PROD_PATCH)"
           echo "Looking for latest patch in upstream version line: $PROD_MAJOR.$PROD_MINOR.x"
-          
+
           # Find the latest tag in the same major.minor version line from upstream
           LATEST_PATCH_IN_LINE_TAG=$(git tag -l "release/v$PROD_MAJOR.$PROD_MINOR.*" | sort -V | tail -n 1)
-          
+
           if [ -z "$LATEST_PATCH_IN_LINE_TAG" ]; then
               echo "No upstream tags found for version line $PROD_MAJOR.$PROD_MINOR.x"
               echo "Using production version as fallback"
@@ -133,7 +133,7 @@ jobs:
         id: version-check
         run: |
           echo "Checking if the version is a patch, minor, or major"
-          
+
           # Extract version numbers from outputs
           IFS='.' read -r PROD_MAJOR PROD_MINOR PROD_PATCH <<< "${{ needs.fetch-versions.outputs.production-version }}"
           IFS='.' read -r UPSTREAM_MAJOR UPSTREAM_MINOR UPSTREAM_PATCH <<< "${{ needs.fetch-versions.outputs.latest-version }}"
@@ -174,17 +174,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ steps.app-token.outputs.token }}
-          fetch-depth: 0  # Fetch full history
+          fetch-depth: 0 # Fetch full history
 
       - name: Configure Git with GitHub App and GPG signing
         run: |
           git config --global user.name "dos-automation"
           git config --global user.email "196231098+hedgie-svc@users.noreply.github.com"
-          
+
           # Configure GPG for non-interactive use
           mkdir -p ~/.gnupg
           echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
-          
+
           # Import GPG key and configure signing  
           echo "${{ secrets.BOT_GPG_PRIVATE_KEY }}" | gpg --batch --yes --import
           git config --global user.signingkey $(gpg --list-secret-keys --keyid-format LONG | grep sec | awk '{print $2}' | cut -d'/' -f2)
@@ -207,7 +207,7 @@ jobs:
           git checkout -b dos-${{ needs.fetch-versions.outputs.latest-patch-in-line-version }} origin/main
 
           # Rebase commits from the latest release tag onto the new release branch
-          git rebase ${{ needs.fetch-versions.outputs.latest-patch-in-line-tag }}
+          git pull --rebase upstream ${{ needs.fetch-versions.outputs.latest-patch-in-line-tag }}
 
           # Push the release branch to the remote repository  
           git push --set-upstream origin dos-${{ needs.fetch-versions.outputs.latest-patch-in-line-version }}
