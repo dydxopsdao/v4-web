@@ -45,7 +45,7 @@ jobs:
               echo "Constructed DOS URL: ${DOS_URL}"
 
               # Validate dYdX URL existence
-              if ! curl -s --head "${DYDX_URL}" | grep -q "200 OK"; then
+              if ! curl -sI "${DYDX_URL}" | grep -q "^HTTP.*[2][0-9][0-9]"; then
                 echo "Error: dYdX release tag ${DYDX_REFERENCE} not found or inaccessible."
                 exit 1
               fi
