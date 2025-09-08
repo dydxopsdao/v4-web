@@ -7,7 +7,7 @@ const TermsOfUsePage = () => (
   <$Article>
     <header>
       <h1>Terms of Use</h1>
-      <h3>Last Updated: February 3, 2025</h3>
+      <h3>Last Updated: 8 September, 2025</h3>
       <span />
     </header>
 
@@ -167,7 +167,7 @@ const TermsOfUsePage = () => (
       Any use of dYdX Software is subject to the terms and conditions available at 
       https://dydx.exchange/v4-terms (the “dYdX Software Terms”). In accordance with section 4 of 
       the dYdX Software Terms, the terms and conditions of Annex A (Risks Associated with 
-      Perpetual Contracts), Annex B (MegaVault Terms), Annex C (Affiliate Feature Terms) and 
+      Perpetual Contracts), Annex B (MegaVault Terms), Annex C (Revenue Sharing Features) and 
       Annex D (Instant Market Listing Terms) of the dYdX Software Terms are set forth below in 
       substance. By using any of the Services, you acknowledge and agree that you are bound by, 
       and will use the Services in compliance with, these Terms of Use and the dYdX Software Terms.
@@ -393,104 +393,100 @@ const TermsOfUsePage = () => (
       as a result of your intentional or inadvertent non-compliance with any applicable laws.
     </p>
 
-    <h3>Affiliates Feature</h3>
+    <h3>Revenue Sharing Feature</h3>
     <h4><strong>
-      By using the affiliates feature or participating as an affiliate or VIP affiliate, 
-      you agree that you have no relationship with us or the Software Developer and 
-      are not marketing for the foregoing.
+      By using any revenue sharing features made available through the Services 
+     (for example, the affiliates or VIP affiliates features, builder code features, 
+     order-flow revenue sharing, or any other revenue-sharing mechanism) 
+     or by otherwise participating as an affiliate, VIP affiliate, builder, or revenue sharing partner, you agree to all of the following.
     </strong></h4>
     
     <p>
-      Using the affiliate feature does not create any contractual, partnership, fiduciary, 
-      sales, franchise, agency, representative, contractor, employment or other relationship 
-      between you, and us or the Software Developer. You are not an affiliate for us 
-      or the Software Developer and are not marketing for us or the Software Developer.
+      You have no relationship with us or the Software Developer. Using revenue sharing features does not create any 
+      contractual, partnership, fiduciary, sales, franchise, agency, representative, contractor, employment, or other 
+      relationship between you and Company or the Software Developer. You are not marketing for, 
+      or acting on behalf of us or the Software Developer..
     </p>
     
     <h4><strong>
-      By using the affiliates feature or participating as an affiliate or VIP affiliate, 
-      you agree that affiliate rewards are paid from dYdX Chain protocol revenues and 
-      controlled by the governance community.
+      By using the revenue sharing features or participating as an affiliate, VIP affiliate, builder, 
+      revenue sharing partner, you agree that affiliate rewards are paid from protocol revenues and controlled 
+      by the governance community.
     </strong></h4>
     
     <p>
-      You understand that affiliate rewards are paid solely from the dYdX Chain protocol fees 
-      by operation of automated open-source software. No centralized party is responsible for 
-      determining or paying the amount of payments that you receive. You understand that 
-      affiliate rewards tiers are set by governance community vote, and could be changed in 
-      the future.
+      Any rewards you receive are paid, if at all, by operation of open-source software from 
+      dYdX Chain protocol revenues and are set by governance decisions. 
+      No centralized party (including us) determines or pays your rewards.
     </p>
     
     <h4><strong>
-      By using the affiliates feature or participating as an affiliate or VIP affiliate, 
-      you agree that the affiliates feature rely on experimental open-source software.
+      By using the revenue sharing features or participating as an affiliate, VIP affiliate, builder or 
+      revenue sharing partner you agree that the software feature relies on experimental open source software.
     </strong></h4>
     
     <p>
-      You acknowledge and agree that the affiliates feature is based on experimental open-source 
-      software, which includes the use of automated smart contracts which may yield 
-      unpredictable results in live markets. Neither the Company nor the Software Developer 
-      has any ongoing oversight or ongoing responsibility for dYdX Software. The affiliates 
-      feature operates without oversight and is subject to errors that can cause the Services 
-      to malfunction (including, without limitation, coding errors and security vulnerabilities). 
-      Company and the Software Developer are not responsible for any losses that result from 
-      software “bugs” or “hacks”.
+      You acknowledge and agree that the revenue sharing software feature is based on experimental 
+      open-source software, which includes the use of automated smart contracts which may yield 
+      unpredictable results in live markets. Neither the Company nor the Software Developer has 
+      any ongoing oversight or ongoing responsibility for dYdX Software. The revenue sharing software 
+      feature operates without oversight and is subject to errors that can cause the Services to malfunction 
+      (including, without limitation, coding errors and security vulnerabilities). 
+      Company and the Software Developer are not responsible for any losses that result from software “bugs” or “hacks”.
     </p>
     
     <h4><strong>
-      By using the affiliates feature or participating as an affiliate or VIP affiliate, you agree 
-      that you will not conduct any marketing targeted at the Limited Jurisdictions (as defined below) 
-      or Restricted Jurisdictions.
+      By using the revenue sharing software feature or participating as an affiliate, VIP affiliate, 
+      builder or revenue sharing partner, you agree that you will not conduct any marketing targeted 
+      at the Limited Jurisdictions (as defined below) or Restricted Jurisdictions.
     </strong></h4>
     
     <p>
-      You agree that you will not market or advertise, directly or indirectly, to persons in 
-      the Limited Jurisdictions or Restricted Jurisdictions, or suggest that any person 
-      from such jurisdiction use a VPN or other identity masking technology to access the 
-      Services or the dYdX Chain protocol. If the venue you use for marketing is available to persons who 
-      may reside in the Limited Jurisdictions or Restricted Jurisdictions, you are 
-      responsible for including appropriate disclaimers, such as “dYdX is not available 
-      in the the U.S. and this post is not intended for U.S. persons”.
+      You agree that you will not market or advertise, directly or indirectly, to persons in the 
+      Limited Jurisdictions or Restricted Jurisdictions, or suggest that any person from such 
+      jurisdiction use a VPN or other identity masking technology to access the Services or the 
+      dYdX Chain protocol. If the venue you use for marketing is available to persons who may reside in the 
+      Limited Jurisdictions or Restricted Jurisdictions, you are responsible for including appropriate disclaimers, 
+      such as “dYdX is not available in the the U.S. and this post is not intended for U.S. persons”.
     </p>
     
     <p>
       You agree to indemnify, defend and hold harmless Company and the Software Developer 
-      against any claims or losses suffered by the foregoing as a result of your intentional 
-      or inadvertent marketing to persons in Limited Jurisdictions or Restricted Jurisdictions.
+      against any claims or losses suffered by the foregoing as a result of your intentional or 
+      inadvertent marketing to persons in Limited Jurisdictions or Restricted Jurisdictions.
     </p>
     
     <h4><strong>
-      By using the affiliates feature or participating as an affiliate or VIP affiliate, 
-      you agree that you will not conduct any false or misleading marketing.
+      By using the revenue sharing features or participating as an affiliate, VIP affiliate, 
+      builder or revenue sharing partner you agree that you will not conduct any false or misleading marketing.
     </strong></h4>
     
     <p>
-      You will not engage in any false, deceptive, misleading, derogatory or defamatory 
-      marketing, or create or publish any content that is unlawful, harmful or inaccurate.
+      You will not engage in any false, deceptive, misleading, derogatory or defamatory marketing, 
+      or create or publish any content that is unlawful, harmful or inaccurate.
     </p>
     
     <h4><strong>
-      By using the affiliates feature or participating as an affiliate or VIP affiliate, 
-      you agree that you are responsible for compliance with applicable law and 
-      indemnifying Company and the Software Developer for any losses as a result of your 
+      By using the revenue sharing features or participating as an affiliate, VIP affiliate builder 
+      or revenue sharing partner you agree that you are responsible for compliance with applicable 
+      law and indemnifying Company and the Software Developer for any losses as a result of your 
       failure to comply with applicable laws.
     </strong></h4>
     
     <p>
-      You will ensure that your performance as an affiliate complies with all applicable laws 
-      and does not violate the rights of any other persons. We and the Software Developer are not 
-      responsible for, and you agree not to make, any claims against the foregoing with respect to 
-      any of your direct or indirect losses or liability arising from your use of the 
-      affiliates feature.
+      You will ensure that your performance as an affiliate, builder or revenue sharing partner 
+      complies with all applicable laws and does not violate the rights of any party. 
+      We and the Software Developer are not responsible for, and you agree not to make, 
+      any claims against the foregoing with respect to any of your direct or indirect losses or 
+      liability arising from your use of the affiliates feature.
     </p>
     
     <p>
       We and the Software Developer make no representations (express or implied) about 
-      jurisdictions in which affiliate marketing is appropriate, and you are strongly 
-      encouraged to review all applicable laws prior to acting as an affiliate. 
-      You agree to indemnify, defend and hold harmless Company and the Software Developer 
-      against any claims or losses suffered by the foregoing as a result of your 
-      intentional or inadvertent non-compliance with any applicable laws.
+      jurisdictions in which affiliate marketing is appropriate, and you are strongly encouraged 
+      to review all applicable laws prior to acting as an affiliate. You agree to indemnify, 
+      defend and hold harmless Company and the Software Developer against any claims or losses 
+      suffered by the foregoing as a result of your intentional or inadvertent non-compliance with any applicable laws.
     </p>
     
     <h3>Instant Market Listings</h3>
@@ -884,31 +880,51 @@ const TermsOfUsePage = () => (
       our discretion.
     </p>
 
-    <h2>Third-Party Materials; Links from the Services</h2>
+    <h2>Third-Party Services, Wallets and Materials</h2>
     <p>
-      The Services may include services and content provided by third parties, including (without 
-      limitation) materials provided by other users, and third-party licensors and service providers, 
-      including our storage provider Horkos, Inc. (d/b/a Privy). If you have any questions about the 
-      policies and practices of such third-party service providers, please consult their respective 
-      terms and conditions, including those of Privy, available at 
-      https://www.privy.io/user-terms-of-service.
+      The Services may be integrated with or otherwise provide access to applications, services, 
+      sites, technology, data, operations, features, and resources made available by third parties 
+      (“Third Party Services”). If the Services link to, connect to, or otherwise provide access to 
+      Third Party Services, they are provided solely for your convenience. We do not control and are 
+      not responsible for the contents, performance, availability, reliability, or functionality of 
+      any Third Party Services, and we accept no responsibility for any loss or damage that may 
+      arise from your use of them.
     </p>
     <p>
-      If the Services contain links to and access to third-party content and resources, these links
-      are provided for your convenience only. This includes links contained in advertisements,
-      including banner advertisements and sponsored links, and Digital Asset trading protocols,
-      among other things. We have no control over the contents of those sites or resources, and
-      accept no responsibility for them or for any loss or damage that may arise from your use of
-      them. If you decide to access any of the third-party websites linked on the Services, you do
-      so entirely at your own risk and subject to the terms and conditions of use for such websites.
+      Your use of Third Party Services is entirely at your own risk and is subject to any additional terms 
+      and conditions between you and the applicable third party. We are not responsible or liable, directly 
+      or indirectly, for any damage or loss caused or alleged to be caused by or in connection with your use of, 
+      lack of availability of, or reliance on any Third Party Services. We may withdraw or disable linking 
+      or connections to Third Party Services without notice.
     </p>
     <p>
-      IT MAY NOT BE APPARENT WHICH CONTENT, FUNCTIONALITY, AND/OR FEATURES ARE PROVIDED BY US VERSUS
-      BY THIRD PARTIES AND BY USING ANY PART OF THE SERVICES YOU HEREBY ASSUME ALL RISKS ASSOCIATED
-      WITH THE CONTENT, FUNCTIONALITY, AND/OR FEATURES MADE AVAILABLE ON OR THROUGH THE SERVICES. WE
-      ARE NOT RESPONSIBLE OR LIABLE TO YOU OR ANY THIRD PARTY FOR THE CONTENT, FUNCTIONALITY, AND/OR
-      FEATURES PROVIDED BY ANY THIRD PARTIES, AND YOU AGREE THAT YOU BEAR SOLE AND ABSOLUTE
-      RESPONSIBILITY TO EVALUATE AND SELECT ANY THIRD-PARTY FUNCTIONALITY WITH WHICH YOU INTERACT,
+      You should review any applicable terms, privacy policies, or agreements of Third Party Services 
+      before using them. The integration or inclusion of any Third Party Services does not 
+      imply any endorsement or recommendation of them by us.
+    </p>
+    <p>
+      Although the Services and certain Third Party Services may facilitate the creation of digital wallets 
+      (“Wallets”) and the automated transfer of deposits from such Wallets to wallets on the dYdX Chain, we 
+      do not take possession or custody of, manage, store, or have access to any Wallets, private keys, or user data. 
+      We cannot reverse any transactions that you initiate from a Wallet and are not responsible for any transactions 
+      you initiate. You are solely responsible for creating and managing your Wallets, securing your private keys, 
+      and ensuring the safety of your Digital Assets. We disclaim all liability for any loss or damage 
+      related to your Wallet interactions with the Services.
+    </p>
+    <p>
+      The Services may also include third-party materials, such as content provided by other users, licensors, 
+      service providers, advertisements, banner advertisements, sponsored links, or protocols. 
+      If the Services contain links to and access to third-party materials, these links are provided for your convenience only. 
+      We have no control over the contents of those materials, and accept no responsibility for them or for any loss 
+      or damage that may arise from your use of them. If you decide to access any third-party materials linked 
+      on the Services, you do so entirely at your own risk and subject to the terms and conditions of use for such materials.
+    </p>
+    <p>
+      IT MAY NOT BE APPARENT WHICH CONTENT, FUNCTIONALITY, AND/OR FEATURES ARE PROVIDED BY US VERSUS BY THIRD PARTIES 
+      AND BY USING ANY PART OF THE SERVICES YOU HEREBY ASSUME ALL RISKS ASSOCIATED WITH THE CONTENT, FUNCTIONALITY, 
+      AND/OR FEATURES MADE AVAILABLE ON OR THROUGH THE SERVICES. WE ARE NOT RESPONSIBLE OR LIABLE TO YOU OR ANY THIRD 
+      PARTY FOR THE CONTENT, FUNCTIONALITY, AND/OR FEATURES PROVIDED BY ANY THIRD PARTIES, AND YOU AGREE THAT YOU BEAR 
+      SOLE AND ABSOLUTE RESPONSIBILITY TO EVALUATE AND SELECT ANY THIRD-PARTY FUNCTIONALITY WITH WHICH YOU INTERACT, 
       WHETHER INTENTIONALLY OR INCIDENTALLY, VIA THE SERVICES.
     </p>
 
