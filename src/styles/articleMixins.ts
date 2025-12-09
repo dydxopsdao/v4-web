@@ -25,12 +25,14 @@ export const articleMixins = {
       padding: 0.5rem 0;
     }
 
-    h3,
-    strong {
-      font-weight: 700;
+    h3 {
+      font: var(--font-medium-book);
+      color: var(--color-text-2);
+      padding: 0.5rem 0;
     }
 
     strong {
+      font-weight: 700;
       color: var(--color-text-2);
     }
 
