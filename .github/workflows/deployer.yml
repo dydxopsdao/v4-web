@@ -233,7 +233,7 @@ jobs:
     steps:
       - name: Send failure notice to deploymentPromoted bot
         env:
-          BOT_ENDPOINT: https://deployment-promoted.vercel.app/api/deploymentPromoted
+          BOT_ENDPOINT: ${{ vars.DEPLOYMENT_PROMOTED_URL }}
           PROJECT_NAME: v4-web
           LATEST_PATCH: ${{ needs.fetch-versions.outputs.latest-patch-in-line-version }}
           PRODUCTION_VERSION: ${{ needs.fetch-versions.outputs.production-version }}
