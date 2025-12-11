@@ -223,3 +223,31 @@ jobs:
           # Force push the changes to the main branch
           sleep 1
           git push --force origin main
+  # ========================================
+  # JOB 4: Notify Failure
+  # ========================================
+  notify-failure:
+    runs-on: ubuntu-latest
+    needs: [fetch-versions, determine-if-deployment-needed, deploy]
+    if: failure() || cancelled()
+    steps:
+      - name: Send failure notice to deploymentPromoted bot
+        env:
+          BOT_ENDPOINT: ${{ vars.DEPLOYMENT_PROMOTED_URL }}
+          PROJECT_NAME: v4-web
+          LATEST_PATCH: ${{ needs.fetch-versions.outputs.latest-patch-in-line-version }}
+          PRODUCTION_VERSION: ${{ needs.fetch-versions.outputs.production-version }}
+        run: |
+          VERSION_PAYLOAD="$LATEST_PATCH"
+          if [ -z "$VERSION_PAYLOAD" ]; then
+            VERSION_PAYLOAD="$PRODUCTION_VERSION"
+          fi
+
+          curl -X POST "$BOT_ENDPOINT" \
+            -H "Content-Type: application/json" \
+            -d "$(jq -n \
+              --arg project "$PROJECT_NAME" \
+              --arg status "failed" \
+              --arg version "$VERSION_PAYLOAD" \
+              --arg workflow_run "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+              '{project: $project, status: $status, version: $version, meta: {workflow_run: $workflow_run}}')"
