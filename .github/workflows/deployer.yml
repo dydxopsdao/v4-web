@@ -1,0 +1,253 @@
+name: Deploy new upstream release to Vercel
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [deploy-upstream]
+
+jobs:
+  # ========================================
+  # JOB 1: Fetch Versions
+  # ========================================
+  fetch-versions:
+    runs-on: ubuntu-latest
+    outputs:
+      latest-version: ${{ steps.upstream.outputs.latest-version }}
+      latest-tag: ${{ steps.upstream.outputs.latest-tag }}
+      production-version: ${{ steps.production.outputs.production-version }}
+      production-tag: ${{ steps.production.outputs.production-tag }}
+      latest-patch-in-line-version: ${{ steps.patch-in-line.outputs.latest-patch-in-line-version }}
+      latest-patch-in-line-tag: ${{ steps.patch-in-line.outputs.latest-patch-in-line-tag }}
+
+    steps:
+      - name: Log trigger information
+        run: |
+          echo "Workflow triggered by: ${{ github.event_name }}"
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "Event type: ${{ github.event.action }}"
+            echo "Client payload: ${{ toJson(github.event.client_payload) }}"
+          fi
+
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0 # Fetch full history
+
+      - name: Configure Git with GitHub App
+        run: |
+          git config --global user.name "dos-automation-bot[bot]"
+          git config --global user.email "dos-automation-bot@users.noreply.github.com"
+
+      - name: Identify the latest upstream version
+        id: upstream
+        run: |
+          # Add upstream remote using HTTPS with token
+          git remote add upstream https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/dydxprotocol/v4-web.git
+
+          # Update origin to use HTTPS with token
+          git remote set-url origin https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/dydxopsdao/v4-web.git
+
+          # Fetch all tags from upstream
+          git fetch upstream
+
+          # Get the latest release tag
+          LATEST_TAG=$(git tag -l 'release/v*' | sort -V | tail -n 1)
+          echo "Latest upstream tag found: ${LATEST_TAG}"
+
+          # Check if LATEST_TAG is empty
+          if [ -z "$LATEST_TAG" ]; then
+              echo "No tags found matching 'release/v*'."
+              exit 1
+          fi
+
+          # Export to outputs
+          echo "latest-tag=${LATEST_TAG}" >> $GITHUB_OUTPUT
+          echo "latest-version=${LATEST_TAG#release/v}" >> $GITHUB_OUTPUT
+
+      - name: Identify the latest production version
+        id: production
+        run: |
+          # Fetch all tags from the main branch
+          git fetch origin main --tags
+
+          # Get the latest tag on the main branch
+          PRODUCTION_TAG=$(git tag --merged origin/main | sort -V | tail -n 1)
+          echo "Latest production tag on main branch: ${PRODUCTION_TAG}"
+
+          # Check if PRODUCTION_TAG is empty
+          if [ -z "$PRODUCTION_TAG" ]; then
+              echo "No production tags found on main branch."
+              exit 1
+          fi
+
+          # Export to outputs
+          echo "production-tag=${PRODUCTION_TAG}" >> $GITHUB_OUTPUT
+          echo "production-version=${PRODUCTION_TAG#release/v}" >> $GITHUB_OUTPUT
+
+      - name: Identify the latest patch in production version line
+        id: patch-in-line
+        run: |
+          # Get the production version to extract major.minor
+          PRODUCTION_VERSION="${{ steps.production.outputs.production-version }}"
+          IFS='.' read -r PROD_MAJOR PROD_MINOR PROD_PATCH <<< "$PRODUCTION_VERSION"
+
+          echo "Production version: $PRODUCTION_VERSION (Major: $PROD_MAJOR, Minor: $PROD_MINOR, Patch: $PROD_PATCH)"
+          echo "Looking for latest patch in upstream version line: $PROD_MAJOR.$PROD_MINOR.x"
+
+          # Find the latest tag in the same major.minor version line from upstream
+          LATEST_PATCH_IN_LINE_TAG=$(git tag -l "release/v$PROD_MAJOR.$PROD_MINOR.*" | sort -V | tail -n 1)
+
+          if [ -z "$LATEST_PATCH_IN_LINE_TAG" ]; then
+              echo "No upstream tags found for version line $PROD_MAJOR.$PROD_MINOR.x"
+              echo "Using production version as fallback"
+              echo "latest-patch-in-line-tag=${{ steps.production.outputs.production-tag }}" >> $GITHUB_OUTPUT
+              echo "latest-patch-in-line-version=$PRODUCTION_VERSION" >> $GITHUB_OUTPUT
+          else
+              LATEST_PATCH_IN_LINE_VERSION="${LATEST_PATCH_IN_LINE_TAG#release/v}"
+              echo "Latest patch in upstream version line: $LATEST_PATCH_IN_LINE_TAG ($LATEST_PATCH_IN_LINE_VERSION)"
+              
+              # Export to outputs
+              echo "latest-patch-in-line-tag=${LATEST_PATCH_IN_LINE_TAG}" >> $GITHUB_OUTPUT
+              echo "latest-patch-in-line-version=${LATEST_PATCH_IN_LINE_VERSION}" >> $GITHUB_OUTPUT
+          fi
+
+  # ========================================
+  # JOB 2: Determine If Deployment Is Needed
+  # ========================================
+  determine-if-deployment-needed:
+    runs-on: ubuntu-latest
+    needs: fetch-versions
+    outputs:
+      new-patch-version: ${{ steps.version-check.outputs.new-patch-version }}
+
+    steps:
+      - name: Determine version type
+        id: version-check
+        run: |
+          echo "Checking if the version is a patch, minor, or major"
+
+          # Extract version numbers from outputs
+          IFS='.' read -r PROD_MAJOR PROD_MINOR PROD_PATCH <<< "${{ needs.fetch-versions.outputs.production-version }}"
+          IFS='.' read -r UPSTREAM_MAJOR UPSTREAM_MINOR UPSTREAM_PATCH <<< "${{ needs.fetch-versions.outputs.latest-version }}"
+          IFS='.' read -r PATCH_LINE_MAJOR PATCH_LINE_MINOR PATCH_LINE_PATCH <<< "${{ needs.fetch-versions.outputs.latest-patch-in-line-version }}"
+
+          # Log the extracted version numbers
+          echo "Production Version - Major: $PROD_MAJOR, Minor: $PROD_MINOR, Patch: $PROD_PATCH"
+          echo "Latest Patch in Line - Major: $PATCH_LINE_MAJOR, Minor: $PATCH_LINE_MINOR, Patch: $PATCH_LINE_PATCH"
+          echo "Latest Version - Major: $UPSTREAM_MAJOR, Minor: $UPSTREAM_MINOR, Patch: $UPSTREAM_PATCH"
+
+          # Determine if a new patch version is detected within the same major.minor line
+          if [ "$PATCH_LINE_MAJOR" -eq "$PROD_MAJOR" ] && [ "$PATCH_LINE_MINOR" -eq "$PROD_MINOR" ] && [ "$PATCH_LINE_PATCH" -gt "$PROD_PATCH" ]; then
+              echo "New patch version detected: ${{ needs.fetch-versions.outputs.latest-patch-in-line-tag }}"
+              echo "new-patch-version=true" >> $GITHUB_OUTPUT
+          else
+              echo "No new patch version detected."
+              echo "new-patch-version=false" >> $GITHUB_OUTPUT
+              exit 0
+          fi
+
+  # ========================================
+  # JOB 3: Deploy
+  # ========================================
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [fetch-versions, determine-if-deployment-needed]
+    if: needs.determine-if-deployment-needed.outputs.new-patch-version == 'true'
+
+    steps:
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0 # Fetch full history
+
+      - name: Configure Git with GitHub App and GPG signing
+        run: |
+          git config --global user.name "dos-automation"
+          git config --global user.email "196231098+hedgie-svc@users.noreply.github.com"
+
+          # Configure GPG for non-interactive use
+          mkdir -p ~/.gnupg
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+
+          # Import GPG key and configure signing  
+          echo "${{ secrets.BOT_GPG_PRIVATE_KEY }}" | gpg --batch --yes --import
+          git config --global user.signingkey $(gpg --list-secret-keys --keyid-format LONG | grep sec | awk '{print $2}' | cut -d'/' -f2)
+          git config --global commit.gpgsign true
+
+      - name: Setup git remotes
+        run: |
+          # Add upstream remote using HTTPS with token
+          git remote add upstream https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/dydxprotocol/v4-web.git
+
+          # Update origin to use HTTPS with token
+          git remote set-url origin https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/dydxopsdao/v4-web.git
+
+          # Fetch all tags from upstream to ensure they are available locally
+          git fetch upstream --tags
+
+      - name: Create a new release branch for Vercel deployment
+        run: |
+          # Create a new branch from the latest release tag
+          git checkout -b dos-${{ needs.fetch-versions.outputs.latest-patch-in-line-version }} origin/main
+
+          # Rebase commits from the latest release tag onto the new release branch
+          git pull --rebase upstream ${{ needs.fetch-versions.outputs.latest-patch-in-line-tag }}
+
+          # Push the release branch to the remote repository  
+          git push --set-upstream origin dos-${{ needs.fetch-versions.outputs.latest-patch-in-line-version }}
+
+      - name: Reset main to the feature branch for production deployment and push all changes
+        run: |
+          # Checkout the main branch
+          git checkout main
+
+          # Hard reset the main branch to the feature branch
+          git reset --hard origin/dos-${{ needs.fetch-versions.outputs.latest-patch-in-line-version }}
+
+          # Force push the changes to the main branch
+          sleep 1
+          git push --force origin main
+  # ========================================
+  # JOB 4: Notify Failure
+  # ========================================
+  notify-failure:
+    runs-on: ubuntu-latest
+    needs: [fetch-versions, determine-if-deployment-needed, deploy]
+    if: failure() || cancelled()
+    steps:
+      - name: Send failure notice to deploymentPromoted bot
+        env:
+          BOT_ENDPOINT: ${{ vars.DEPLOYMENT_PROMOTED_URL }}
+          PROJECT_NAME: v4-web
+          LATEST_PATCH: ${{ needs.fetch-versions.outputs.latest-patch-in-line-version }}
+          PRODUCTION_VERSION: ${{ needs.fetch-versions.outputs.production-version }}
+        run: |
+          VERSION_PAYLOAD="$LATEST_PATCH"
+          if [ -z "$VERSION_PAYLOAD" ]; then
+            VERSION_PAYLOAD="$PRODUCTION_VERSION"
+          fi
+
+          curl -X POST "$BOT_ENDPOINT" \
+            -H "Content-Type: application/json" \
+            -d "$(jq -n \
+              --arg project "$PROJECT_NAME" \
+              --arg status "failed" \
+              --arg version "$VERSION_PAYLOAD" \
+              --arg workflow_run "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+              '{project: $project, status: $status, version: $version, meta: {workflow_run: $workflow_run}}')"
