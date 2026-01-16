@@ -178,8 +178,11 @@ jobs:
 
       - name: Configure Git with GitHub App and GPG signing
         run: |
-          git config --global user.name "dos-automation"
-          git config --global user.email "196231098+hedgie-svc@users.noreply.github.com"
+          # Note: This uses a service account (not the GitHub App above) because
+          # GPG-signed commits require a real user identity with a matching GPG key.
+          # The GitHub App is used for non-write operations.
+          git config --global user.name "${{ vars.GIT_USER_NAME }}"
+          git config --global user.email "${{ vars.GIT_USER_EMAIL }}"
 
           # Configure GPG for non-interactive use
           mkdir -p ~/.gnupg
