@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import styled from 'styled-components';
 import { mainnet } from 'viem/chains';
 
 import { AnalyticsEvents } from '@/constants/analytics';
-import { ComplianceStates } from '@/constants/compliance';
 import { DepositDialog2Props, DialogProps, DialogTypes } from '@/constants/dialogs';
 import { CosmosChainId } from '@/constants/graz';
 import { STRING_KEYS } from '@/constants/localization';
@@ -14,7 +13,6 @@ import { ConnectorType, WalletNetworkType } from '@/constants/wallets';
 
 import { useAccounts } from '@/hooks/useAccounts';
 import { useBreakpoints } from '@/hooks/useBreakpoints';
-import { useComplianceState } from '@/hooks/useComplianceState';
 import { useEnableSpot } from '@/hooks/useEnableSpot';
 import { useStringGetter } from '@/hooks/useStringGetter';
 
@@ -73,7 +71,6 @@ function getDefaultToken(
 export const DepositDialog2 = ({ setIsOpen }: DialogProps<DepositDialog2Props>) => {
   const dispatch = useAppDispatch();
   const { sourceAccount, solanaAddress } = useAccounts();
-  const { complianceState } = useComplianceState();
   const { isLoading: isLoadingBalances, withBalances } = useDepositTokenBalances();
   const highestBalance = withBalances.at(0);
 
@@ -89,14 +86,10 @@ export const DepositDialog2 = ({ setIsOpen }: DialogProps<DepositDialog2Props>) 
   }>();
   const tokenSelectRef = useRef<HTMLDivElement | null>(null);
 
-  const handleTabChange = useCallback(
-    (newTab: 'perps' | 'spot') => {
-      if (newTab === currentDepositType) return;
-      setCurrentDepositType(newTab);
-      setFormState('form');
-    },
-    [currentDepositType]
-  );
+  const handleTabChange = (newTab: 'perps' | 'spot') => {
+    setCurrentDepositType(newTab);
+    setFormState('form');
+  };
 
   const dialogTitle = (
     {
@@ -133,14 +126,6 @@ export const DepositDialog2 = ({ setIsOpen }: DialogProps<DepositDialog2Props>) 
     }
   }, [sourceAccount, dispatch, setIsOpen]);
 
-  useLayoutEffect(() => {
-    if (complianceState === ComplianceStates.READ_ONLY) {
-      setIsOpen(false);
-    } else if (complianceState !== ComplianceStates.FULL_ACCESS) {
-      handleTabChange('spot');
-    }
-  }, [complianceState, handleTabChange, setIsOpen]);
-
   const tabs: SpotTabItem[] = [
     {
       value: 'perps',
@@ -159,7 +144,6 @@ export const DepositDialog2 = ({ setIsOpen }: DialogProps<DepositDialog2Props>) 
           onShowForm={onShowForm}
         />
       ),
-      disabled: complianceState !== ComplianceStates.FULL_ACCESS,
     },
     {
       value: 'spot',

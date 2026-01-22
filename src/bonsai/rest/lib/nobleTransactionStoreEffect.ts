@@ -58,7 +58,7 @@ const selectNobleTxAuthorizedAccount = createAppSelector(
         ComplianceStatus.CLOSE_ONLY,
         ComplianceStatus.FIRST_STRIKE_CLOSE_ONLY,
       ].includes(complianceData.status) &&
-      !(complianceData.geo.isPerpetualsGeoBlocked && enableGeoCheck);
+      !(complianceData.geo.currentlyGeoBlocked && enableGeoCheck);
 
     if (!parentSubaccountInfo.wallet || !isAccountRestrictionFree || localWalletNonce == null) {
       return undefined;

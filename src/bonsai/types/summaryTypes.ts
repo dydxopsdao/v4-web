@@ -396,7 +396,7 @@ export type GeoState = {
 };
 
 export type Compliance = ComplianceResponse & {
-  geo: { isPerpetualsGeoBlocked: boolean; currentCountry?: string };
+  geo: { currentlyGeoBlocked: boolean; currentCountry?: string };
 };
 
 export type SubaccountPnlEntry = SubaccountPnlTick;

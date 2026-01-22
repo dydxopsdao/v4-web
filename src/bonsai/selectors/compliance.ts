@@ -6,7 +6,6 @@ import {
   selectRawGeo,
   selectRawGeoHeaders,
   selectRawLocalAddressScreenV2,
-  selectRawSolanaAddressScreen,
   selectRawSourceAddressScreenV2,
 } from './base';
 
@@ -16,16 +15,9 @@ export const selectCompliance = createAppSelector(
     selectRawGeoHeaders,
     selectRawSourceAddressScreenV2,
     selectRawLocalAddressScreenV2,
-    selectRawSolanaAddressScreen,
   ],
-  (geo, geoHeaders, sourceAddressScreenV2, localAddressScreenV2, solanaAddressScreen) =>
-    calculateCompliance({
-      geoHeaders,
-      geo,
-      localAddressScreenV2,
-      sourceAddressScreenV2,
-      solanaAddressScreen,
-    })
+  (geo, geoHeaders, sourceAddressScreenV2, localAddressScreenV2) =>
+    calculateCompliance({ geoHeaders, geo, localAddressScreenV2, sourceAddressScreenV2 })
 );
 
 export const selectComplianceLoading = createAppSelector(
@@ -34,19 +26,12 @@ export const selectComplianceLoading = createAppSelector(
     selectRawGeoHeaders,
     selectRawSourceAddressScreenV2,
     selectRawLocalAddressScreenV2,
-    selectRawSolanaAddressScreen,
   ],
-  (geo, geoHeaders, sourceAddressScreenV2, localAddressScreenV2, solanaAddressScreen) =>
-    mergeLoadableStatus(
-      geo,
-      geoHeaders,
-      localAddressScreenV2,
-      sourceAddressScreenV2,
-      solanaAddressScreen
-    )
+  (geo, geoHeaders, sourceAddressScreenV2, localAddressScreenV2) =>
+    mergeLoadableStatus(geo, geoHeaders, localAddressScreenV2, sourceAddressScreenV2)
 );
 
-export const selectIsPerpsGeoRestricted = createAppSelector(
+export const selectIsGeoRestricted = createAppSelector(
   [selectRawGeoHeaders],
   (geoHeaders) => geoHeaders.data?.status === 'restricted'
 );

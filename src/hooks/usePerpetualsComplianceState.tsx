@@ -14,13 +14,12 @@ import { TermsOfUseLink } from '@/components/TermsOfUseLink';
 import { getComplianceStatus, getGeo, getOnboardingState } from '@/state/accountSelectors';
 import { useAppSelector } from '@/state/appTypes';
 
-import { isPresent } from '@/lib/typeUtils';
-
+import { useEnableSpot } from './useEnableSpot';
 import { useEnvFeatures } from './useEnvFeatures';
 import { useStringGetter } from './useStringGetter';
 import { useURLConfigs } from './useURLConfigs';
 
-export const useComplianceState = () => {
+export const usePerpetualsComplianceState = () => {
   const stringGetter = useStringGetter();
   const { help } = useURLConfigs();
   const complianceStatus = useAppSelector(getComplianceStatus);
@@ -28,12 +27,9 @@ export const useComplianceState = () => {
   const onboardingState = useAppSelector(getOnboardingState);
   const { checkForGeo } = useEnvFeatures();
   const isSpotPage = useMatch(`${AppRoute.Spot}/*`) != null;
+  const isSpotEnabled = useEnableSpot();
 
   const complianceState = useMemo(() => {
-    if (complianceStatus === ComplianceStatus.BLOCKED) {
-      return ComplianceStates.READ_ONLY;
-    }
-
     if (
       complianceStatus === ComplianceStatus.FIRST_STRIKE_CLOSE_ONLY ||
       complianceStatus === ComplianceStatus.CLOSE_ONLY
@@ -41,17 +37,32 @@ export const useComplianceState = () => {
       return ComplianceStates.CLOSE_ONLY;
     }
 
-    if (geo.isPerpetualsGeoBlocked && checkForGeo) {
-      return ComplianceStates.SPOT_ONLY;
+    if (complianceStatus === ComplianceStatus.BLOCKED || (geo.currentlyGeoBlocked && checkForGeo)) {
+      return ComplianceStates.READ_ONLY;
     }
 
     return ComplianceStates.FULL_ACCESS;
   }, [checkForGeo, complianceStatus, geo]);
 
   const complianceMessage = useMemo(() => {
-    // Applies to both perps & spot
-    if (complianceStatus === ComplianceStatus.BLOCKED) {
-      return stringGetter({
+    let message;
+
+    const firstStrikeStatuses = [
+      ComplianceStatus.FIRST_STRIKE_CLOSE_ONLY,
+      ComplianceStatus.CLOSE_ONLY,
+    ];
+
+    const isGeoBlocked = geo.currentlyGeoBlocked && checkForGeo;
+
+    if (firstStrikeStatuses.includes(complianceStatus) || isGeoBlocked) {
+      message = stringGetter({
+        key: STRING_KEYS.PERPETUALS_UNAVAILABLE_MESSAGE,
+        params: {
+          TERMS_OF_USE_LINK: <TermsOfUseLink isInline tw="underline" />,
+        },
+      });
+    } else if (complianceStatus === ComplianceStatus.BLOCKED) {
+      message = stringGetter({
         key: STRING_KEYS.PERMANENTLY_BLOCKED_MESSAGE_WITH_HELP,
         params: {
           HELP_LINK: (
@@ -63,33 +74,21 @@ export const useComplianceState = () => {
       });
     }
 
-    // Rest of the states are not relevant to spot
-    if (isSpotPage) return null;
-
-    if (
-      complianceState === ComplianceStates.CLOSE_ONLY ||
-      complianceState === ComplianceStates.SPOT_ONLY
-    ) {
-      return stringGetter({
-        key: STRING_KEYS.PERPETUALS_UNAVAILABLE_MESSAGE,
-        params: {
-          TERMS_OF_USE_LINK: <TermsOfUseLink isInline tw="underline" />,
-        },
-      });
-    }
-
-    return null;
-  }, [complianceState, complianceStatus, help, isSpotPage, stringGetter]);
+    return message;
+  }, [checkForGeo, complianceStatus, geo, help, stringGetter]);
 
   const disableConnectButton =
     complianceState === ComplianceStates.READ_ONLY &&
-    onboardingState === OnboardingState.Disconnected;
+    onboardingState === OnboardingState.Disconnected &&
+    !isSpotEnabled;
 
   return {
     complianceStatus,
     complianceState,
     complianceMessage,
     disableConnectButton,
-    showComplianceBanner: isPresent(complianceMessage),
+    showRestrictionWarning: complianceState === ComplianceStates.READ_ONLY && !isSpotPage,
+    showComplianceBanner:
+      (complianceMessage != null || complianceState === ComplianceStates.READ_ONLY) && !isSpotPage,
   };
 };

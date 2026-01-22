@@ -7,7 +7,6 @@ import { setUpAssetsQuery } from './rest/assets';
 import { setUpBlockTradingRewardsQuery } from './rest/blockTradingRewards';
 import {
   setUpIndexerLocalAddressScreenV2Query,
-  setUpIndexerSolanaAddressScreenQuery,
   setUpIndexerSourceAddressScreenV2Query,
 } from './rest/compliance';
 import { setUpConfigTiersQuery } from './rest/configTiers';
@@ -71,7 +70,6 @@ export const storeLifecycles = [
   setUpGeoQuery,
   setUpIndexerSourceAddressScreenV2Query,
   setUpIndexerLocalAddressScreenV2Query,
-  setUpIndexerSolanaAddressScreenQuery,
   setUpUsdcRebalanceLifecycle,
   setUpNobleBalanceQuery,
   setUpNobleBalanceSweepLifecycle,

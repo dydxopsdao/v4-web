@@ -4,8 +4,6 @@ import { SpotBuyInputType, SpotSellInputType, SpotSide } from '@/bonsai/forms/sp
 import { ErrorType, getHighestPriorityAlert } from '@/bonsai/lib/validationErrors';
 import { BonsaiCore } from '@/bonsai/ontology';
 
-import { ComplianceStates } from '@/constants/compliance';
-
 import { useAccounts } from '@/hooks/useAccounts';
 import { useCustomNotification } from '@/hooks/useCustomNotification';
 import { useLocaleSeparators } from '@/hooks/useLocaleSeparators';
@@ -22,8 +20,6 @@ import { getSpotFormSummary } from '@/state/spotFormSelectors';
 
 import { SpotApiSide } from '@/clients/spotApi';
 
-import { useComplianceState } from './useComplianceState';
-
 // TODO: spot localization
 
 export function useSpotForm() {
@@ -35,7 +31,6 @@ export function useSpotForm() {
   const tokenMetadata = useAppSelector(BonsaiCore.spot.tokenMetadata.data);
   const { decimal: decimalSeparator, group: groupSeparator } = useLocaleSeparators();
   const selectedLocale = useAppSelector(getSelectedLocale);
-  const { complianceState } = useComplianceState();
 
   const hasErrors = useMemo(
     () => formSummary.errors.some((error) => error.type === ErrorType.error),
@@ -48,13 +43,8 @@ export function useSpotForm() {
   );
 
   const canSubmit = useMemo(
-    () =>
-      canDeriveSolanaWallet &&
-      !hasErrors &&
-      formSummary.summary.payload != null &&
-      !isPending &&
-      complianceState !== ComplianceStates.READ_ONLY,
-    [canDeriveSolanaWallet, complianceState, formSummary.summary.payload, hasErrors, isPending]
+    () => canDeriveSolanaWallet && !hasErrors && formSummary.summary.payload != null && !isPending,
+    [canDeriveSolanaWallet, formSummary.summary.payload, hasErrors, isPending]
   );
 
   const actions = useMemo(
