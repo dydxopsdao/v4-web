@@ -2,8 +2,8 @@ name: Deploy new upstream release to Vercel
 
 on:
   workflow_dispatch:
-  #repository_dispatch:
-  #  types: [deploy-upstream]
+  repository_dispatch:
+    types: [deploy-upstream]
 
 jobs:
   # ========================================
