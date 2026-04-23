@@ -109,12 +109,6 @@ export enum ChainId {
   AVALANCHE_FUJI = '43113',
 }
 
-const defaultSelectedNetwork = getLocalStorage({
-  key: LocalStorageKey.SelectedNetwork,
-  defaultValue: DEFAULT_APP_ENVIRONMENT,
-  validateFn: validateAgainstAvailableEnvironments,
-});
-
 export const getAlchemyRPCUrlForChainId = (chainId: ChainId) => {
   const alchemyRpcProxyUrl = import.meta.env.VITE_ALCHEMY_RPC_PROXY_URL;
   if (!alchemyRpcProxyUrl) return undefined;
@@ -172,6 +166,11 @@ const RPCTransports = [mainnet, ...WAGMI_SUPPORTED_CHAINS].reduce(
   {} as Record<string, FallbackTransport<Transport[]>>
 );
 
+const defaultSelectedNetwork = getLocalStorage({
+  key: LocalStorageKey.SelectedNetwork,
+  defaultValue: DEFAULT_APP_ENVIRONMENT,
+  validateFn: validateAgainstAvailableEnvironments,
+});
 const defaultChainId = Number(ENVIRONMENT_CONFIG_MAP[defaultSelectedNetwork].ethereumChainId);
 
 export const privyConfig: PrivyClientConfig = {
