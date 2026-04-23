@@ -116,10 +116,7 @@ const defaultSelectedNetwork = getLocalStorage({
 });
 
 export const getAlchemyRPCUrlForChainId = (chainId: ChainId) => {
-  const selectedNetworkEndpoints = ENVIRONMENT_CONFIG_MAP[defaultSelectedNetwork].endpoints as {
-    alchemyRpcProxyUrl?: string;
-  };
-  const alchemyRpcProxyUrl = selectedNetworkEndpoints.alchemyRpcProxyUrl;
+  const alchemyRpcProxyUrl = import.meta.env.VITE_ALCHEMY_RPC_PROXY_URL;
   if (!alchemyRpcProxyUrl) return undefined;
 
   switch (chainId) {
