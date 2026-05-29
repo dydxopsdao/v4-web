@@ -70,3 +70,31 @@ export function reportRumFeatureFlagEvaluation(key: string, value: unknown) {
   if (!isInitialized) return;
   datadogRum.addFeatureFlagEvaluation(key, value);
 }
+
+// identify() property names that define identity go on the RUM user (@usr.*);
+// everything else becomes searchable global context (@context.*). Statsig flag
+// objects are skipped here — they're already captured via addFeatureFlagEvaluation.
+const RUM_USER_PROPERTY_KEYS: Record<string, string> = {
+  dydxAddress: 'id',
+  walletAddress: 'walletAddress',
+  walletType: 'walletType',
+  userId: 'userId',
+};
+
+const RUM_SKIP_USER_PROPERTIES = new Set(['statsigFlags', 'customFlags']);
+
+// Mirror identify() user properties into RUM. A null/undefined value removes the
+// property, so anonymous (never-connected) sessions carry no usr.id at all.
+export function reportRumUserProperty(name: string, value: unknown) {
+  if (!isInitialized || RUM_SKIP_USER_PROPERTIES.has(name)) return;
+
+  const userKey = RUM_USER_PROPERTY_KEYS[name];
+  if (userKey) {
+    if (value == null) datadogRum.removeUserProperty(userKey);
+    else datadogRum.setUserProperty(userKey, value);
+  } else if (value == null) {
+    datadogRum.removeGlobalContextProperty(name);
+  } else {
+    datadogRum.setGlobalContextProperty(name, value);
+  }
+}
