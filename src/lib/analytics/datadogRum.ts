@@ -64,3 +64,9 @@ export function reportRumReactError(error: Error, errorInfo: ErrorInfo) {
   if (!isInitialized) return;
   addReactError(error, errorInfo);
 }
+
+// Feature flag evaluations, recorded on RUM views/errors as @feature_flags.<key>.
+export function reportRumFeatureFlagEvaluation(key: string, value: unknown) {
+  if (!isInitialized) return;
+  datadogRum.addFeatureFlagEvaluation(key, value);
+}
