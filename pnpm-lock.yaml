@@ -28,7 +28,13 @@ dependencies:
     version: 0.32.4
   '@datadog/browser-logs':
     specifier: ^5.23.3
-    version: 5.35.1
+    version: 5.35.1(@datadog/browser-rum@5.35.1)
+  '@datadog/browser-rum':
+    specifier: ^5.23.3
+    version: 5.35.1(@datadog/browser-logs@5.35.1)
+  '@datadog/browser-rum-react':
+    specifier: ^5.23.3
+    version: 5.35.1(@datadog/browser-rum@5.35.1)(react-router-dom@6.30.1)(react@18.3.1)
   '@dydxprotocol/v4-client-js':
     specifier: 3.6.0
     version: 3.6.0
@@ -1660,7 +1666,7 @@ packages:
     resolution: {integrity: sha512-zjmw3WkF5syMq5+2jneSgSILxO3DTS+hKw270tzk/yQUfJIGInyGrkHUYYGLmZaVuVp+6F7iO3tUAwIqQYGBFw==}
     dev: false
 
-  /@datadog/browser-logs@5.35.1:
+  /@datadog/browser-logs@5.35.1(@datadog/browser-rum@5.35.1):
     resolution: {integrity: sha512-UghvsmCy1dTBVTicdDSXxk3l+xMdKKWLbyrwdoQJaqId3qAJ3vMez1UdOL2XulQTw1cy28DTzYy2EHK+ngfahA==}
     peerDependencies:
       '@datadog/browser-rum': 5.35.1
@@ -1669,6 +1675,50 @@ packages:
         optional: true
     dependencies:
       '@datadog/browser-core': 5.35.1
+      '@datadog/browser-rum': 5.35.1(@datadog/browser-logs@5.35.1)
+    dev: false
+
+  /@datadog/browser-rum-core@5.35.1:
+    resolution: {integrity: sha512-+WMHeL83BvFTE618SBx7VKT3gwJ/c1DuNehvv+ZbbMqRgrl2hBng5cLfhcEW/U6bLOyr08ZfaZ1m2r/xs2n4aA==}
+    dependencies:
+      '@datadog/browser-core': 5.35.1
+    dev: false
+
+  /@datadog/browser-rum-react@5.35.1(@datadog/browser-rum@5.35.1)(react-router-dom@6.30.1)(react@18.3.1):
+    resolution: {integrity: sha512-C6fqeNXBhNtm8kc8+K5wlGvcYY0EuY8NbUwWGwMnX74keZKit3FaiCFGWN6JHixYbGlDp+yTKiiIsFTKrDTYbw==}
+    peerDependencies:
+      '@datadog/browser-rum': '*'
+      '@datadog/browser-rum-slim': '*'
+      react: '18'
+      react-router-dom: '6'
+    peerDependenciesMeta:
+      '@datadog/browser-rum':
+        optional: true
+      '@datadog/browser-rum-slim':
+        optional: true
+      react:
+        optional: true
+      react-router-dom:
+        optional: true
+    dependencies:
+      '@datadog/browser-core': 5.35.1
+      '@datadog/browser-rum': 5.35.1(@datadog/browser-logs@5.35.1)
+      '@datadog/browser-rum-core': 5.35.1
+      react: 18.3.1
+      react-router-dom: 6.30.1(react-dom@18.3.1)(react@18.3.1)
+    dev: false
+
+  /@datadog/browser-rum@5.35.1(@datadog/browser-logs@5.35.1):
+    resolution: {integrity: sha512-/I3mQpnAuGZ1DU3wevgirKfT1DXuWY1eg4gOHjmONN91KThVoiuHg9HiAowfFFtQArsbcP5HqdA4lLJvH6w17A==}
+    peerDependencies:
+      '@datadog/browser-logs': 5.35.1
+    peerDependenciesMeta:
+      '@datadog/browser-logs':
+        optional: true
+    dependencies:
+      '@datadog/browser-core': 5.35.1
+      '@datadog/browser-logs': 5.35.1(@datadog/browser-rum@5.35.1)
+      '@datadog/browser-rum-core': 5.35.1
     dev: false
 
   /@dydxprotocol/v4-client-js@3.6.0:
@@ -26676,7 +26726,7 @@ packages:
     resolution: {integrity: sha512-ZCfOjYKAjaX2TGI8uif5ah+J3BYFuo+47JOIV1RIz2l7kD9VfnxvRH5UiQDRyMALQC7KFd2hUqIEtHklapNyKA==}
     engines: {node: '>=8.0.0'}
     dependencies:
-      bn.js: 5.2.2
+      bn.js: 5.2.3
       web3-utils: 1.10.3
     dev: false
 
@@ -26724,7 +26774,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       '@ethereumjs/util': 8.1.0
-      bn.js: 5.2.2
+      bn.js: 5.2.3
       ethereum-bloom-filters: 1.2.0
       ethereum-cryptography: 2.2.1
       ethjs-unit: 0.1.6
