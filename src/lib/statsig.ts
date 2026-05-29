@@ -2,6 +2,8 @@ import { StatsigClient } from '@statsig/js-client';
 
 import { STATSIG_ENVIRONMENT_TIER } from '@/constants/networks';
 
+import { reportRumFeatureFlagEvaluation } from '@/lib/analytics/datadogRum';
+
 let statsigClient: StatsigClient;
 let initPromise: Promise<StatsigClient> | null = null;
 
@@ -29,6 +31,9 @@ export const initStatsigAsync = async () => {
         environment: { tier: STATSIG_ENVIRONMENT_TIER },
       }
     );
+    statsigClient.on('gate_evaluation', ({ gate }) => {
+      reportRumFeatureFlagEvaluation(gate.name, gate.value);
+    });
     await statsigClient.initializeAsync();
     return statsigClient;
   })();
