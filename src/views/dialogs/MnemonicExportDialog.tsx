@@ -101,6 +101,7 @@ export const MnemonicExportDialog = ({ setIsOpen }: DialogProps<MnemonicExportDi
           slotReceipt={
             <$WordList
               data-hj-suppress
+              data-dd-privacy="hidden"
               isShowing={isShowing}
               onClick={() => setIsShowing(!isShowing)}
             >

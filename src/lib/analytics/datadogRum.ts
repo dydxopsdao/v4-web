@@ -43,7 +43,9 @@ export function initializeDatadogRum() {
     sessionReplaySampleRate: Number.isFinite(SESSION_REPLAY_SAMPLE_RATE)
       ? SESSION_REPLAY_SAMPLE_RATE
       : 0,
-    defaultPrivacyLevel: 'mask',
+    // Sensitive elements opt out via data-dd-privacy="hidden". Must stay 'allow':
+    // any mask level also hides <output>-based display values (prices, balances).
+    defaultPrivacyLevel: 'allow',
     trackResources: true,
     trackUserInteractions: true,
     trackLongTasks: true,
