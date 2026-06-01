@@ -259,7 +259,10 @@ export const RevealPhrase = ({
           {stringGetter({ key: STRING_KEYS.SECRET_RECOVERY_PHRASE })}
         </span>
 
-        <div tw="row relative justify-center overflow-hidden rounded-0.75 border border-solid border-color-layer-5 bg-color-layer-2 p-0.75 text-color-text-1">
+        <div
+          data-dd-privacy="hidden"
+          tw="row relative justify-center overflow-hidden rounded-0.75 border border-solid border-color-layer-5 bg-color-layer-2 p-0.75 text-color-text-1"
+        >
           {loading && <LoadingSpace tw="absolute inset-0" />}
           {exportWalletType === 'turnkey' && (
             <>
