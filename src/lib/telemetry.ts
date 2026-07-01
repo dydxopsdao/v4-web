@@ -3,7 +3,6 @@ import { isDev } from '@/constants/networks';
 
 import { track } from './analytics/analytics';
 import { dd } from './analytics/datadog';
-import { reportRumError } from './analytics/datadogRum';
 
 let lastLogTime = Date.now();
 
@@ -35,8 +34,6 @@ export const log = (location: string, error?: Error, metadata?: object) => {
   );
 
   dd.error(`[Error] ${location}`, metadata, error);
-
-  reportRumError(location, error, metadata);
 
   globalThis.dispatchEvent(customEvent);
 };
