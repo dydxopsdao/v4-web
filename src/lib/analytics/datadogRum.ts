@@ -7,9 +7,6 @@ const APPLICATION_ID = import.meta.env.VITE_DATADOG_RUM_APPLICATION_ID;
 const CLIENT_TOKEN = import.meta.env.VITE_DATADOG_RUM_CLIENT_TOKEN;
 const ENV = import.meta.env.VITE_DATADOG_RUM_ENV;
 const SESSION_SAMPLE_RATE = Number(import.meta.env.VITE_DATADOG_RUM_SESSION_SAMPLE_RATE ?? 100);
-const SESSION_REPLAY_SAMPLE_RATE = Number(
-  import.meta.env.VITE_DATADOG_RUM_SESSION_REPLAY_SAMPLE_RATE ?? 0
-);
 
 const SERVICE_NAME = 'v4-web';
 const SITE_NAME = 'ap1.datadoghq.com';
@@ -40,10 +37,7 @@ export function initializeDatadogRum() {
     env: ENV,
     version: VERSION,
     sessionSampleRate: Number.isFinite(SESSION_SAMPLE_RATE) ? SESSION_SAMPLE_RATE : 100,
-    sessionReplaySampleRate: Number.isFinite(SESSION_REPLAY_SAMPLE_RATE)
-      ? SESSION_REPLAY_SAMPLE_RATE
-      : 0,
-    defaultPrivacyLevel: 'mask',
+    sessionReplaySampleRate: 0,
     trackResources: true,
     trackUserInteractions: true,
     trackLongTasks: true,
