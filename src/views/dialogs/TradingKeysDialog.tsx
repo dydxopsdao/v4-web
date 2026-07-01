@@ -190,10 +190,7 @@ export const TradingKeysDialog = ({ setIsOpen }: DialogProps<TradingKeysDialogPr
               {stringGetter({ key: STRING_KEYS.PRIVATE_KEY })}
             </div>
             <div tw="row gap-0.5">
-              <$Address
-                data-dd-privacy="hidden"
-                tw="max-w-20 overflow-hidden text-ellipsis font-small-book"
-              >
+              <$Address tw="max-w-20 overflow-hidden text-ellipsis font-small-book">
                 {wallet.privateKeyHex}
               </$Address>
               <$CopyButton
