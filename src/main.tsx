@@ -9,13 +9,10 @@ import { BrowserRouter, HashRouter } from 'react-router-dom';
 import { storeLifecycles } from './bonsai/storeLifecycles';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import './index.css';
-import { initializeDatadogRum } from './lib/analytics/datadogRum';
 import { runFn } from './lib/do';
 import { store } from './state/_store';
 
 const Router = import.meta.env.VITE_ROUTER_TYPE === 'hash' ? HashRouter : BrowserRouter;
-
-initializeDatadogRum();
 
 runFn(async () => {
   // we ignore the cleanups for now since we want these running forever
