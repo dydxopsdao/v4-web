@@ -7,7 +7,6 @@ import {
 } from '@/constants/analytics';
 
 import { dd } from './datadog';
-import { reportRumUserProperty } from './datadogRum';
 
 const DEBUG_ANALYTICS = false;
 
@@ -27,8 +26,6 @@ export const identify = (property: AnalyticsUserProperty) => {
   dd.info(`set context item: ${ddPropertyName} to value ${property.payload}`, dd.getContext());
 
   globalThis.dispatchEvent(customEvent);
-
-  reportRumUserProperty(propertyTypeToLog, property.payload);
 };
 
 export const track = (event: AnalyticsEvent) => {
